@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
 import { AnimatedLogo } from "@/components/ui/AnimatedLogo";
@@ -16,6 +17,9 @@ export function Navbar() {
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
+
+    const pathname = usePathname();
+    if (pathname === "/login") return null;
 
     return (
         <nav
@@ -36,10 +40,13 @@ export function Navbar() {
                     <Link href="/services" className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">
                         Services
                     </Link>
+                    <Link href="/blog" className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">
+                        Insights
+                    </Link>
                     <Link href="/contact" className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">
                         Contact
                     </Link>
-                    <Button variant="primary" size="sm">
+                    <Button href="/login" variant="primary" size="sm">
                         Client Portal
                     </Button>
                 </div>

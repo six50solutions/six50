@@ -1,3 +1,4 @@
+import { TransformationVisual } from "@/components/ui/TransformationVisual";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { Section } from "@/components/ui/Section";
 import { ShieldCheck, BarChart3, Zap, Users } from "lucide-react";
@@ -32,20 +33,31 @@ export default function AboutPage() {
                             <h2 className="text-3xl font-bold text-slate-800 mb-6">Why six50?</h2>
                             <div className="space-y-6 text-slate-600 leading-loose">
                                 <p>
-                                    In science, approximately <strong>650 nanometers</strong> marks the edge of human vision — the point where information becomes visible and interpretable.
+                                    <strong>650 Nanometers = Human Perception & Clarity</strong><br />
+                                    ~650 nm sits in the red portion of the visible light spectrum, near the upper boundary of what the human eye can clearly perceive. It represents the point where invisible data turns into a signal humans can see, understand, and act on.
                                 </p>
                                 <p>
-                                    In complex systems, <strong>thresholds</strong> are where incremental improvement turns into fundamental change.
+                                    <strong>650°C = The Transformation Threshold</strong><br />
+                                    In materials science, this temperature range is where structural changes occur and bonds reorganize. It represents the energy required to fundamentally change structure, not just optimize the surface.
                                 </p>
                                 <p>
-                                    six50 lives at that intersection. We help organizations move past AI experimentation into clarity, confidence, and execution.
+                                    <strong>Why six50?</strong><br />
+                                    We exist at the intersection of these two concepts: <strong>Clarity and Transformation.</strong> We help organizations see clearly enough to act, and act boldly enough to transform.
                                 </p>
                             </div>
                         </div>
-                        <div className="relative h-64 md:h-full min-h-[300px] bg-slate-900 rounded-sm overflow-hidden flex items-center justify-center">
-                            <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop')] bg-cover bg-center opacity-40 mix-blend-overlay"></div>
-                            <div className="w-full h-px bg-gradient-to-r from-transparent via-[#FF3333] to-transparent shadow-[0_0_15px_rgba(255,51,51,0.8)]" />
-                            <p className="absolute bottom-4 right-4 text-xs text-white/50 font-mono">λ ≈ 650nm</p>
+                        <div className="relative h-64 md:h-full min-h-[300px] bg-slate-900 rounded-sm overflow-hidden flex items-center justify-center border border-slate-800">
+                            <TransformationVisual />
+                            <div className="absolute bottom-4 right-4 text-xs font-mono text-white/50 z-10 flex flex-col items-end gap-1">
+                                <span className="flex items-center gap-2">
+                                    <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                                    λ ≈ 650nm (Clarity)
+                                </span>
+                                <span className="flex items-center gap-2">
+                                    <span className="w-2 h-2 rounded-full bg-gold-500 animate-pulse delay-75" />
+                                    T ≈ 650°C (Change)
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </FadeIn>
@@ -64,6 +76,7 @@ export default function AboutPage() {
                         ].map((item, i) => (
                             <div key={i} className="flex gap-4 p-6 border border-slate-100 hover:border-slate-200 hover:shadow-sm transition-all rounded-sm">
                                 <item.icon className="w-8 h-8 text-gold-500 flex-shrink-0" />
+
                                 <div>
                                     <h3 className="font-semibold text-slate-800 mb-2">{item.title}</h3>
                                     <p className="text-slate-500 text-sm">{item.desc}</p>

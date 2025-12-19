@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+:root {
+  /* Warm cream background - slightly richer than before */
+  --background: #FDFBF7;
+  /* Deep Navy text */
+  --foreground: #0F172A;
+  /* Antique Gold accent */
+  --accent: #C5A065;
+  /* Matching Gold for borders/lines */
+  --border: #E2E8F0;
+  /* Keep light grey for subtle borders, or specific gold-border? */
+  --gold-dim: #E5D4B3;
+  /* Navy Muted */
+  --muted: #475569;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+
+  /* Custom colors to use in tailwind classes */
+  --color-navy-900: #0F172A;
+  --color-navy-800: #1E293B;
+  --color-navy-700: #334155;
+  --color-navy-600: #475569;
+
+  --color-gold-500: #C5A065;
+  --color-gold-400: #D4AF37;
+  --color-gold-100: #F3EAD3;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Base styles */
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: var(--accent);
+  color: #fff;
+}

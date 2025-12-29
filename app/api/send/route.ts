@@ -12,7 +12,7 @@ export async function POST(request: Request) {
       to: ['contact@six50.io'],
       subject: `New Contact Form Submission from ${name}`,
       text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
-      reply_to: email, // Valid property is reply_to, not replyTo for SDK
+      replyTo: email,
     });
 
     return NextResponse.json(data);

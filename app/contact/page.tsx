@@ -52,11 +52,26 @@ export default function ContactPage() {
 
         setIsSubmitting(true);
 
-        // Simulate network request
-        await new Promise((resolve) => setTimeout(resolve, 1500));
+        try {
+            const response = await fetch('/api/send', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
 
-        setIsSubmitting(false);
-        setIsSubmitted(true);
+            if (!response.ok) {
+                throw new Error('Failed to send message');
+            }
+
+            setIsSubmitting(false);
+            setIsSubmitted(true);
+        } catch (error) {
+            console.error('Error sending message:', error);
+            setIsSubmitting(false);
+            setErrors(prev => ({ ...prev, message: "Something went wrong. Please try again later." }));
+        }
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

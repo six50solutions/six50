@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0B1F33" />
+  <title>six50 — Digital Card</title>
+  <meta name="description"
+    content="six50 — Where clarity triggers transformation. AI Strategy, Automation, Risk & Ops Transformation." />
+
+  <!-- iOS / Android niceties -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="six50" />
+  <link rel="manifest" href="/card/manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="/card/icons/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/card/icons/icon-192.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="/card/icons/icon-512.png" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --navy: #0B1F33;
+      --gold: #D4AF37;
+      --bg: #071522;
+    }
+
+    body {
+      background:
+        radial-gradient(1100px 700px at 50% -10%, rgba(212, 175, 55, 0.10), transparent 60%),
+        radial-gradient(900px 600px at 20% 10%, rgba(90, 156, 255, 0.10), transparent 55%),
+        linear-gradient(180deg, var(--bg), #050D16 65%, #040A12);
+      color: rgba(255, 255, 255, 0.92);
+    }
+
+    .glass {
+      background: rgba(11, 31, 51, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .gold-ring {
+      background: linear-gradient(90deg, rgba(212, 175, 55, 0.55), rgba(212, 175, 55, 0.10));
+      border: 1px solid rgba(212, 175, 55, 0.35);
+    }
+
+    .mark {
+      letter-spacing: -0.03em;
+    }
+
+    .shimmer {
+      background-size: 220% 220%;
+      background-image: linear-gradient(90deg, #0B1F33, #D4AF37, #2D70FF, #D4AF37, #0B1F33);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: shimmer 4.8s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .btn {
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.06);
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 0.10);
+      border-color: rgba(212, 175, 55, 0.35);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.95), rgba(212, 175, 55, 0.55));
+      color: rgba(11, 31, 51, 0.98);
+      border: 1px solid rgba(212, 175, 55, 0.55);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      background: linear-gradient(135deg, rgba(212, 175, 55, 1), rgba(212, 175, 55, 0.62));
+      border-color: rgba(212, 175, 55, 0.75);
+    }
+
+    .muted {
+      color: rgba(255, 255, 255, 0.70);
+    }
+
+    .fine {
+      color: rgba(255, 255, 255, 0.62);
+    }
+
+    .divider {
+      border-color: rgba(255, 255, 255, 0.10);
+    }
+
+    .chip {
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .fade-in {
+      animation: fadeIn .55s ease both;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      padding: 10px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(11, 31, 51, 0.78);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 13px;
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.55);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s ease, transform .18s ease;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(-4px);
+    }
+
+    .input {
+      width: 100%;
+      border-radius: 16px;
+      padding: 12px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.06);
+      color: rgba(255, 255, 255, 0.92);
+      outline: none;
+    }
+
+    .input:focus {
+      border-color: rgba(212, 175, 55, 0.45);
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex items-center justify-center px-4 py-10">
+  <main class="w-full max-w-md fade-in">
+    <section class="glass rounded-3xl p-6 sm:p-7">
+      <header class="flex items-start gap-4">
+        <div class="gold-ring rounded-2xl p-3 shrink-0">
+          <svg width="34" height="34" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true">
+            <rect x="6" y="6" width="52" height="52" rx="16" fill="#0B1F33" />
+            <path
+              d="M20 39c1.9 6 7 9.6 13.4 9.6 9 0 14.6-5.2 14.6-12.6 0-8.4-6.3-12.6-14.5-12.6-3.7 0-6.9 1-9 2.9l2-10.8h18.6v-5.8H26.2L22 31.2l5.8 1c2.1-2.7 4.4-4.3 8.1-4.3 4.7 0 8.1 3 8.1 8.1 0 5-3.3 8.1-8.1 8.1-3.6 0-6.6-1.6-7.8-5.1H20z"
+              fill="#D4AF37" />
+          </svg>
+        </div>
+
+        <div class="flex-1">
+          <div class="flex items-baseline gap-2">
+            <h1 class="text-3xl font-semibold mark">six<span class="shimmer font-semibold">50</span></h1>
+            <span class="chip text-xs px-2 py-1 rounded-full fine">six50.io</span>
+          </div>
+          <p class="mt-1 text-sm muted">Where clarity triggers transformation</p>
+          <p class="mt-3 text-sm leading-6">
+            <span class="font-medium">Adil Ghazali</span>
+            <span class="fine">• Founder & Principal</span>
+          </p>
+          <p class="mt-1 text-sm muted">AI Strategy • Automation • Risk & Ops Transformation</p>
+        </div>
+      </header>
+
+      <hr class="my-5 divider" />
+
+      <div class="grid grid-cols-2 gap-3">
+        <a class="btn-primary rounded-2xl px-4 py-3 text-sm font-semibold text-center" href="/card/adil-ghazali.vcf"
+          download onclick="track('save_contact')">
+          Save Contact
+        </a>
+        <a class="btn rounded-2xl px-4 py-3 text-sm font-semibold text-center" href="mailto:adil.ghazali@six50.io"
+          onclick="track('email')">
+          Email
+        </a>
+
+        <a class="btn rounded-2xl px-4 py-3 text-sm font-semibold text-center"
+          href="https://calendly.com/adil-ghazali-six50" target="_blank" rel="noopener" onclick="track('book_call')">
+          Book a Call
+        </a>
+      </div>
+
+      <div class="mt-5 rounded-2xl chip p-4">
+        <p class="text-sm muted">
+          Helping organizations turn complex data, emerging technology, and operational constraints into trusted,
+          measurable impact.
+        </p>
+      </div>
+
+      <div class="mt-5 flex items-center justify-between gap-3">
+        <div>
+          <p class="text-xs fine">Email</p>
+          <a class="text-sm font-medium hover:underline" href="mailto:adil.ghazali@six50.io"
+            onclick="track('email_inline')">adil.ghazali@six50.io</a>
+        </div>
+        <button class="btn rounded-2xl px-4 py-2 text-sm font-semibold" id="copyEmailBtn" type="button">
+          Copy Email
+        </button>
+      </div>
+
+
+
+      <div class="mt-6 rounded-2xl chip p-6 text-center">
+        <p class="text-sm font-semibold mb-4">Connect on six50.io</p>
+        <div class="flex justify-center">
+          <a href="https://six50.io" target="_blank" rel="noopener"
+            class="bg-white p-2 rounded-xl transition-transform hover:scale-105 active:scale-95 block">
+            <img src="/card/qrcode.png" alt="Scan to visit six50.io" class="w-32 h-32" />
+          </a>
+        </div>
+        <p class="mt-3 text-xs fine">
+          Scan or tap to visit
+        </p>
+      </div>
+    </section>
+
+    <p class="mt-4 text-center text-xs fine">
+      © <span id="year"></span> six50 — clarity → transformation
+    </p>
+  </main>
+
+  <div class="toast" id="toast">Saved</div>
+
+  <script>
+    // ---------- utilities
+    const toast = (msg) => {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.add('show');
+      clearTimeout(window.__t);
+      window.__t = setTimeout(() => el.classList.remove('show'), 1400);
+    };
+
+    // ---------- basic analytics (self-hosted on Vercel)
+    function track(action) {
+      try {
+        navigator.sendBeacon('/api/track', JSON.stringify({
+          action,
+          path: location.pathname,
+          ref: document.referrer || null,
+          ua: navigator.userAgent,
+          ts: Date.now()
+        }));
+      } catch (e) {
+        // ignore
+      }
+    }
+    track('page_view');
+
+    // ---------- year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ---------- Copy email
+    const email = "adil.ghazali@six50.io";
+    document.getElementById('copyEmailBtn').addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(email);
+        toast("Copied ✓");
+        track('copy_email');
+      } catch (e) {
+        window.prompt("Copy email:", email);
+      }
+    });
+
+    // ---------- Lead capture
+    const leadForm = document.getElementById('leadForm');
+    const toggleLeadBtn = document.getElementById('toggleLeadBtn');
+    let leadVisible = true;
+    toggleLeadBtn.addEventListener('click', () => {
+      leadVisible = !leadVisible;
+      leadForm.classList.toggle('hidden', !leadVisible);
+      toggleLeadBtn.textContent = leadVisible ? "Hide" : "Show";
+      track(leadVisible ? 'lead_show' : 'lead_hide');
+    });
+
+    leadForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fd = new FormData(leadForm);
+      const leadEmail = fd.get('email');
+      try {
+        const res = await fetch('/api/lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: leadEmail, source: 'six50_card', ts: Date.now() })
+        });
+        if (res.ok) {
+          toast("Sent ✓");
+          track('lead_submit');
+          leadForm.reset();
+        } else {
+          toast("Try Email");
+          track('lead_submit_fail');
+        }
+      } catch (err) {
+        toast("Try Email");
+        track('lead_submit_err');
+      }
+    });
+
+    // ---------- PWA / Install prompt (Removed)
+
+    // ---------- Service worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/card/sw.js').catch(() => { });
+      });
+    }
+  </script>
+</body>
+
+</html>

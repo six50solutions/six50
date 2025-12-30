@@ -206,7 +206,7 @@
           download onclick="track('save_contact')">
           Save Contact
         </a>
-        <a class="btn rounded-2xl px-4 py-3 text-sm font-semibold text-center" href="mailto:adil.ghazali@six50.io"
+        <a class="btn rounded-2xl px-4 py-3 text-sm font-semibold text-center" href="mailto:contact@six50.io"
           onclick="track('email')">
           Email
         </a>
@@ -215,6 +215,9 @@
           href="https://calendly.com/adil-ghazali-six50" target="_blank" rel="noopener" onclick="track('book_call')">
           Book a Call
         </a>
+        <button class="btn rounded-2xl px-4 py-3 text-sm font-semibold text-center" type="button" id="openPlaybookBtn">
+          Get Playbook
+        </button>
       </div>
 
       <div class="mt-5 rounded-2xl chip p-4">
@@ -254,6 +257,41 @@
     <p class="mt-4 text-center text-xs fine">
       © <span id="year"></span> six50 — clarity → transformation
     </p>
+
+    <!-- Playbook Modal -->
+    <div id="playbookModal"
+      class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
+      <div class="glass w-full max-w-sm rounded-2xl p-6 relative transform transition-all scale-95 duration-300"
+        id="playbookModalContent">
+        <button type="button" id="closeModalBtn" class="absolute top-4 right-4 text-white/50 hover:text-white">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 6L6 18M6 6l12 12" />
+          </svg>
+        </button>
+
+        <h3 class="text-xl font-semibold mb-2">Get the Playbook</h3>
+        <p class="text-sm muted mb-6">Enter your details to view the Client Delivery Playbook.</p>
+
+        <form id="playbookForm" class="space-y-4">
+          <div>
+            <input type="text" name="name" required placeholder="Full Name" class="input" />
+          </div>
+          <div>
+            <input type="text" name="company" required placeholder="Company Name" class="input" />
+          </div>
+          <div>
+            <input type="email" name="email" required placeholder="Work Email" class="input" />
+          </div>
+          <div>
+            <input type="tel" name="phone" placeholder="Phone Number" class="input" />
+          </div>
+
+          <button type="submit" class="btn-primary w-full rounded-xl py-3 text-sm font-semibold mt-2">
+            View Playbook
+          </button>
+        </form>
+      </div>
+    </div>
   </main>
 
   <div class="toast" id="toast">Saved</div>
@@ -299,40 +337,7 @@
       }
     });
 
-    // ---------- Lead capture
-    const leadForm = document.getElementById('leadForm');
-    const toggleLeadBtn = document.getElementById('toggleLeadBtn');
-    let leadVisible = true;
-    toggleLeadBtn.addEventListener('click', () => {
-      leadVisible = !leadVisible;
-      leadForm.classList.toggle('hidden', !leadVisible);
-      toggleLeadBtn.textContent = leadVisible ? "Hide" : "Show";
-      track(leadVisible ? 'lead_show' : 'lead_hide');
-    });
-
-    leadForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const fd = new FormData(leadForm);
-      const leadEmail = fd.get('email');
-      try {
-        const res = await fetch('/api/lead', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: leadEmail, source: 'six50_card', ts: Date.now() })
-        });
-        if (res.ok) {
-          toast("Sent ✓");
-          track('lead_submit');
-          leadForm.reset();
-        } else {
-          toast("Try Email");
-          track('lead_submit_fail');
-        }
-      } catch (err) {
-        toast("Try Email");
-        track('lead_submit_err');
-      }
-    });
+    // ---------- Lead capture (Removed)
 
     // ---------- PWA / Install prompt (Removed)
 
@@ -342,6 +347,72 @@
         navigator.serviceWorker.register('/card/sw.js').catch(() => { });
       });
     }
+    // ---------- Playbook Modal & Form
+    const modal = document.getElementById('playbookModal');
+    const modalContent = document.getElementById('playbookModalContent');
+    const openBtn = document.getElementById('openPlaybookBtn');
+    const closeBtn = document.getElementById('closeModalBtn');
+    const form = document.getElementById('playbookForm');
+
+    function openModal() {
+      modal.classList.remove('hidden');
+      // small delay to allow display:block to apply before opacity transition
+      requestAnimationFrame(() => {
+        modal.classList.remove('opacity-0');
+        modalContent.classList.remove('scale-95');
+        modalContent.classList.add('scale-100');
+      });
+      track('open_playbook_modal');
+    }
+
+    function closeModal() {
+      modal.classList.add('opacity-0');
+      modalContent.classList.remove('scale-100');
+      modalContent.classList.add('scale-95');
+      setTimeout(() => {
+        modal.classList.add('hidden');
+      }, 300);
+    }
+
+    openBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalText = submitBtn.textContent;
+
+      try {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Loading...";
+
+        const fd = new FormData(form);
+        const data = Object.fromEntries(fd.entries());
+        data.source = 'six50_card_playbook';
+        data.ts = Date.now();
+
+        const res = await fetch('/api/lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        if (res.ok) {
+          track('playbook_unlocked');
+          window.location.href = '/playbook';
+        } else {
+          throw new Error('Failed');
+        }
+      } catch (err) {
+        toast("Error. Please try again.");
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+        track('playbook_unlock_error');
+      }
+    });
   </script>
 </body>
 

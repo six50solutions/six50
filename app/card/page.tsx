@@ -7,8 +7,6 @@ export default function CardPage() {
     const [leadVisible, setLeadVisible] = useState(true);
     const [toastMsg, setToastMsg] = useState('');
     const [showToast, setShowToast] = useState(false);
-    const [installPrompt, setInstallPrompt] = useState<any>(null);
-    const [showHowTo, setShowHowTo] = useState(false);
 
     // Tracking helper
     const track = (action: string) => {
@@ -29,23 +27,10 @@ export default function CardPage() {
         track('page_view');
         setYear(new Date().getFullYear());
 
-        // PWA Install Prompt
-        const handleBeforeInstallPrompt = (e: any) => {
-            e.preventDefault();
-            setInstallPrompt(e);
-            track('install_prompt_ready');
-        };
-
-        window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-
         // Service Worker
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/card/sw.js').catch(() => { });
         }
-
-        return () => {
-            window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-        };
     }, []);
 
     const showToastMsg = (msg: string) => {
@@ -90,26 +75,35 @@ export default function CardPage() {
         }
     };
 
-    const handleInstall = async () => {
-        if (!installPrompt) {
-            showToastMsg("Use browser menu");
-            return;
+    const handleShare = async () => {
+        const shareData = {
+            title: 'six50 — Adil Ghazali',
+            text: 'Check out my digital card.',
+            url: window.location.href
+        };
+
+        if (navigator.share) {
+            try {
+                await navigator.share(shareData);
+                track('share_native');
+            } catch (err) {
+                // User cancelled, mostly ignoring
+            }
+        } else {
+            try {
+                await navigator.clipboard.writeText(window.location.href);
+                showToastMsg("Link Copied ✓");
+                track('share_copy');
+            } catch (e) {
+                showToastMsg("Copy failed");
+            }
         }
-        installPrompt.prompt();
-        const choice = await installPrompt.userChoice;
-        track('install_' + (choice && choice.outcome ? choice.outcome : 'unknown'));
-        setInstallPrompt(null);
     };
 
     const toggleLead = () => {
         const newVal = !leadVisible;
         setLeadVisible(newVal);
         track(newVal ? 'lead_show' : 'lead_hide');
-    };
-
-    const toggleHowTo = () => {
-        setShowHowTo(!showHowTo);
-        track('howto_toggle');
     };
 
     return (
@@ -295,40 +289,16 @@ export default function CardPage() {
                         )}
                     </div>
 
-                    {/* Install to home screen + Wallet notes */}
+                    {/* Share Section */}
                     <div className="mt-6 rounded-2xl chip p-4">
-                        <p className="text-sm font-semibold">Add to Home Screen</p>
+                        <p className="text-sm font-semibold">Share this card</p>
                         <p className="mt-1 text-sm muted">
-                            Install this card like an app for faster access.
+                            Send this digital card to a contact via text, email, or other apps.
                         </p>
-                        <div className="mt-3 flex gap-3">
-                            <button
-                                className={`btn-primary rounded-2xl px-4 py-3 text-sm font-semibold flex-1 ${!installPrompt ? 'opacity-60 cursor-not-allowed' : ''}`}
-                                onClick={handleInstall}
-                                type="button"
-                                disabled={!installPrompt}
-                            >
-                                Install
+                        <div className="mt-3">
+                            <button className="btn rounded-2xl px-4 py-3 text-sm font-semibold w-full flex items-center justify-center" onClick={handleShare} type="button">
+                                Share via...
                             </button>
-                            <button className="btn rounded-2xl px-4 py-3 text-sm font-semibold flex-1" onClick={toggleHowTo} type="button">
-                                How to
-                            </button>
-                        </div>
-                        {showHowTo && (
-                            <div className="mt-3" id="howTo">
-                                <p className="text-xs fine">
-                                    <span className="font-semibold">iPhone:</span> Share → “Add to Home Screen”<br />
-                                    <span className="font-semibold">Android:</span> Browser menu → “Install app” / “Add to Home screen”
-                                </p>
-                            </div>
-                        )}
-
-                        <div className="mt-4 border-t divider pt-4">
-                            <p className="text-sm font-semibold">Apple Wallet / Google Wallet</p>
-                            <p className="mt-1 text-sm muted">
-                                Wallet passes require issuer setup (certs/keys). This page is wallet-friendly; if you want true passes,
-                                follow the README and I’ll tailor the pass files once you have Wallet credentials.
-                            </p>
                         </div>
                     </div>
 
@@ -338,6 +308,7 @@ export default function CardPage() {
                             Program your NFC card/tag to open <span className="font-mono text-xs">https://six50.io/card</span> so anyone can tap and view this page instantly.
                         </p>
                     </div>
+
                 </section>
 
                 <p className="mt-4 text-center text-xs fine">

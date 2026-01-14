@@ -289,25 +289,14 @@ export default function CardPage() {
                         )}
                     </div>
 
-                    {/* Share Section */}
-                    <div className="mt-6 rounded-2xl chip p-4">
-                        <p className="text-sm font-semibold">Share this card</p>
-                        <p className="mt-1 text-sm muted">
-                            Send this digital card to a contact via text, email, or other apps.
-                        </p>
-                        <div className="mt-3">
-                            <button className="btn rounded-2xl px-4 py-3 text-sm font-semibold w-full flex items-center justify-center" onClick={handleShare} type="button">
-                                Share via...
-                            </button>
-                        </div>
+                    {/* Share Button (Mobile Only) */}
+                    <div className="mt-6 md:hidden">
+                        <button className="btn rounded-2xl px-4 py-3 text-sm font-semibold w-full flex items-center justify-center" onClick={handleShare} type="button">
+                            Share Card
+                        </button>
                     </div>
 
-                    <div className="mt-6 rounded-2xl chip p-4">
-                        <p className="text-sm font-semibold">Share via NFC / QR</p>
-                        <p className="mt-1 text-sm muted">
-                            Program your NFC card/tag to open <span className="font-mono text-xs">https://six50.io/card</span> so anyone can tap and view this page instantly.
-                        </p>
-                    </div>
+
 
                 </section>
 

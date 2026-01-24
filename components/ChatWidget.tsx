@@ -260,17 +260,15 @@ export default function ChatWidget() {
                     )}
                 </AnimatePresence>
 
-                <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                <button
                     onClick={toggleOpen}
-                    className="bg-zinc-900 hover:bg-zinc-800 text-white p-4 rounded-full shadow-lg flex items-center gap-2 group transition-all"
+                    className="bg-gold-500 hover:bg-gold-400 text-slate-900 p-4 rounded-full shadow-2xl flex items-center gap-2 group transition-all transform hover:scale-105 active:scale-95 border-2 border-white/20"
                 >
-                    {isOpen ? <X /> : <MessageCircle />}
-                    <span className="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-300 ease-in-out whitespace-nowrap text-sm font-medium">
-                        {!isOpen && "Contact Us"}
+                    {isOpen ? <X size={24} /> : <MessageCircle size={24} />}
+                    <span className="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-300 ease-in-out whitespace-nowrap text-sm font-bold">
+                        {!isOpen && "Contact Dylan"}
                     </span>
-                </motion.button>
+                </button>
             </div>
         </>
     );

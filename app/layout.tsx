@@ -4,6 +4,7 @@ import "./globals.css";
 import { AnimatedBackground } from "@/components/ui/AnimatedBackground";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import ChatWidget from "@/components/ChatWidget";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -38,6 +39,8 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <ChatWidget />
+        <div className="fixed bottom-2 left-2 text-[10px] text-red-500 z-[9999] opacity-50 pointer-events-none">Debug: v1.0 (Gold Chat)</div>
       </body>
     </html>
   );

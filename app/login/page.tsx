@@ -12,15 +12,28 @@ export default function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
-        // Simulate network request
-        setTimeout(() => {
+
+        try {
+            const res = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password }),
+            });
+
+            if (res.ok) {
+                window.location.href = '/portal';
+            } else {
+                alert("Invalid email or password");
+                setIsLoading(false);
+            }
+        } catch (error) {
+            console.error('Login error', error);
             setIsLoading(false);
-            // In a real app, this would handle auth
-            alert("This is a demo. Portal functionality coming soon.");
-        }, 1500);
+            alert("An error occurred");
+        }
     };
 
     return (

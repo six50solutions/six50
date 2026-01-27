@@ -1,11 +1,15 @@
 import { google } from '@ai-sdk/google';
-import { streamText } from 'ai';
+import { tool, streamText } from 'ai';
+import { z } from 'zod';
+import { sendLeadNotification } from '@/lib/email-service';
 
 export const maxDuration = 30;
 
 export async function POST(req: Request) {
+  console.log('Chat API: POST request received');
   try {
     const { messages } = await req.json();
+    console.log('Chat API: Processing messages', messages.length);
 
     const systemPrompt = `You are Dylan, the Six50 FrontDesk AI for six50 (strategy & consulting).
 Voice: concise, sharp, credible, and helpful. No hype.
@@ -26,7 +30,8 @@ Primary goals:
    - specific Need/Goal
    - Timeline
 4. **Missing Information**: If a detail (like timeline) is not provided, ASK for it. Do NOT state "unspecified" or "unknown".
-5. Route them to Contact or offer scheduling once you have enough context.
+5. **SAVE THE LEAD**: Once you have the core details (Name, Email, and some context on Goal/Company), you MUST call the "saveLead" tool. Do this BEFORE routing them to contact or scheduling.
+6. Route them to Contact or offer scheduling once you have enough context.
 
 Guardrails:
 - Don't invent capabilities or client names.
@@ -42,6 +47,7 @@ Qualification questions (pick only what's needed):
 
 Lead capture trigger:
 - If user asks about getting started, pricing, timeline, proposal, or booking, ask for name/email/company and summarize their request.
+- CALL THE "saveLead" TOOL with the gathered information.
 
 Services Knowledge Blob:
 - Strategy: clarity triggers transformation.
@@ -58,6 +64,33 @@ Services Knowledge Blob:
         content: m.content
       })),
       system: systemPrompt,
+      tools: {
+        saveLead: tool({
+          description: 'Save lead details like name, email, company, goal, etc. Call this when you have gathered sufficient information.',
+          parameters: z.object({
+            name: z.string().describe('The name of the visitor'),
+            email: z.string().describe('The email address of the visitor'),
+            phone: z.string().optional().describe('Phone number if provided'),
+            company: z.string().optional().describe('Company name if provided'),
+            goal: z.string().optional().describe('The goal or need described by the visitor'),
+            timeline: z.string().optional().describe('Timeline if provided'),
+          }),
+          execute: async (args) => {
+            console.log('Tool execute: saveLead', args);
+            // Call our shared email service
+            const result = await sendLeadNotification({
+              name: args.name,
+              email: args.email,
+              phone: args.phone,
+              company: args.company,
+              goal: args.goal ? `${args.goal} (Timeline: ${args.timeline})` : args.timeline,
+              source: 'chat'
+            });
+            return { success: true, notified: true };
+          },
+        }),
+      },
+      maxSteps: 5, // Allow tool steps
     });
 
     return result.toTextStreamResponse();

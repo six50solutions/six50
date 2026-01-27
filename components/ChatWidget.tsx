@@ -105,6 +105,35 @@ export default function ChatWidget() {
         }
     }, [displayMessages, showLeadCapture, leadSubmitted]);
 
+    useEffect(() => {
+        // Auto-close logic: preserve history, but close window
+        const lastMessage = displayMessages[displayMessages.length - 1];
+        if (lastMessage?.role === 'assistant' &&
+            (lastMessage.content.toLowerCase().includes('reach out') ||
+                lastMessage.content.toLowerCase().includes('in touch'))) {
+
+            // Avoid loops if we already said goodbye
+            if (lastMessage.content.includes("session will end")) return;
+
+            const closeTimer = setTimeout(() => {
+                // Add closing message
+                setLocalMessages(prev => [...prev, {
+                    id: Date.now().toString(),
+                    role: 'assistant',
+                    content: "This chat session will end now."
+                }]);
+
+                // Close the widget shortly after
+                setTimeout(() => {
+                    setIsOpen(false);
+                    setShowLeadCapture(false);
+                    // Do NOT clear messages. History is preserved.
+                }, 3000);
+            }, 5000);
+            return () => clearTimeout(closeTimer);
+        }
+    }, [displayMessages]);
+
     const toggleOpen = () => setIsOpen(!isOpen);
 
     const suggestedPrompts = [

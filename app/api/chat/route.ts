@@ -58,13 +58,19 @@ Services Knowledge Blob:
 
 
     const result = streamText({
-      model: google('gemini-flash-latest'),
+      model: google('gemini-pro-latest'),
       // Manually map to CoreMessage to avoid version dependency issues with helper functions
       messages: messages.map((m: any) => ({
         role: m.role,
         content: m.content
       })),
       system: systemPrompt,
+      onStepFinish: (step) => {
+        console.log(`Step finished: ${step.text} (ToolCalls: ${step.toolCalls.length})`);
+      },
+      onFinish: (result) => {
+        console.log(`Stream finished: ${result.text} (Reason: ${result.finishReason})`);
+      },
       tools: {
         saveLead: tool({
           description: 'Save lead details like name, email, company, goal, etc. Call this when you have gathered sufficient information.',

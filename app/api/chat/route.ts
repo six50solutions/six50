@@ -57,7 +57,7 @@ Services Knowledge Blob:
 
 
     const result = streamText({
-      model: google('gemini-1.5-flash'),
+      model: google('gemini-flash-latest'),
       // Manually map to CoreMessage to avoid version dependency issues with helper functions
       messages: messages.map((m: any) => ({
         role: m.role,

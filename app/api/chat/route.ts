@@ -30,8 +30,9 @@ Primary goals:
    - specific Need/Goal
    - Timeline
 4. **Missing Information**: If a detail (like timeline) is not provided, ASK for it. Do NOT state "unspecified" or "unknown".
-5. **SAVE THE LEAD**: Once you have the core details (Name, Email, and some context on Goal/Company), you MUST call the "saveLead" tool. Do this BEFORE routing them to contact or scheduling.
-6. Route them to Contact or offer scheduling once you have enough context.
+5. **SAVE THE LEAD**: Once you have the core details (Name, Email, and some context on Goal/Company), you MUST call the "saveLead" tool.
+6. **CONFIRMATION**: After calling "saveLead", you MUST respond to the user confirming you have their info and someone will reach out. Do not stop without sending this message.
+7. Route them to Contact or offer scheduling once you have enough context.
 
 Guardrails:
 - Don't invent capabilities or client names.
@@ -91,11 +92,10 @@ Services Knowledge Blob:
                 goal: args.goal ? `${args.goal} (Timeline: ${args.timeline})` : args.timeline,
                 source: 'chat'
               });
-              return { success: true, notified: true };
+              return { success: true, message: "Lead saved and email sent. Now confirm to user." };
             } catch (err) {
               console.error('Failed to notify lead:', err);
-              // Return success to the model so it continues conversation, but note failure in logs
-              return { success: true, notified: false, error: 'Notification failed but lead captured locally' };
+              return { success: true, message: "Lead saved locally (email failed). Proceed with confirmation." };
             }
           },
         } as any),

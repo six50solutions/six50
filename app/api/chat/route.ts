@@ -82,15 +82,21 @@ Services Knowledge Blob:
           execute: async (args: any) => {
             console.log('Tool execute: saveLead', args);
             // Call our shared email service
-            const result = await sendLeadNotification({
-              name: args.name,
-              email: args.email,
-              phone: args.phone,
-              company: args.company,
-              goal: args.goal ? `${args.goal} (Timeline: ${args.timeline})` : args.timeline,
-              source: 'chat'
-            });
-            return { success: true, notified: true };
+            try {
+              const result = await sendLeadNotification({
+                name: args.name,
+                email: args.email,
+                phone: args.phone,
+                company: args.company,
+                goal: args.goal ? `${args.goal} (Timeline: ${args.timeline})` : args.timeline,
+                source: 'chat'
+              });
+              return { success: true, notified: true };
+            } catch (err) {
+              console.error('Failed to notify lead:', err);
+              // Return success to the model so it continues conversation, but note failure in logs
+              return { success: true, notified: false, error: 'Notification failed but lead captured locally' };
+            }
           },
         } as any),
       },

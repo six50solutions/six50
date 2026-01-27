@@ -75,6 +75,11 @@ export default function ChatWidget() {
 
         } catch (e) {
             console.error("Manual submit error:", e);
+            setLocalMessages(prev => [...prev, {
+                id: Date.now().toString(),
+                role: 'assistant',
+                content: 'I encountered an error connecting to the server. Please check your logs.'
+            }]);
         }
     };
 

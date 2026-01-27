@@ -8,7 +8,7 @@ async function testChat() {
 
     try {
         console.log('Sending chat messages...');
-        const response = await fetch('http://localhost:3000/api/chat', {
+        const response = await fetch('http://localhost:3002/api/chat', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ messages })
@@ -17,7 +17,6 @@ async function testChat() {
         if (!response.ok) {
             const text = await response.text();
             console.error('Full Error Response:', text);
-            // throw new Error(`HTTP error! status: ${response.status}`);
         } else {
             const reader = response.body.getReader();
             const decoder = new TextDecoder();

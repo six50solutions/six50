@@ -30,7 +30,7 @@ Primary goals:
    - specific Need/Goal
    - Timeline
 4. **Missing Information**: If a detail (like timeline) is not provided, ASK for it. Do NOT state "unspecified" or "unknown".
-5. **SAVE THE LEAD**: Once you have the core details (Name, Email, and some context on Goal/Company), you MUST call the "saveLead" tool.
+5. **SAVE THE LEAD**: Once you have the core details (Name, Email, and some context on Goal/Company), first say "Saving your information..." and THEN call the "saveLead" tool.
 6. **CONFIRMATION**: After calling "saveLead", you MUST respond to the user confirming you have their info and someone will reach out. Do not stop without sending this message.
 7. Route them to Contact or offer scheduling once you have enough context.
 
@@ -107,7 +107,7 @@ Services Knowledge Blob:
         } as any),
       },
       // @ts-ignore
-      maxSteps: 5, // Allow tool steps
+      maxSteps: 10,
     });
 
     return result.toTextStreamResponse();

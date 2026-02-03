@@ -17,7 +17,7 @@ export function AnimatedBackground() {
 
     useEffect(() => {
         setParticles(
-            [...Array(80)].map((_, i) => ({
+            [...Array(30)].map((_, i) => ({
                 id: i,
                 top: `${Math.random() * 100}%`,
                 left: `${Math.random() * 100}%`,

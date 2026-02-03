@@ -1,17 +1,20 @@
 import { Resend } from 'resend';
 import { NextResponse } from 'next/server';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// const resend = new Resend(process.env.RESEND_API_KEY); // Moved inside handler
 
 export async function POST(request: Request) {
   if (!process.env.RESEND_API_KEY) {
-    console.error('RESEND_API_KEY is missing');
-  } else {
-    console.log('RESEND_API_KEY is present');
+    console.error('RESEND_API_KEY is missing - skipping email send');
+    return NextResponse.json({ error: 'Email service not configured' }, { status: 503 });
   }
+
+  console.log('RESEND_API_KEY is present');
 
   try {
     const { name, email, message } = await request.json();
+
+    const resend = new Resend(process.env.RESEND_API_KEY);
 
     const data = await resend.emails.send({
       from: 'Six50 Contact Form <contact@six50.io>',

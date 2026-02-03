@@ -1,11 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-if (!process.env.RESEND_API_KEY) {
-    console.error('RESEND_API_KEY is missing; email sending will be disabled');
-}
-const resend = new Resend(process.env.RESEND_API_KEY);
-console.log('Resend key set:', !!process.env.RESEND_API_KEY);
+
 export async function POST(req: NextRequest) {
     try {
         const body = await req.json();
@@ -40,6 +36,7 @@ export async function POST(req: NextRequest) {
 
         // 2. Handle Email Sending based on Source
         if (process.env.RESEND_API_KEY) {
+            const resend = new Resend(process.env.RESEND_API_KEY);
             try {
                 if (body.source === 'chat') {
                     // Send New Lead Notification to Admin

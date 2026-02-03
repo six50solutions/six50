@@ -1,7 +1,7 @@
 
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// const resend = new Resend(process.env.RESEND_API_KEY); // Moved inside function
 
 export async function sendLeadNotification({
     name,
@@ -24,6 +24,8 @@ export async function sendLeadNotification({
         console.warn('RESEND_API_KEY is missing. Email skipped.');
         return { error: 'Missing API Key' };
     }
+
+    const resend = new Resend(process.env.RESEND_API_KEY);
 
     try {
         const data = await resend.emails.send({

@@ -65,7 +65,7 @@ export default function ChatWidget() {
                 while (true) {
                     const { done, value } = await reader.read();
                     if (done) break;
-                    const chunk = decoder.decode(value);
+                    const chunk = decoder.decode(value, { stream: true });
                     assistantMsg.content += chunk;
 
                     // Force update matching message

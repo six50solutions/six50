@@ -74,6 +74,9 @@ Services Knowledge Blob:
       onFinish: (result) => {
         console.log(`Stream finished: ${result.text} (Reason: ${result.finishReason})`);
       },
+      onError: (error) => {
+        console.error('Stream generation error:', error);
+      },
       tools: {
         saveLead: tool({
           description: 'Save lead details like name, email, company, goal, etc. Call this when you have gathered sufficient information.',

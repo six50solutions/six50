@@ -69,7 +69,6 @@ export default function ChatWidget() {
                     assistantMsg.content += chunk;
 
                     // Force update matching message
-                    // Force update matching message
                     setLocalMessages(prev => prev.map(m => m.id === assistantMsg.id ? { ...m, content: assistantMsg.content } : m));
                 }
 

@@ -1,6 +1,7 @@
 
 import { google } from '@ai-sdk/google';
 import { tool, streamText } from 'ai';
+import { z } from 'zod';
 import { sendLeadNotification } from '@/lib/email-service';
 
 export const maxDuration = 30;
@@ -80,19 +81,15 @@ Services Knowledge Blob:
       tools: {
         saveLead: tool({
           description: 'Save lead details like name, email, company, goal, etc. Call this when you have gathered sufficient information.',
-          parameters: {
-            type: 'object',
-            properties: {
-              name: { type: 'string', description: 'The name of the visitor' },
-              email: { type: 'string', description: 'The email address of the visitor' },
-              phone: { type: 'string', description: 'Phone number if provided' },
-              company: { type: 'string', description: 'Company name if provided' },
-              goal: { type: 'string', description: 'The goal or need described by the visitor' },
-              timeline: { type: 'string', description: 'Timeline if provided' }
-            },
-            required: ['name', 'email']
-          },
-          execute: async (args: any) => {
+          parameters: z.object({
+            name: z.string().describe('The name of the visitor'),
+            email: z.string().describe('The email address of the visitor'),
+            phone: z.string().optional().describe('Phone number if provided'),
+            company: z.string().optional().describe('Company name if provided'),
+            goal: z.string().optional().describe('The goal or need described by the visitor'),
+            timeline: z.string().optional().describe('Timeline if provided'),
+          }),
+          execute: async (args) => {
             console.log('Tool execute: saveLead', args);
             // Call our shared email service
             try {
@@ -110,7 +107,7 @@ Services Knowledge Blob:
               return { success: true, message: "Lead saved locally (email failed). Proceed with confirmation." };
             }
           },
-        } as any),
+        }),
       },
       // @ts-ignore
       maxSteps: 10,

@@ -139,7 +139,8 @@ Services Knowledge Blob:
 
   } catch (error) {
     console.error('Chat API Error:', error);
-    return new Response(JSON.stringify({ error: 'Internal Server Error', details: error instanceof Error ? error.message : String(error) }), { status: 500 });
+    const details = error instanceof Error ? error.message : String(error);
+    return new Response(`Error: ${details}`, { status: 200 });
   }
 }
 
@@ -218,6 +219,7 @@ async function handleManualLoop(messages: any[], systemPrompt: string, tools: an
 
   } catch (e) {
     console.error("Manual Loop Error:", e);
-    return new Response("I'm currently experiencing high traffic. Please try again.", { status: 200 });
+    const details = e instanceof Error ? e.message : String(e);
+    return new Response(`I'm currently experiencing an issue: ${details}. Please try again.`, { status: 200 });
   }
 }

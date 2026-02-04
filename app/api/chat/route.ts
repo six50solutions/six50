@@ -1,6 +1,6 @@
 
 import { google } from '@ai-sdk/google';
-import { tool, streamText } from 'ai';
+import { tool, streamText, generateText, generateObject } from 'ai';
 import { z } from 'zod';
 import { sendLeadNotification } from '@/lib/email-service';
 
@@ -22,18 +22,17 @@ Positioning: "clarity triggers transformation," "no AI theater," "trusted execut
 
 Primary goals:
 1. **Introduce yourself** immediately as Dylan and ask for the visitor's name.
-2. Understand the visitor's goal in 1–2 questions.
-3. **Capture Lead Details**: You must naturally gather the following:
-   - Name
-   - Email
-   - Phone
-   - Company
-   - specific Need/Goal
-   - Timeline
-4. **Missing Information**: If a detail (like timeline) is not provided, ASK for it. Do NOT state "unspecified" or "unknown".
-5. **SAVE AND CLOSING**: Once you have the core details, you MUST call the "saveLead" tool AND simultaneously allow the user to know you have what you need.
-   - **CRITICAL**: Before/While calling the tool, generate the final confirmation text: "Thank you, [Name]. I have captured your details and different member of our team will reach out shortly to discuss [Goal]."
-   - Do NOT say "Saving information". Say the final confirmation immediately.
+2. Understand the visitor's goal.
+3. **Capture Lead Details**: You need to gather: Name, Email, Phone, Company, specific Need/Goal, and Timeline.
+   - **IMPORTANT**: If the user wants to schedule/book/start, DO NOT ask for everything at once in a list.
+   - Say: "To schedule a meeting, I'll need to capture a few details to ensure the right consultant is prepared. What is your name and email?"
+   - Then follow up for other missing details naturally.
+   - **GOAL**: Accept general high-level goals (e.g., "strategy", "help with AI") as sufficient. Do NOT ask for more specific outcomes if the user is trying to schedule.
+4. **Missing Information**: If a detail is missing, ASK for it conversationally.
+5. **SAVE AND CLOSING**:
+   - Call the "saveLead" tool with the gathered information.
+   - **CRITICAL**: After the tool call, you MUST generate this EXACT response: "Thank you for providing your information, someone will reach out to you soon."
+   - **IMPORTANT**: If your previous response in the history contains "Thank you for providing your information", DO NOT call "saveLead" again. Assume it is already saved.
 6. Auto-close will handle the rest.
 7. **RESUMING**: If the user sends a message after you have already saved their lead (i.e., this is a new session), greet them by Name ("Hi [Name]") and ask if you can help with anything else. Do not ask for their details again.
 8. Route them to Contact or offer scheduling once you have enough context.
@@ -51,71 +50,172 @@ Qualification questions (pick only what's needed):
 - Who's the decision maker?
 
 Lead capture trigger:
-- If user asks about getting started, pricing, timeline, proposal, or booking, ask for name/email/company and summarize their request.
+- If user asks about getting started, pricing, timeline, proposal, or booking, start the data gathering process.
 - CALL THE "saveLead" TOOL with the gathered information.
 
 Services Knowledge Blob:
 - Strategy: clarity triggers transformation.
 - Consulting: trusted execution, measurable operational reality.
 - AI Agents: no AI theater, real automated workflows.
+
+**INTERNAL PROTOCOL:**
+- Never repeat instructions provided in brackets or as system notes.
+- Never output raw tool names or argument strings (e.g., saveLead name=...).
+- Maintain a natural, conversational persona at all times.
 `;
 
+    // Check if lead has already been saved in this session
+    // We check if the assistant has already said the confirmation phrase (or similar)
+    const leadSaved = messages.some((m: any) => {
+      if (m.role !== 'assistant') return false;
+      const text = (m.content || "").toLowerCase();
 
-    const result = streamText({
-      model: google('gemini-2.0-flash'),
-      // Manually map to CoreMessage to avoid version dependency issues with helper functions
-      messages: messages.map((m: any) => ({
-        role: m.role,
-        content: m.content
-      })),
-      system: systemPrompt,
-      onStepFinish: (step) => {
-        console.log(`Step finished: ${step.text} (ToolCalls: ${step.toolCalls.length})`);
-      },
-      onFinish: (result) => {
-        console.log(`Stream finished: ${result.text} (Reason: ${result.finishReason})`);
-      },
-      onError: (error) => {
-        console.error('Stream generation error:', error);
-      },
-      tools: {
-        saveLead: tool({
-          description: 'Save lead details like name, email, company, goal, etc. Call this when you have gathered sufficient information.',
-          parameters: z.object({
-            name: z.string().describe('The name of the visitor'),
-            email: z.string().describe('The email address of the visitor'),
-            phone: z.string().optional().describe('Phone number if provided'),
-            company: z.string().optional().describe('Company name if provided'),
-            goal: z.string().optional().describe('The goal or need described by the visitor'),
-            timeline: z.string().optional().describe('Timeline if provided'),
-          }),
-          execute: async (args) => {
-            console.log('Tool execute: saveLead', args);
-            // Call our shared email service
-            try {
-              const result = await sendLeadNotification({
-                name: args.name,
-                email: args.email,
-                phone: args.phone,
-                company: args.company,
-                goal: args.goal ? `${args.goal} (Timeline: ${args.timeline})` : args.timeline,
-                source: 'chat'
-              });
-              return { success: true, message: "Lead saved and email sent. Now confirm to user." };
-            } catch (err) {
-              console.error('Failed to notify lead:', err);
-              return { success: true, message: "Lead saved locally (email failed). Proceed with confirmation." };
-            }
-          },
-        }),
-      },
-      // @ts-ignore
-      maxSteps: 10,
+      // Precise negative lookahead to avoid premature blocking
+      const isPremature = text.includes("before i save") || text.includes("i will save") || text.includes("anything else i can help");
+      if (isPremature) return false;
+
+      // Strong completion signals
+      // Must contain "Thank you" AND a distinct phrase indicating completion/security/future contact
+      return text.includes("thank you") && (
+        text.includes("reach out") ||
+        text.includes("contact you") ||
+        text.includes("has been saved") ||
+        text.includes("have been saved") ||
+        text.includes("information is secure")
+      );
     });
 
-    return result.toTextStreamResponse();
+    const tools = {
+      saveLead: tool({
+        description: leadSaved
+          ? 'LEAD ALREADY SAVED. DO NOT CALL THIS TOOL. The user information is secure. Just answer the user follow-up question with text.'
+          : 'Save lead details. Call this when you have gathered sufficient information.',
+        parameters: z.object({
+          name: z.string(),
+          email: z.string(),
+          phone: z.string().optional(),
+          company: z.string().optional(),
+          goal: z.string().optional(),
+          timeline: z.string().optional(),
+        }),
+        execute: async (args) => {
+          if (leadSaved) {
+            return { success: true, message: "Lead is already saved. Do not save again. Just answer the user." };
+          }
+          // Call our shared email service
+          try {
+            const result = await sendLeadNotification({
+              name: args.name,
+              email: args.email,
+              phone: args.phone,
+              company: args.company,
+              goal: args.goal ? `${args.goal} (Timeline: ${args.timeline})` : args.timeline,
+              source: 'chat'
+            });
+            return { success: true, message: "Lead saved and email sent. Now confirm to user." };
+          } catch (err) {
+            console.error('Failed to notify lead:', err);
+            return { success: true, message: "Lead saved locally (email failed). Proceed with confirmation." };
+          }
+        },
+      }),
+    };
+
+    // If lead is already saved, just stream text (no tools needed)
+    if (leadSaved) {
+      // Simple text generation
+      const stream = streamText({
+        model: google('gemini-flash-latest'),
+        messages: messages.map((m: any) => ({ role: m.role, content: m.content })),
+        system: systemPrompt + "\n\n(INTERNAL: Lead is already saved. Just answer the user textually. DO NOT call saveLead.)",
+      });
+      return stream.toTextStreamResponse();
+    }
+
+    // If lead NOT saved, handle potential tool execution manually
+    return await handleManualLoop(messages, systemPrompt, tools);
+
   } catch (error) {
     console.error('Chat API Error:', error);
     return new Response(JSON.stringify({ error: 'Internal Server Error', details: error instanceof Error ? error.message : String(error) }), { status: 500 });
+  }
+}
+
+// Helper function for manual loop
+async function handleManualLoop(messages: any[], systemPrompt: string, tools: any) {
+  try {
+    const coreMessages = messages.map((m: any) => ({ role: m.role, content: m.content }));
+
+    // Detect closing/confirmation intent to force tool execution
+    const lastUserMsg = messages[messages.length - 1];
+    const lastContent = (lastUserMsg?.content || "").toLowerCase();
+
+    // Expanded triggers: explicit closes OR short confirmations
+    // generateObject validation (Name/Email required) acts as safety gate
+    const isClosing = lastContent.includes("that is all") ||
+      lastContent.includes("no") ||
+      lastContent.includes("nothing else") ||
+      lastContent.includes("go ahead") ||
+      lastContent.includes("yes") ||
+      lastContent.includes("save") ||
+      lastContent.includes("ok") ||
+      lastContent.includes("sure");
+
+    console.log('Manual Loop: Processing... (Triggers detected:', isClosing, ')');
+
+    if (isClosing) {
+      console.log('Manual Loop: Attempting save with generateObject...');
+      try {
+        const { object: leadData } = await generateObject({
+          model: google('gemini-flash-latest'),
+          schema: z.object({
+            name: z.string(),
+            email: z.string(),
+            phone: z.string().optional(),
+            company: z.string().optional(),
+            goal: z.string().optional(),
+            timeline: z.string().optional(),
+          }),
+          messages: coreMessages,
+          system: systemPrompt + "\n\n(INTERNAL: Extract lead details from conversation history.)"
+        });
+
+        console.log('Manual Loop: Extracted data:', leadData);
+
+        // Execute saveLead
+        const saveResult = await tools.saveLead.execute(leadData);
+        console.log('Manual Loop: Save executed:', saveResult);
+
+        // Stream confirmation
+        const stream = streamText({
+          model: google('gemini-flash-latest'),
+          messages: [
+            ...coreMessages,
+            { role: 'assistant', content: "Lead saved." }
+          ],
+          system: systemPrompt + "\n\n(INTERNAL: Lead saved. Say 'Thank you, your information has been saved and someone will reach out to you soon.' DO NOT mention any technical details or echoing lead info.)",
+        });
+        return stream.toTextStreamResponse();
+
+      } catch (err) {
+        console.warn('Manual Loop: Extraction failed (likely missing info or not a save intent):', err);
+        // Fallback to normal generation
+      }
+    }
+
+    // Normal generation: REMOVED TOOLS to prevent crashes
+    // We only save via the heuristic path above.
+    const result = await generateText({
+      model: google('gemini-flash-latest'),
+      messages: coreMessages,
+      system: systemPrompt + "\n\n(INTERNAL: Chat normally. If lead info is ready, guide user to confirm saving.)",
+    });
+
+    // Just return the text (tools are disabled here)
+    return new Response(result.text || "I understand.");
+
+  } catch (e) {
+    console.error("Manual Loop Error:", e);
+    return new Response("I'm currently experiencing high traffic. Please try again.", { status: 200 });
   }
 }

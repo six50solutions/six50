@@ -154,26 +154,25 @@ export default function ChatWidget() {
     const handleLeadSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
-        const lead: LeadData = {
-            name: formData.get('name') as string,
-            email: formData.get('email') as string,
-            phone: formData.get('phone') as string,
-            company: formData.get('company') as string,
-            goal: formData.get('goal') as string,
-        };
-        // Send lead data to backend API
-        try {
-            const res = await fetch('/api/lead', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ ...lead, source: 'chat' }),
-            });
-            if (!res.ok) {
-                console.error('Failed to send lead', await res.text());
-            }
-        } catch (e) {
-            console.error('Error sending lead', e);
-        }
+        const name = formData.get('name') as string;
+        const email = formData.get('email') as string;
+        const phone = formData.get('phone') as string;
+        const company = formData.get('company') as string;
+        const goal = formData.get('goal') as string;
+        const timeline = formData.get('timeline') as string;
+
+        // Construct a natural language message for the bot
+        const message = `Here are my details for the inquiry:
+Name: ${name}
+Email: ${email}
+Phone: ${phone}
+Company: ${company}
+Goal: ${goal}
+Timeline: ${timeline}`;
+
+        // Send to bot (this will trigger saveLead tool and the "Thank you" response)
+        manualSubmit(message);
+
         setLeadSubmitted(true);
         setShowLeadCapture(false);
     };
@@ -265,11 +264,12 @@ export default function ChatWidget() {
                                         <form onSubmit={handleLeadSubmit} className="space-y-3">
                                             <input name="name" required placeholder="Name" className="w-full text-sm p-2 rounded border border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-zinc-500" />
                                             <div className="grid grid-cols-2 gap-2">
-                                                <input name="email" type="email" placeholder="Email" className="w-full text-sm p-2 rounded border border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-zinc-500" />
-                                                <input name="phone" placeholder="Phone" className="w-full text-sm p-2 rounded border border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-zinc-500" />
+                                                <input name="email" type="email" required placeholder="Email" className="w-full text-sm p-2 rounded border border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-zinc-500" />
+                                                <input name="phone" required placeholder="Phone" className="w-full text-sm p-2 rounded border border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-zinc-500" />
                                             </div>
                                             <input name="company" placeholder="Company" className="w-full text-sm p-2 rounded border border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-zinc-500" />
                                             <input name="goal" placeholder="What are you trying to accomplish?" className="w-full text-sm p-2 rounded border border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-zinc-500" />
+                                            <input name="timeline" placeholder="Timeline (e.g. ASAP, 2 weeks)" className="w-full text-sm p-2 rounded border border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-zinc-500" />
                                             <button type="submit" className="w-full bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 text-sm font-medium py-2 rounded hover:opacity-90 transition-opacity">
                                                 Submit
                                             </button>

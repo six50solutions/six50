@@ -85,20 +85,22 @@ Services Knowledge Blob:
       );
     });
 
+    const saveLeadParameters = z.object({
+      name: z.string(),
+      email: z.string(),
+      phone: z.string().optional(),
+      company: z.string().optional(),
+      goal: z.string().optional(),
+      timeline: z.string().optional(),
+    });
+
     const tools = {
       saveLead: tool({
         description: leadSaved
           ? 'LEAD ALREADY SAVED. DO NOT CALL THIS TOOL. The user information is secure. Just answer the user follow-up question with text.'
           : 'Save lead details. Call this when you have gathered sufficient information.',
-        parameters: z.object({
-          name: z.string(),
-          email: z.string(),
-          phone: z.string().optional(),
-          company: z.string().optional(),
-          goal: z.string().optional(),
-          timeline: z.string().optional(),
-        }),
-        execute: async (args) => {
+        parameters: saveLeadParameters,
+        execute: async (args: z.infer<typeof saveLeadParameters>) => {
           if (leadSaved) {
             return { success: true, message: "Lead is already saved. Do not save again. Just answer the user." };
           }
@@ -118,7 +120,7 @@ Services Knowledge Blob:
             return { success: true, message: "Lead saved locally (email failed). Proceed with confirmation." };
           }
         },
-      }),
+      } as any),
     };
 
     // If lead is already saved, just stream text (no tools needed)

@@ -40,7 +40,7 @@ export default function ChatWidget() {
     // Removed legacy hook-based logic; using local state only
 
     const manualSubmit = async (content: string) => {
-        // Optimistic update
+        // Optimistic update - fresh build trigger
         const userMsg = { id: Date.now().toString(), role: 'user', content };
         setLocalMessages(prev => [...prev, userMsg]);
         setLocalInput('');

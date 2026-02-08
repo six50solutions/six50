@@ -6,59 +6,61 @@ import Parser from "rss-parser";
 
 // Helper interface for blog posts
 interface BlogPost {
-  title: string;
-  excerpt: string;
-  category: string;
-  href: string;
-  isExternal?: boolean;
-  date?: string;
+    title: string;
+    excerpt: string;
+    category: string;
+    href: string;
+    isExternal?: boolean;
+    date?: string;
 }
 
 const localPosts: BlogPost[] = [
-  {
-    title: "2 Cents from six50: The $3,200/Month Mistake Hiding in Manual Invoicing",
-    excerpt: "Businesses lose $2,500–$4,000 per month not because customers won’t pay — but because invoices are sent late. Fixing this takes less than 7 days.",
-    category: "Operations & Finance",
-    href: "/blog/automating-invoicing-mistakes",
-  },
-  {
-    title: "2 Cents from six50: Why 70% of “AI Projects” Never Pay Off",
-    excerpt: "Most AI initiatives fail because they automate activity, not outcomes. Projects tied to a measurable metric are 3× more likely to deliver ROI within 90 days.",
-    category: "Strategy & AI",
-    href: "/blog/why-ai-projects-fail",
-  },
-  {
-    title: "2 Cents from six50: One Automation That Saves 12 Hours a Week",
-    excerpt: "Automating internal approvals (quotes, discounts, invoices, POs) saves 8–15 hours/week and reduces delays by 30–50% — with minimal tech changes.",
-    category: "Operations & Efficiency",
-    href: "/blog/automation-saves-12-hours",
-  },
-  {
-    title: "2 Cents from six50: The 3-Tool Rule That Keeps Automation from Failing",
-    excerpt: "Automation stacks with more than 3 core tools see adoption drop by 40%. Fewer tools = higher usage, lower failure rates.",
-    category: "Automation Strategy",
-    href: "/blog/3-tool-rule-automation",
-  },
-  {
-    title: "2 Cents from six50: Why Faster Automation Isn’t Always Better",
-    excerpt: "Automating a broken process can make things worse. Teams that stabilize workflows first see 2× faster ROI and fewer rework cycles.",
-    category: "Process Optimization",
-    href: "/blog/faster-automation-not-better",
-  },
+    {
+        title: "2 Cents from six50: The $3,200/Month Mistake Hiding in Manual Invoicing",
+        excerpt: "Businesses lose $2,500–$4,000 per month not because customers won’t pay — but because invoices are sent late. Fixing this takes less than 7 days.",
+        category: "Operations & Finance",
+        href: "/blog/automating-invoicing-mistakes",
+    },
+    {
+        title: "2 Cents from six50: Why 70% of “AI Projects” Never Pay Off",
+        excerpt: "Most AI initiatives fail because they automate activity, not outcomes. Projects tied to a measurable metric are 3× more likely to deliver ROI within 90 days.",
+        category: "Strategy & AI",
+        href: "/blog/why-ai-projects-fail",
+    },
+    {
+        title: "2 Cents from six50: One Automation That Saves 12 Hours a Week",
+        excerpt: "Automating internal approvals (quotes, discounts, invoices, POs) saves 8–15 hours/week and reduces delays by 30–50% — with minimal tech changes.",
+        category: "Operations & Efficiency",
+        href: "/blog/automation-saves-12-hours",
+    },
+    {
+        title: "2 Cents from six50: The 3-Tool Rule That Keeps Automation from Failing",
+        excerpt: "Automation stacks with more than 3 core tools see adoption drop by 40%. Fewer tools = higher usage, lower failure rates.",
+        category: "Automation Strategy",
+        href: "/blog/3-tool-rule-automation",
+    },
+    {
+        title: "2 Cents from six50: Why Faster Automation Isn’t Always Better",
+        excerpt: "Automating a broken process can make things worse. Teams that stabilize workflows first see 2× faster ROI and fewer rework cycles.",
+        category: "Process Optimization",
+        href: "/blog/faster-automation-not-better",
+    },
 ];
 
 async function getSubstackPosts(): Promise<BlogPost[]> {
     const parser = new Parser();
     try {
         const feed = await parser.parseURL("https://adilghazali.substack.com/feed");
-        return feed.items.map((item) => ({
-            title: item.title || "Untitled Post",
-            excerpt: item.contentSnippet?.slice(0, 160) + (item.contentSnippet && item.contentSnippet.length > 160 ? "..." : "") || "",
-            category: "Newsletter",
-            href: item.link || "#",
-            isExternal: true,
-            date: item.pubDate,
-        }));
+        return feed.items
+            .filter((item) => item.title !== "Coming soon")
+            .map((item) => ({
+                title: item.title || "Untitled Post",
+                excerpt: item.contentSnippet?.slice(0, 160) + (item.contentSnippet && item.contentSnippet.length > 160 ? "..." : "") || "",
+                category: "Newsletter",
+                href: item.link || "#",
+                isExternal: true,
+                date: item.pubDate,
+            }));
     } catch (error) {
         console.error("Error fetching Substack feed:", error);
         return [];

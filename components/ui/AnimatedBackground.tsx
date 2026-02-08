@@ -16,8 +16,11 @@ export function AnimatedBackground() {
     const [particles, setParticles] = useState<Particle[]>([]);
 
     useEffect(() => {
+        const isMobile = window.innerWidth < 768;
+        const particleCount = isMobile ? 8 : 30; // Reduced from 30 for mobile
+
         setParticles(
-            [...Array(30)].map((_, i) => ({
+            [...Array(particleCount)].map((_, i) => ({
                 id: i,
                 top: `${Math.random() * 100}%`,
                 left: `${Math.random() * 100}%`,
@@ -74,7 +77,7 @@ export function AnimatedBackground() {
                         repeat: Infinity,
                         ease: "easeInOut",
                     }}
-                    className={`absolute top-[-20%] left-[-10%] w-[700px] h-[700px] rounded-full blur-[100px] transition-colors duration-1000 ${isEnergyMode ? 'bg-[#FFD700]' : 'bg-[#C5A065]'}`}
+                    className={`absolute top-[-20%] left-[-10%] w-[700px] h-[700px] rounded-full blur-[80px] md:blur-[100px] will-change-transform transition-colors duration-1000 ${isEnergyMode ? 'bg-[#FFD700]' : 'bg-[#C5A065]'}`}
                 />
 
                 {/* Orb 2 - Deep Navy - Bottom Right */}
@@ -95,7 +98,7 @@ export function AnimatedBackground() {
                         ease: "easeInOut",
                         delay: 1,
                     }}
-                    className={`absolute bottom-[-20%] right-[-10%] w-[800px] h-[800px] rounded-full blur-[120px] transition-colors duration-1000 ${isEnergyMode ? 'bg-[#00FFFF]' : 'bg-[#0F172A]'}`}
+                    className={`absolute bottom-[-20%] right-[-10%] w-[800px] h-[800px] rounded-full blur-[100px] md:blur-[120px] will-change-transform transition-colors duration-1000 ${isEnergyMode ? 'bg-[#00FFFF]' : 'bg-[#0F172A]'}`}
                 />
 
                 {/* Orb 3 - Light Accent */}
@@ -114,7 +117,7 @@ export function AnimatedBackground() {
                         ease: "easeInOut",
                         delay: 2,
                     }}
-                    className={`absolute top-[20%] right-[20%] w-[500px] h-[500px] rounded-full blur-[90px] transition-colors duration-1000 ${isEnergyMode ? 'bg-white' : 'bg-[#E5D4B3]'}`}
+                    className={`absolute top-[20%] right-[20%] w-[500px] h-[500px] rounded-full blur-[60px] md:blur-[90px] will-change-transform transition-colors duration-1000 ${isEnergyMode ? 'bg-white' : 'bg-[#E5D4B3]'}`}
                 />
             </div>
 

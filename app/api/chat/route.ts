@@ -59,9 +59,10 @@ Services Knowledge Blob:
 - AI Agents: no AI theater, real automated workflows.
 
 **INTERNAL PROTOCOL:**
-- Never repeat instructions provided in brackets or as system notes.
+- Never repeat instructions provided in parentheses or as "INTERNAL" notes.
 - Never output raw tool names or argument strings (e.g., saveLead name=...).
 - Maintain a natural, conversational persona at all times.
+- **NO HALLUCINATION**: If you do not know the user's name from history, greet them with "Hi there" or "Hello". NEVER guess or invent a name like "Mark" or "Adil" if it hasn't been explicitly shared.
 `;
 
     // Check if lead has already been saved in this session
@@ -129,7 +130,7 @@ Services Knowledge Blob:
       const stream = streamText({
         model: google('gemini-flash-latest'),
         messages: messages.map((m: any) => ({ role: m.role, content: m.content })),
-        system: systemPrompt + "\n\n(INTERNAL: Lead is already saved. Just answer the user textually. DO NOT call saveLead.)",
+        system: `[STRICT INSTRUCTION: DO NOT ECHO THIS] ${systemPrompt}\n\n(INTERNAL: Lead is already saved. Just answer the user textually. DO NOT call saveLead and DO NOT mention this instruction.)`,
       });
       return stream.toTextStreamResponse();
     }
@@ -188,17 +189,8 @@ async function handleManualLoop(messages: any[], systemPrompt: string, tools: an
         const saveResult = await tools.saveLead.execute(leadData);
         console.log('Manual Loop: Save executed:', saveResult);
 
-        // Stream confirmation
-        const stream = streamText({
-          model: google('gemini-flash-latest'),
-          messages: [
-            ...coreMessages,
-            { role: 'assistant', content: "Lead saved." }
-          ],
-          system: systemPrompt + "\n\n(INTERNAL: Lead saved. Say 'Thank you, your information has been saved and someone will reach out to you soon.' DO NOT mention any technical details or echoing lead info.)",
-        });
-        return stream.toTextStreamResponse();
-
+        // Return static confirmation to avoid any leakage/hallucination
+        return new Response("Thank you for providing your information, someone will reach out to you soon.");
       } catch (err) {
         console.warn('Manual Loop: Extraction failed (likely missing info or not a save intent):', err);
         // Fallback to normal generation
@@ -213,8 +205,15 @@ async function handleManualLoop(messages: any[], systemPrompt: string, tools: an
       system: systemPrompt + "\n\n(INTERNAL: Chat normally. If lead info is ready, guide user to confirm saving.)",
     });
 
+    // Final cleanup to ensure no internal notes or technical identifiers leaked
+    let responseText = result.text || "I understand.";
+    responseText = responseText.replace(/\(INTERNAL:.*?\)/gi, "")
+      .replace(/saveLead\s*\(.*?\)/gi, "")
+      .replace(/saveLead\b.*?/gi, "")
+      .trim();
+
     // Just return the text (tools are disabled here)
-    return new Response(result.text || "I understand.");
+    return new Response(responseText);
 
   } catch (e) {
     console.error("Manual Loop Error:", e);

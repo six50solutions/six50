@@ -245,7 +245,7 @@ export default function Home() {
                     <CheckCircle2 className="w-4 h-4 mr-2 text-slate-400" /> 30-day roadmap
                   </div>
                 </div>
-                <Button className="w-full" variant="outline">Learn More</Button>
+                <Button className="w-full" variant="outline" href="/contact">Learn More</Button>
               </div>
             </FadeIn>
 
@@ -274,7 +274,7 @@ export default function Home() {
                     <CheckCircle2 className="w-4 h-4 mr-2 text-gold-500" /> Workflow automation
                   </div>
                 </div>
-                <Button className="w-full bg-gold-500 hover:bg-gold-600 text-white border-transparent">Get Started</Button>
+                <Button className="w-full bg-gold-500 hover:bg-gold-600 text-white border-transparent" href="/contact">Get Started</Button>
               </div>
             </FadeIn>
 
@@ -300,7 +300,7 @@ export default function Home() {
                     <CheckCircle2 className="w-4 h-4 mr-2 text-slate-400" /> Strategic advisory
                   </div>
                 </div>
-                <Button className="w-full" variant="outline">Contact Us</Button>
+                <Button className="w-full" variant="outline" href="/contact">Contact Us</Button>
               </div>
             </FadeIn>
           </div>

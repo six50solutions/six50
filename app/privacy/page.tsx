@@ -15,7 +15,7 @@ export default function PrivacyPolicyPage() {
                             <section>
                                 <h2 className="text-xl font-semibold text-slate-800 mb-4">1. Introduction</h2>
                                 <p>
-                                    At six50 Consulting ("we," "our," or "us"), we value your privacy and are committed to protecting your personal information. This Privacy Policy outlines how we collect, use, disclose, and safeguard your data when you visit our website or engage with our services.
+                                    At six50 solutions LLC ("we," "our," or "us"), we value your privacy and are committed to protecting your personal information. This Privacy Policy outlines how we collect, use, disclose, and safeguard your data when you visit our website or engage with our services.
                                 </p>
                             </section>
 
@@ -55,7 +55,7 @@ export default function PrivacyPolicyPage() {
                                     If you have questions or comments about this Privacy Policy, please contact us at:
                                 </p>
                                 <p className="mt-4">
-                                    six50 Consulting<br />
+                                    six50 solutions LLC<br />
                                     <Link href="/contact" className="text-gold-500 hover:underline">Contact Page</Link>
                                 </p>
                             </section>

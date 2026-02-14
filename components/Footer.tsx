@@ -39,7 +39,7 @@ export function Footer() {
                 </div>
 
                 <div className="mt-16 pt-8 border-t border-slate-200 text-center md:text-left text-slate-400 text-xs">
-                    &copy; {new Date().getFullYear()} six50 Consulting. All rights reserved.
+                    &copy; {new Date().getFullYear()} six50 solutions LLC. All rights reserved.
                 </div>
             </div>
         </footer>

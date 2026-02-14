@@ -227,7 +227,7 @@ export default function Home() {
             <FadeIn delay={0.1}>
               <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 hover:border-gold-500 transition-colors h-full flex flex-col">
                 <div className="mb-4 text-xs font-bold uppercase tracking-wider text-gold-600">Entry Offer</div>
-                <h3 className="text-2xl font-bold text-slate-800 mb-4">Digital Clarity Audit</h3>
+                <h3 className="text-2xl font-bold text-slate-800 mb-4">Digital Clarity Assessment</h3>
                 <p className="text-slate-600 mb-8 text-sm h-12">
                   A comprehensive review of your current tech stack, workflows, and AI opportunities.
                 </p>

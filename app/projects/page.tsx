@@ -27,9 +27,9 @@ const projects: Project[] = [
         status: "Live"
     },
     {
-        title: "Pulse AI CFO",
+        title: "Finclar",
         description: "An intelligent financial dashboard that acts as an automated CFO for SMBs. It visualizes financial health, tracks KPIs, and provides AI-driven insights for strategic decision-making.",
-        url: "https://pulseaicfo.com",
+        url: "https://finclar.dev",
         takeaways: [
             "Automated financial health monitoring and KPI tracking.",
             "AI-driven insights that translate numbers into strategy.",

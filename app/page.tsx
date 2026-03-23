@@ -19,7 +19,7 @@ export default function Home() {
 
           <FadeIn delay={0.2} duration={1}>
             <p className="text-lg md:text-xl text-slate-600 max-w-2xl leading-relaxed mb-10">
-              Six50 combines financial expertise and AI-driven automation to give your business the clarity, efficiency, and strategic edge that used to be reserved for companies ten times your size.
+              Six50 combines financial expertise and AI-driven automation to give founder-led and PE-backed businesses the clarity, efficiency, and strategic edge that used to be reserved for companies ten times your size.
             </p>
           </FadeIn>
 
@@ -47,7 +47,7 @@ export default function Home() {
               The <span className="text-gold-500">Problem</span> We Solve
             </h2>
             <p className="text-slate-600 text-lg leading-relaxed mb-8">
-              Most growing businesses are stuck in the same place. The finances are a mess or a mystery. The team is buried in manual work. And the tools that could help feel out of reach — too complex, too expensive, or too disconnected from how the business actually runs.
+              Most growing businesses are stuck in the same place. The finances are a mess or a mystery. The team is buried in manual work. And the tools that could help feel out of reach - too complex, too expensive, or too disconnected from how the business actually runs.
             </p>
             <p className="text-2xl font-semibold text-slate-800">
               We fix all three.
@@ -79,7 +79,7 @@ export default function Home() {
                 </div>
                 <h3 className="text-2xl font-bold text-slate-800 mb-4">Financial Leadership & Accounting</h3>
                 <p className="text-slate-600 mb-6 flex-grow">
-                  Clean books, real reporting, and CFO-level thinking — without the full-time hire. We bring Big Four rigor to businesses that need financial clarity and someone who can actually own the numbers.
+                  Clean books, real reporting, and CFO-level thinking - without the full-time hire. We bring Big Four rigor to businesses that need financial clarity and someone who can actually own the numbers.
                 </p>
                 <div className="space-y-3 mb-8">
                   <div className="flex items-center text-sm font-medium text-slate-700">
@@ -109,7 +109,7 @@ export default function Home() {
                 </div>
                 <h3 className="text-2xl font-bold text-slate-800 mb-4">AI & Automation Implementation</h3>
                 <p className="text-slate-600 mb-6 flex-grow">
-                  We design and build the systems that eliminate your manual work — custom dashboards, workflow automation, and AI-powered tools tailored to how your business actually operates.
+                  We design and build the systems that eliminate your manual work - custom dashboards, workflow automation, and AI-powered tools tailored to how your business actually operates.
                 </p>
                 <div className="space-y-3 mb-8">
                   <div className="flex items-center text-sm font-medium text-slate-700">
@@ -134,111 +134,22 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* Services Section */}
-      <Section className="py-24 bg-slate-50/50">
+      {/* Social Proof Stats Bar */}
+      <Section className="py-12 bg-slate-900 text-white">
         <div className="container mx-auto px-6 md:px-12">
           <FadeIn>
-            <div className="mb-16 max-w-3xl">
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-slate-800 mb-6">
-                From Idea to <span className="text-gold-500">Intelligent System</span>.
-              </h2>
-              <p className="text-slate-600 text-lg">
-                We design and build tailored digital solutions aligned to your business goals.
-              </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-slate-700">
+              <div className="py-4 md:py-0 px-4">
+                <p className="text-xl md:text-2xl font-bold">15+ years of Big Four experience</p>
+              </div>
+              <div className="py-4 md:py-0 px-4">
+                <p className="text-xl md:text-2xl font-bold">Serving $2M–$50M businesses</p>
+              </div>
+              <div className="py-4 md:py-0 px-4">
+                <p className="text-xl md:text-2xl font-bold">Fractional CFO + AI - under one roof</p>
+              </div>
             </div>
           </FadeIn>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Service 1 */}
-            <FadeIn delay={0.1}>
-              <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow h-full flex flex-col">
-                <div className="h-12 w-12 bg-blue-50 rounded-xl flex items-center justify-center mb-6 text-blue-600">
-                  <LayoutTemplate className="w-6 h-6" />
-                </div>
-                <h3 className="text-xl font-bold text-slate-800 mb-4">Digital Product Strategy & Development</h3>
-                <p className="text-slate-600 mb-6 flex-grow">
-                  Turn ideas into working digital assets. We design and build tailored digital solutions aligned to your business goals.
-                </p>
-                <ul className="space-y-2 mb-6 text-sm text-slate-500">
-                  <li className="flex items-start"><CheckCircle2 className="w-4 h-4 mr-2 mt-0.5 text-gold-500 shrink-0" /> Web design & development</li>
-                  <li className="flex items-start"><CheckCircle2 className="w-4 h-4 mr-2 mt-0.5 text-gold-500 shrink-0" /> App prototypes & mockups</li>
-                  <li className="flex items-start"><CheckCircle2 className="w-4 h-4 mr-2 mt-0.5 text-gold-500 shrink-0" /> Client portals & dashboards</li>
-                </ul>
-              </div>
-            </FadeIn>
-
-            {/* Service 2 */}
-            <FadeIn delay={0.2}>
-              <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow h-full flex flex-col">
-                <div className="h-12 w-12 bg-indigo-50 rounded-xl flex items-center justify-center mb-6 text-indigo-600">
-                  <Workflow className="w-6 h-6" />
-                </div>
-                <h3 className="text-xl font-bold text-slate-800 mb-4">Workflow Automation & Process Engineering</h3>
-                <p className="text-slate-600 mb-6 flex-grow">
-                  Eliminate manual work. Reduce friction. Increase control. We analyze your current processes and redesign them using automation.
-                </p>
-                <ul className="space-y-2 mb-6 text-sm text-slate-500">
-                  <li className="flex items-start"><CheckCircle2 className="w-4 h-4 mr-2 mt-0.5 text-gold-500 shrink-0" /> Workflow mapping</li>
-                  <li className="flex items-start"><CheckCircle2 className="w-4 h-4 mr-2 mt-0.5 text-gold-500 shrink-0" /> CRM implementation</li>
-                  <li className="flex items-start"><CheckCircle2 className="w-4 h-4 mr-2 mt-0.5 text-gold-500 shrink-0" /> Automated lead intake</li>
-                </ul>
-              </div>
-            </FadeIn>
-
-            {/* Service 3 */}
-            <FadeIn delay={0.3}>
-              <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow h-full flex flex-col">
-                <div className="h-12 w-12 bg-purple-50 rounded-xl flex items-center justify-center mb-6 text-purple-600">
-                  <Bot className="w-6 h-6" />
-                </div>
-                <h3 className="text-xl font-bold text-slate-800 mb-4">AI Strategy & Use Case Implementation</h3>
-                <p className="text-slate-600 mb-6 flex-grow">
-                  Move beyond hype. We help businesses identify and deploy AI where it actually adds value.
-                </p>
-                <ul className="space-y-2 mb-6 text-sm text-slate-500">
-                  <li className="flex items-start"><CheckCircle2 className="w-4 h-4 mr-2 mt-0.5 text-gold-500 shrink-0" /> AI-powered reporting</li>
-                  <li className="flex items-start"><CheckCircle2 className="w-4 h-4 mr-2 mt-0.5 text-gold-500 shrink-0" /> Chatbots & call agents</li>
-                  <li className="flex items-start"><CheckCircle2 className="w-4 h-4 mr-2 mt-0.5 text-gold-500 shrink-0" /> Document summarization</li>
-                </ul>
-              </div>
-            </FadeIn>
-
-            {/* Service 4 */}
-            <FadeIn delay={0.4}>
-              <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow h-full flex flex-col">
-                <div className="h-12 w-12 bg-emerald-50 rounded-xl flex items-center justify-center mb-6 text-emerald-600">
-                  <Users className="w-6 h-6" />
-                </div>
-                <h3 className="text-xl font-bold text-slate-800 mb-4">Digital Tool Adoption & Team Enablement</h3>
-                <p className="text-slate-600 mb-6 flex-grow">
-                  Technology only works if people use it. We don’t just build systems — we ensure adoption.
-                </p>
-                <ul className="space-y-2 mb-6 text-sm text-slate-500">
-                  <li className="flex items-start"><CheckCircle2 className="w-4 h-4 mr-2 mt-0.5 text-gold-500 shrink-0" /> Tool selection</li>
-                  <li className="flex items-start"><CheckCircle2 className="w-4 h-4 mr-2 mt-0.5 text-gold-500 shrink-0" /> Training workshops</li>
-                  <li className="flex items-start"><CheckCircle2 className="w-4 h-4 mr-2 mt-0.5 text-gold-500 shrink-0" /> SOP documentation</li>
-                </ul>
-              </div>
-            </FadeIn>
-
-            {/* Service 5 */}
-            <FadeIn delay={0.5}>
-              <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow h-full flex flex-col">
-                <div className="h-12 w-12 bg-amber-50 rounded-xl flex items-center justify-center mb-6 text-amber-600">
-                  <LineChart className="w-6 h-6" />
-                </div>
-                <h3 className="text-xl font-bold text-slate-800 mb-4">Strategic Advisory</h3>
-                <p className="text-slate-600 mb-6 flex-grow">
-                  Leveraging deep risk and transformation background for high-level positioning and governance.
-                </p>
-                <ul className="space-y-2 mb-6 text-sm text-slate-500">
-                  <li className="flex items-start"><CheckCircle2 className="w-4 h-4 mr-2 mt-0.5 text-gold-500 shrink-0" /> Digital roadmaps</li>
-                  <li className="flex items-start"><CheckCircle2 className="w-4 h-4 mr-2 mt-0.5 text-gold-500 shrink-0" /> Data governance</li>
-                  <li className="flex items-start"><CheckCircle2 className="w-4 h-4 mr-2 mt-0.5 text-gold-500 shrink-0" /> Risk & control frameworks</li>
-                </ul>
-              </div>
-            </FadeIn>
-          </div>
         </div>
       </Section>
 
@@ -256,7 +167,7 @@ export default function Home() {
                   Most businesses hire a bookkeeper and a separate tech consultant and end up with two people who don't talk to each other.
                 </p>
                 <p className="text-slate-300 text-lg leading-relaxed mb-8">
-                  We sit at the <span className="text-white font-semibold">intersection of finance and technology</span> — which means when we automate your reporting or build your dashboard, we understand what the numbers mean and what decisions they need to drive. That's a different kind of result.
+                  We sit at the <span className="text-white font-semibold">intersection of finance and technology</span> - which means when we automate your reporting or build your dashboard, we understand what the numbers mean and what decisions they need to drive. That's a different kind of result.
                 </p>
                 <div className="space-y-6">
                   <div className="flex gap-4">
@@ -280,10 +191,10 @@ export default function Home() {
                 <div className="relative bg-slate-800 p-8 rounded-2xl border border-slate-700">
                   <h3 className="text-xl font-bold text-white mb-6">Who We Work With</h3>
                   <p className="text-slate-400 mb-6 text-sm leading-relaxed">
-                    We work with a small number of clients at a time — typically founder-led or private equity-backed businesses between $2M and $50M in revenue that are serious about getting their operations and finances under control.
+                    We work with a small number of clients at a time - typically founder-led or private equity-backed businesses between $2M and $50M in revenue that are serious about getting their operations and finances under control.
                   </p>
                   <p className="text-slate-400 text-sm leading-relaxed mb-6">
-                    If you're at an inflection point — growing fast, preparing for a transaction, or just tired of not having visibility into your own business — we should talk.
+                    If you're at an inflection point - growing fast, preparing for a transaction, or just tired of not having visibility into your own business - we should talk.
                   </p>
                   <ul className="space-y-4">
                     {[
@@ -408,10 +319,10 @@ export default function Home() {
       <div className="py-24 border-t border-slate-200 bg-white">
         <div className="container mx-auto px-6 md:px-12 text-center">
           <FadeIn>
-            <h2 className="text-3xl font-bold text-slate-800 mb-6">Ready to get some clarity?</h2>
+            <h2 className="text-3xl font-bold text-slate-800 mb-6">Ready to see what's actually possible?</h2>
             <p className="text-slate-500 mb-8 max-w-lg mx-auto">
-              Whether you need better financials, smarter systems, or both — it starts with a conversation. <br /><br />
-              No pitch. No pressure. Just a straight conversation about where you are and what you need.
+              In 30 minutes, we'll tell you exactly where your biggest financial and operational gaps are and what it would take to fix them. <br /><br />
+              No pitch. No fluff. Just clarity.
             </p>
             <Link href="/contact">
               <Button size="lg" className="bg-gold-500 hover:bg-gold-600 text-white border-transparent">

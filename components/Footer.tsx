@@ -16,7 +16,7 @@ export function Footer() {
                             six50
                         </Link>
                         <p className="text-slate-500 max-w-xs leading-relaxed">
-                            Elevating enterprise strategy through data-driven insights and rigorous methodology. The new standard for modern consulting.
+                            Built for founder-led and PE-backed businesses ready to run like a real company.
                         </p>
                     </div>
 

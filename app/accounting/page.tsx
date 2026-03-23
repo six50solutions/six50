@@ -1,7 +1,7 @@
 import { FadeIn } from "@/components/ui/FadeIn";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
-import { ArrowRight, Calculator, PieChart, BarChart3, FileCheck, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Calculator, PieChart, BarChart3, FileCheck, CheckCircle2, LineChart } from "lucide-react";
 import Link from "next/link";
 
 export default function AccountingServicesPage() {
@@ -58,7 +58,7 @@ export default function AccountingServicesPage() {
                         </div>
                     </FadeIn>
 
-                    <div className="grid md:grid-cols-2 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {/* Service 1 */}
                         <FadeIn delay={0.1}>
                             <div className="bg-slate-800 p-8 rounded-2xl border border-slate-700 h-full flex flex-col">
@@ -109,6 +109,19 @@ export default function AccountingServicesPage() {
                                 <h3 className="text-2xl font-bold text-white mb-4">Financial Readiness & Transaction Support</h3>
                                 <p className="text-slate-300 leading-relaxed">
                                     Preparing for a fundraise, acquisition, or bank financing? We get your financials in shape, documentation organized, and your story told clearly. Having a former Big Four professional in your corner during a transaction or due diligence process is the kind of advantage most small businesses don't think to get until it's too late.
+                                </p>
+                            </div>
+                        </FadeIn>
+
+                        {/* Service 5 */}
+                        <FadeIn delay={0.5}>
+                            <div className="bg-slate-800 p-8 rounded-2xl border border-slate-700 h-full flex flex-col">
+                                <div className="w-12 h-12 bg-slate-700 rounded-lg flex items-center justify-center mb-6 text-gold-500">
+                                    <LineChart className="w-6 h-6" />
+                                </div>
+                                <h3 className="text-2xl font-bold text-white mb-4">Strategic Financial Guidance</h3>
+                                <p className="text-slate-300 leading-relaxed">
+                                    You've built something worth protecting. We provide the financial foresight to help you make major decisions with confidence. Whether you need to optimize costs, prepare for a sale, or just navigate complex growing pains, we're with you.
                                 </p>
                             </div>
                         </FadeIn>

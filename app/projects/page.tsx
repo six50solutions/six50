@@ -59,10 +59,10 @@ export default function ProjectsPage() {
                 <FadeIn>
                     <div className="max-w-6xl mx-auto">
                         <h1 className="text-4xl md:text-5xl font-bold text-slate-800 mb-6">
-                            Ventures
+                            Products
                         </h1>
-                        <p className="text-xl text-slate-600 mb-16 max-w-2xl">
-                            Building the future of practical AI. A collection of active projects and experiments pushing the boundaries of what's possible.
+                        <p className="text-xl text-slate-600 mb-16 w-full">
+                            Currently active software solutions created by Six50. We build and continually refine these intelligent, practical systems to solve real-world operational challenges.
                         </p>
 
                         <div className="grid gap-12">

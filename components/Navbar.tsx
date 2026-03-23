@@ -34,8 +34,8 @@ export function Navbar() {
             name: "Services", 
             href: "#",
             subLinks: [
-                { name: "AI & Automation Implementation", href: "/services" },
-                { name: "Financial Leadership and Accounting", href: "/accounting" }
+                { name: "AI and Automation", href: "/services" },
+                { name: "Finance and Accounting", href: "/accounting" }
             ]
         },
         { name: "Products", href: "/projects" },

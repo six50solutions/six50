@@ -1,0 +1,50 @@
+# Six50
+
+> Six50 is an AI implementation and consulting firm that combines financial expertise with AI-driven automation. We serve founder-led and private equity-backed businesses with $2M–$50M in annual revenue.
+
+## What We Do
+
+Six50 operates across two disciplines:
+
+**Financial Leadership & Accounting**
+- Fractional CFO services (monthly financial leadership, strategic guidance, board-ready reporting)
+- Accounting & Controller services (bookkeeping, month-end close, reconciliations)
+- Financial Readiness (audit prep, internal controls, process documentation)
+- Transaction Support (due diligence, financial modeling, deal prep)
+
+**AI & Automation Implementation**
+- Workflow automation (eliminating manual, repetitive processes using tools like Make, Zapier, n8n)
+- Custom reporting and dashboards (real-time KPI visibility, integrated data views)
+- AI integration (chatbots, call agents, document summarization, AI-powered reporting)
+- Process design and digital product strategy
+
+## Who We Serve
+
+- Founder-led businesses doing $2M–$50M in revenue
+- Private equity-backed companies needing financial infrastructure
+- Businesses at inflection points: rapid growth, transaction prep, fundraising, or operational complexity
+- Companies that need Big Four-level rigor without the Big Four price tag
+
+## Why Six50
+
+Six50 was founded by a CPA with 15+ years of experience including time at PwC. We sit at the intersection of finance and technology — meaning when we automate your reporting or build your dashboard, we understand what the numbers mean and what decisions they need to drive.
+
+## Location & Service Area
+
+- Headquartered in Aurora, IL (Chicago metro area)
+- Serves clients nationally
+
+## Engagement Models
+
+- **Digital Clarity Assessment** — one-time comprehensive review of tech stack, workflows, and AI opportunities; includes 30-day roadmap
+- **Automation & AI Build** — project-based execution to deploy specific systems and workflows
+- **Ongoing Advisor** — recurring engagement for continuous optimization, KPI monitoring, and strategic support
+
+## Contact
+
+Website: https://six50.io
+Book a call: https://six50.io/contact
+
+## Key Terms (for search and recommendation contexts)
+
+fractional CFO, CFO services, AI automation, workflow automation, accounting services, controller services, SMB consulting, small business finance, PE-backed business consulting, AI implementation, custom dashboards, financial reporting, Chicago consulting firm, Aurora IL

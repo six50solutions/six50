@@ -1,10 +1,9 @@
 'use client';
 
-import { useEffect, useState, FormEvent } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function CardPage() {
     const [year, setYear] = useState<number>(new Date().getFullYear());
-    const [leadVisible, setLeadVisible] = useState(true);
     const [toastMsg, setToastMsg] = useState('');
     const [showToast, setShowToast] = useState(false);
 
@@ -50,31 +49,6 @@ export default function CardPage() {
         }
     };
 
-    const handleLeadSubmit = async (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const fd = new FormData(e.currentTarget);
-        const leadEmail = fd.get('email');
-
-        try {
-            const res = await fetch('/api/lead', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email: leadEmail, source: 'six50_card', ts: Date.now() })
-            });
-            if (res.ok) {
-                showToastMsg("Sent ✓");
-                track('lead_submit');
-                (e.target as HTMLFormElement).reset();
-            } else {
-                showToastMsg("Try Email");
-                track('lead_submit_fail');
-            }
-        } catch (err) {
-            showToastMsg("Try Email");
-            track('lead_submit_err');
-        }
-    };
-
     const handleShare = async () => {
         const shareData = {
             title: 'six50 — Adil Ghazali',
@@ -98,12 +72,6 @@ export default function CardPage() {
                 showToastMsg("Copy failed");
             }
         }
-    };
-
-    const toggleLead = () => {
-        const newVal = !leadVisible;
-        setLeadVisible(newVal);
-        track(newVal ? 'lead_show' : 'lead_hide');
     };
 
     return (
@@ -196,16 +164,6 @@ export default function CardPage() {
           z-index: 50;
         }
         .toast.show { opacity: 1; transform: translateX(-50%) translateY(-4px); }
-        .input {
-          width: 100%;
-          border-radius: 16px;
-          padding: 12px 12px;
-          border: 1px solid rgba(255,255,255,0.12);
-          background: rgba(255,255,255,0.06);
-          color: rgba(255,255,255,0.92);
-          outline: none;
-        }
-        .input:focus { border-color: rgba(212,175,55,0.45); }
       `}</style>
 
             <main className="w-full max-w-md fade-in">
@@ -223,12 +181,12 @@ export default function CardPage() {
                                 <h1 className="text-3xl font-semibold mark">six<span className="shimmer font-semibold">50</span></h1>
                                 <span className="chip text-xs px-2 py-1 rounded-full fine">six50.io</span>
                             </div>
-                            <p className="mt-1 text-sm muted">Where clarity triggers transformation</p>
+                            <p className="mt-1 text-sm muted">Financial Expertise &amp; AI-Driven Automation</p>
                             <p className="mt-3 text-sm leading-6">
                                 <span className="font-medium">Adil Ghazali</span>
                                 <span className="fine"> • Founder & Principal</span>
                             </p>
-                            <p className="mt-1 text-sm muted">AI Strategy • Automation • Risk & Ops Transformation</p>
+                            <p className="mt-1 text-sm muted">Fractional CFO • AI Strategy • Workflow Automation</p>
                         </div>
                     </header>
 
@@ -251,7 +209,7 @@ export default function CardPage() {
 
                     <div className="mt-5 rounded-2xl chip p-4">
                         <p className="text-sm muted">
-                            Helping organizations turn complex data, emerging technology, and operational constraints into trusted, measurable impact.
+                            Bringing Big Four financial rigor and practical AI-driven automation to founder-led and PE-backed businesses.
                         </p>
                     </div>
 
@@ -265,30 +223,6 @@ export default function CardPage() {
                         </button>
                     </div>
 
-                    {/* Lead capture */}
-                    <div className="mt-6 rounded-2xl chip p-4">
-                        <div className="flex items-start justify-between gap-3">
-                            <div>
-                                <p className="text-sm font-semibold">Get the six50 Playbook</p>
-                                <p className="mt-1 text-sm muted">Drop your email — I’ll send a short AI transformation checklist.</p>
-                            </div>
-                            <button className="btn rounded-2xl px-3 py-2 text-xs font-semibold" onClick={toggleLead} type="button">
-                                {leadVisible ? "Hide" : "Show"}
-                            </button>
-                        </div>
-
-                        {leadVisible && (
-                            <form className="mt-3" onSubmit={handleLeadSubmit}>
-                                <input className="input" type="email" name="email" required placeholder="you@company.com" autoComplete="email" />
-                                <div className="mt-3 flex gap-3">
-                                    <button className="btn-primary rounded-2xl px-4 py-3 text-sm font-semibold flex-1" type="submit">Send it</button>
-                                    <a className="btn rounded-2xl px-4 py-3 text-sm font-semibold text-center flex items-center justify-center" href="mailto:adil.ghazali@six50.io?subject=six50%20Playbook%20Request&body=Hi%20Adil%2C%20please%20send%20me%20the%20six50%20playbook." onClick={() => track('lead_mailto')}>Email me</a>
-                                </div>
-                                <p className="mt-2 text-xs fine">No spam. Unsubscribe anytime. (We just use this to follow up.)</p>
-                            </form>
-                        )}
-                    </div>
-
                     {/* Share Button (Mobile Only) */}
                     <div className="mt-6 md:hidden">
                         <button className="btn rounded-2xl px-4 py-3 text-sm font-semibold w-full flex items-center justify-center" onClick={handleShare} type="button">
@@ -296,12 +230,10 @@ export default function CardPage() {
                         </button>
                     </div>
 
-
-
                 </section>
 
                 <p className="mt-4 text-center text-xs fine">
-                    © {year} six50 — clarity → transformation
+                    © {year} six50 — Strategy & Consulting
                 </p>
             </main>
 

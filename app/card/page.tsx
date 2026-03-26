@@ -1,6 +1,5 @@
-'use client';
-
 import { useEffect, useState } from 'react';
+import { AnimatedLogo } from '@/components/ui/AnimatedLogo';
 
 export default function CardPage() {
     const [year, setYear] = useState<number>(new Date().getFullYear());
@@ -102,19 +101,6 @@ export default function CardPage() {
           border: 1px solid rgba(212,175,55,0.35);
         }
         .mark { letter-spacing: -0.03em; }
-        .shimmer {
-          background-size: 220% 220%;
-          background-image: linear-gradient(90deg, #0B1F33, #D4AF37, #2D70FF, #D4AF37, #0B1F33);
-          -webkit-background-clip: text;
-          background-clip: text;
-          color: transparent;
-          animation: shimmer 4.8s ease-in-out infinite;
-        }
-        @keyframes shimmer {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
         .btn {
           border: 1px solid rgba(255,255,255,0.12);
           background: rgba(255,255,255,0.06);
@@ -169,17 +155,49 @@ export default function CardPage() {
             <main className="w-full max-w-md fade-in">
                 <section className="glass rounded-3xl p-6 sm:p-7">
                     <header className="flex items-start gap-4">
-                        <div className="gold-ring rounded-2xl p-3 shrink-0">
-                            <svg width="34" height="34" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <rect x="6" y="6" width="52" height="52" rx="16" fill="#0B1F33" />
-                                <path d="M20 39c1.9 6 7 9.6 13.4 9.6 9 0 14.6-5.2 14.6-12.6 0-8.4-6.3-12.6-14.5-12.6-3.7 0-6.9 1-9 2.9l2-10.8h18.6v-5.8H26.2L22 31.2l5.8 1c2.1-2.7 4.4-4.3 8.1-4.3 4.7 0 8.1 3 8.1 8.1 0 5-3.3 8.1-8.1 8.1-3.6 0-6.6-1.6-7.8-5.1H20z" fill="#D4AF37" />
+                        <div className="gold-ring rounded-2xl p-2 shrink-0 bg-[#0B132B]">
+                            <svg width="44" height="44" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+                              <defs>
+                                <linearGradient id="goldGradientCard" x1="0%" y1="0%" x2="100%" y2="100%">
+                                  <stop offset="0%" stopColor="#FCD34D" />
+                                  <stop offset="50%" stopColor="#D4AF37" />
+                                  <stop offset="100%" stopColor="#B45309" />
+                                </linearGradient>
+                                <linearGradient id="handGradientCard" x1="0%" y1="0%" x2="100%" y2="100%">
+                                  <stop offset="0%" stopColor="#FEF08A" />
+                                  <stop offset="50%" stopColor="#FBBF24" />
+                                  <stop offset="100%" stopColor="#D97706" />
+                                </linearGradient>
+                              </defs>
+                              <circle cx="128" cy="128" r="96" fill="none" stroke="url(#goldGradientCard)" strokeWidth="12" />
+                              <g fill="url(#goldGradientCard)">
+                                <rect x="126" y="38" width="4" height="12" rx="2" transform="rotate(30 128 128)" />
+                                <rect x="126" y="38" width="4" height="12" rx="2" transform="rotate(60 128 128)" />
+                                <rect x="126" y="38" width="4" height="12" rx="2" transform="rotate(120 128 128)" />
+                                <rect x="126" y="38" width="4" height="12" rx="2" transform="rotate(150 128 128)" />
+                                <rect x="126" y="38" width="4" height="12" rx="2" transform="rotate(210 128 128)" />
+                                <rect x="126" y="38" width="4" height="12" rx="2" transform="rotate(240 128 128)" />
+                                <rect x="126" y="38" width="4" height="12" rx="2" transform="rotate(300 128 128)" />
+                                <rect x="126" y="38" width="4" height="12" rx="2" transform="rotate(330 128 128)" />
+                                <rect x="123" y="36" width="10" height="24" rx="3" transform="rotate(0 128 128)" />
+                                <rect x="123" y="36" width="10" height="24" rx="3" transform="rotate(90 128 128)" />
+                                <rect x="123" y="36" width="10" height="24" rx="3" transform="rotate(180 128 128)" />
+                                <rect x="123" y="36" width="10" height="24" rx="3" transform="rotate(270 128 128)" />
+                              </g>
+                              <g>
+                                <rect x="120" y="52" width="16" height="76" rx="8" fill="url(#handGradientCard)" transform="rotate(300 128 128)" />
+                                <rect x="119" y="76" width="18" height="52" rx="9" fill="url(#handGradientCard)" transform="rotate(205 128 128)" />
+                                <circle cx="128" cy="128" r="12" fill="#0B1F33" stroke="url(#handGradientCard)" strokeWidth="8" />
+                              </g>
                             </svg>
                         </div>
 
                         <div className="flex-1">
-                            <div className="flex items-baseline gap-2">
-                                <h1 className="text-3xl font-semibold mark">six<span className="shimmer font-semibold">50</span></h1>
-                                <span className="chip text-xs px-2 py-1 rounded-full fine">six50.io</span>
+                            <div className="flex items-center gap-3 mt-1 mb-2">
+                                <div className="scale-90 origin-left">
+                                  <AnimatedLogo />
+                                </div>
+                                <span className="chip text-[10px] px-2 py-0.5 rounded-full fine mt-0.5">six50.io</span>
                             </div>
                             <p className="mt-1 text-sm muted">Financial Expertise &amp; AI-Driven Automation</p>
                             <p className="mt-3 text-sm leading-6">

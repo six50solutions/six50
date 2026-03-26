@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { AnimatedLogo } from '@/components/ui/AnimatedLogo';
 
 export default function CardPage() {
     const [year, setYear] = useState<number>(new Date().getFullYear());
@@ -195,11 +194,11 @@ export default function CardPage() {
                         </div>
 
                         <div className="flex-1">
-                            <div className="flex items-center gap-3 mt-1 mb-2">
-                                <div className="scale-90 origin-left">
-                                  <AnimatedLogo />
-                                </div>
-                                <span className="chip text-[10px] px-2 py-0.5 rounded-full fine mt-0.5">six50.io</span>
+                            <div className="flex items-center gap-2 mb-2">
+                                <h1 className="text-[32px] font-semibold tracking-[-0.03em]">
+                                    six<span className="text-[#D4AF37]">50</span>
+                                </h1>
+                                <span className="chip text-[10px] px-2 py-0.5 rounded-full fine mt-1">six50.io</span>
                             </div>
                             <p className="mt-1 text-sm muted">Financial Expertise &amp; AI-Driven Automation</p>
                             <p className="mt-3 text-sm leading-6">

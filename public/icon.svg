@@ -1,0 +1,63 @@
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Background gold gradient for outer ring and inner dial marks -->
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FCD34D" />
+      <stop offset="50%" stop-color="#D4AF37" />
+      <stop offset="100%" stop-color="#B45309" />
+    </linearGradient>
+
+    <!-- Bright, luminous 3D gold gradient for the clock hands -->
+    <linearGradient id="handGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FEF08A" />
+      <stop offset="50%" stop-color="#FBBF24" />
+      <stop offset="100%" stop-color="#D97706" />
+    </linearGradient>
+  </defs>
+
+  <!-- Dark navy squircle background -->
+  <rect width="256" height="256" rx="64" fill="#0B132B" />
+
+  <!-- Outer gold ring -->
+  <circle cx="128" cy="128" r="96" fill="none" stroke="url(#goldGradient)" stroke-width="12" />
+  
+  <!-- Dial Ticks Group -->
+  <g fill="url(#goldGradient)">
+    <!-- Minor ticks -->
+    <rect x="126" y="38" width="4" height="12" rx="2" transform="rotate(30 128 128)" />
+    <rect x="126" y="38" width="4" height="12" rx="2" transform="rotate(60 128 128)" />
+    <rect x="126" y="38" width="4" height="12" rx="2" transform="rotate(120 128 128)" />
+    <rect x="126" y="38" width="4" height="12" rx="2" transform="rotate(150 128 128)" />
+    <rect x="126" y="38" width="4" height="12" rx="2" transform="rotate(210 128 128)" />
+    <rect x="126" y="38" width="4" height="12" rx="2" transform="rotate(240 128 128)" />
+    <rect x="126" y="38" width="4" height="12" rx="2" transform="rotate(300 128 128)" />
+    <rect x="126" y="38" width="4" height="12" rx="2" transform="rotate(330 128 128)" />
+
+    <!-- Major ticks -->
+    <rect x="123" y="36" width="10" height="24" rx="3" transform="rotate(0 128 128)" />
+    <rect x="123" y="36" width="10" height="24" rx="3" transform="rotate(90 128 128)" />
+    <rect x="123" y="36" width="10" height="24" rx="3" transform="rotate(180 128 128)" />
+    <rect x="123" y="36" width="10" height="24" rx="3" transform="rotate(270 128 128)" />
+  </g>
+
+  <!-- Clock Hands exactly mirroring the original 6:50 image baton hands -->
+  <g>
+    <!-- Background diffuse glow -->
+    <rect x="117" y="52" width="22" height="76" rx="11" fill="#FEF08A" opacity="0.15" transform="rotate(300 128 128)" />
+    <rect x="116" y="76" width="24" height="52" rx="12" fill="#FEF08A" opacity="0.15" transform="rotate(205 128 128)" />
+    
+    <rect x="118" y="52" width="20" height="76" rx="10" fill="#FDE047" opacity="0.25" transform="rotate(300 128 128)" />
+    <rect x="117" y="76" width="22" height="52" rx="11" fill="#FDE047" opacity="0.25" transform="rotate(205 128 128)" />
+
+    <!-- Minute hand (300 deg - pointing at 10) -->
+    <!-- Modeled as a solid, thick, rounded rectangle (baton hand shape) -->
+    <rect x="120" y="52" width="16" height="76" rx="8" fill="url(#handGradient)" transform="rotate(300 128 128)" />
+
+    <!-- Hour hand (205 deg - between 6 and 7) -->
+    <!-- Thicker and shorter than the minute hand -->
+    <rect x="119" y="76" width="18" height="52" rx="9" fill="url(#handGradient)" transform="rotate(205 128 128)" />
+
+    <!-- Perfect center pin with dark center and bright gold rim -->
+    <circle cx="128" cy="128" r="12" fill="#0B132B" stroke="url(#handGradient)" stroke-width="8" />
+  </g>
+</svg>

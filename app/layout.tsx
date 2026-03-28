@@ -21,6 +21,11 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   title: "six50 | Strategy & Consulting",
   description: "Advanced strategic consulting for the modern enterprise.",
+  icons: {
+    icon: '/icon.svg?v=650',
+    shortcut: '/icon.svg?v=650',
+    apple: '/icon.svg?v=650',
+  }
 };
 
 export default function RootLayout({

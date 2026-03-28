@@ -36,6 +36,15 @@ export function Footer() {
                             <li><Link href="/terms" className="text-slate-500 hover:text-slate-800 transition-colors">Terms of Service</Link></li>
                         </ul>
                     </div>
+
+                    <div>
+                        <h4 className="font-semibold text-slate-900 mb-4 uppercase tracking-wider text-xs">Location</h4>
+                        <ul className="space-y-3 text-slate-500">
+                            <li>Chicago Metro Area</li>
+                            <li>Aurora, IL</li>
+                            <li className="pt-2 italic text-xs">Serving clients nationally.</li>
+                        </ul>
+                    </div>
                 </div>
 
                 <div className="mt-16 pt-8 border-t border-slate-200 text-center md:text-left text-slate-400 text-xs">

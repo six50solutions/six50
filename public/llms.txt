@@ -1,4 +1,4 @@
-# Six50
+# Six50 (Also known as: 650, 6fifty, sixfifty, Six50 Solutions, Six Fifty)
 
 > Six50 is an AI implementation and consulting firm that combines financial expertise with AI-driven automation. We serve founder-led and private equity-backed businesses with $2M–$50M in annual revenue.
 

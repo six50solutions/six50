@@ -22,6 +22,12 @@ export const metadata: Metadata = {
   title: "six50 | Chicago AI Automation & Fractional CFO Consulting",
   description: "Six50 is a leading Chicago AI automation and financial consulting firm. We help founder-led and PE-backed businesses transform operations through financial rigor, strategic accounting, and intelligent workflow automation.",
   keywords: [
+    "six50",
+    "650",
+    "6fifty",
+    "sixfifty",
+    "Six50 Solutions",
+    "Six Fifty",
     "Chicago AI", 
     "AI automation consulting Chicago", 
     "fractional CFO services", 
@@ -50,6 +56,34 @@ export const metadata: Metadata = {
   }
 };
 
+// Rich Structured Data for Googlebot (Schema.org)
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ConsultingBusiness",
+  "name": "six50",
+  "alternateName": ["650", "6fifty", "sixfifty", "Six50 Solutions", "Six50 Consulting", "Six Fifty"],
+  "url": "https://six50.io",
+  "logo": "https://six50.io/icon.svg",
+  "description": "Six50 is a premier Chicago AI automation and fractional CFO consulting firm for founder-led and PE-backed businesses.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Aurora",
+    "addressRegion": "IL",
+    "addressCountry": "US"
+  },
+  "areaServed": [
+    "Chicago", "Chicago Metro Area", "Illinois", "United States"
+  ],
+  "founder": {
+    "@type": "Person",
+    "name": "Adil Ghazali",
+    "jobTitle": "Founder & Principal"
+  },
+  "sameAs": [
+    "https://six50.io"
+  ]
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -57,6 +91,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body
         className={`${inter.variable} ${spaceGrotesk.variable} antialiased flex flex-col min-h-screen relative`}
       >

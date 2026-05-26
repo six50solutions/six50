@@ -1,50 +1,60 @@
-# Six50 (Also known as: 650, 6fifty, sixfifty, Six50 Solutions, Six Fifty)
+# six50 solutions LLC
 
-> Six50 is an AI implementation and consulting firm that combines financial expertise with AI-driven automation. We serve founder-led and private equity-backed businesses with $2M–$50M in annual revenue.
+> AI strategy & operations advisory combining Big Four financial rigor with practical AI-driven automation. Founded by Adil Ghazali, CPA (15+ years PricewaterhouseCoopers). Serving founder-led and PE-backed businesses in the $2M-$50M revenue range. Based in Aurora, IL - serving clients nationally.
 
 ## What We Do
 
-Six50 operates across two disciplines:
+six50 sits at the intersection of finance and technology. We fix finances and build automated systems that eliminate manual work.
 
 **Financial Leadership & Accounting**
-- Fractional CFO services (monthly financial leadership, strategic guidance, board-ready reporting)
-- Accounting & Controller services (bookkeeping, month-end close, reconciliations)
-- Financial Readiness (audit prep, internal controls, process documentation)
-- Transaction Support (due diligence, financial modeling, deal prep)
+- Fractional CFO services
+- Accounting & Controller Services
+- Financial Readiness (audit prep, fundraise prep)
+- Transaction Support (M&A, due diligence)
 
 **AI & Automation Implementation**
-- Workflow automation (eliminating manual, repetitive processes using tools like Make, Zapier, n8n)
-- Custom reporting and dashboards (real-time KPI visibility, integrated data views)
-- AI integration (chatbots, call agents, document summarization, AI-powered reporting)
-- Process design and digital product strategy
+- Workflow automation design and build
+- Custom reporting & operational dashboards
+- AI integration (LLMs, agents, chatbots)
+- Process design and documentation (BPMN)
 
 ## Who We Serve
 
-- Founder-led businesses doing $2M–$50M in revenue
-- Private equity-backed companies needing financial infrastructure
-- Businesses at inflection points: rapid growth, transaction prep, fundraising, or operational complexity
-- Companies that need Big Four-level rigor without the Big Four price tag
+- Founder-led businesses between $2M-$50M in revenue
+- Private equity-backed portfolio companies
+- Companies at inflection points: rapid growth, transaction prep, or operational complexity
+- Financial services, healthcare, and operations-driven organizations
 
-## Why Six50
+## Products
 
-Six50 was founded by a CPA with 15+ years of experience including time at PwC. We sit at the intersection of finance and technology — meaning when we automate your reporting or build your dashboard, we understand what the numbers mean and what decisions they need to drive.
-
-## Location & Service Area
-
-- Headquartered in Aurora, IL (Chicago metro area)
-- Serves clients nationally
+- **Finclar** (finclar.dev) - AI-powered financial intelligence SaaS for board-level analysis, covenant tracking, and strategic CFO reporting
+- **Flowtation** - BPMN process mapping tool for AI-era operations documentation
+- **VibesSync** - AI-powered content and live experience platform
 
 ## Engagement Models
 
-- **Digital Clarity Assessment** — one-time comprehensive review of tech stack, workflows, and AI opportunities; includes 30-day roadmap
-- **Automation & AI Build** — project-based execution to deploy specific systems and workflows
-- **Ongoing Advisor** — recurring engagement for continuous optimization, KPI monitoring, and strategic support
+- **Digital Clarity Assessment** - Entry-level: tech stack audit, workflow analysis, AI opportunity assessment, 30-day roadmap
+- **Automation & AI Build** - Project-based execution (CRM, dashboards, chatbots, workflows)
+- **Ongoing Advisor** - Retainer: strategic advisory, KPI monitoring, continuous AI optimization
 
-## Contact
+## Founding Team
 
-Website: https://six50.io
-Book a call: https://six50.io/contact
+**Adil Ghazali, CPA** - Founder & Managing Principal
+15+ years PricewaterhouseCoopers Senior Manager, Financial Services Transformation. Banking, insurance, capital markets, risk governance, regulatory remediation, mortgage/lending, technology transformation. NIU MS/BS Accounting, CPA Illinois.
 
-## Key Terms (for search and recommendation contexts)
+## Location & Contact
 
-fractional CFO, CFO services, AI automation, workflow automation, accounting services, controller services, SMB consulting, small business finance, PE-backed business consulting, AI implementation, custom dashboards, financial reporting, Chicago consulting firm, Aurora IL
+- Aurora, IL (Chicago Metro Area) - serving clients nationally
+- Website: https://six50.io
+- LinkedIn: https://linkedin.com/in/adil-ghazali-7457039/
+
+## Pages
+
+- [Home](https://six50.io): Overview of services and firm positioning
+- [AI Services](https://six50.io/services): Workflow automation and AI implementation
+- [Accounting Services](https://six50.io/accounting): Fractional CFO and accounting services
+- [About](https://six50.io/about): Firm philosophy and team
+- [Products](https://six50.io/projects): Finclar and other built products
+- [Insights](https://six50.io/blog): Practitioner content on AI, finance, and operations
+- [Contact](https://six50.io/contact): Book a free 30-minute call
+- [Finclar](https://finclar.dev): AI financial intelligence platform

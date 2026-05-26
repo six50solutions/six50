@@ -1,38 +1,16 @@
-import { MetadataRoute } from 'next'
- 
+import { MetadataRoute } from "next";
+
+const BASE_URL = "https://six50.io";
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://six50.io'
-  
+  const now = new Date();
   return [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 1,
-    },
-    {
-      url: `${baseUrl}/services`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/accounting`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/projects`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.5,
-    },
-    {
-      url: `${baseUrl}/card`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.3,
-    },
-  ]
+    { url: BASE_URL,                      lastModified: now, changeFrequency: "weekly",  priority: 1.0 },
+    { url: `${BASE_URL}/about`,           lastModified: now, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${BASE_URL}/services`,        lastModified: now, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${BASE_URL}/accounting`,      lastModified: now, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${BASE_URL}/projects`,        lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${BASE_URL}/blog`,            lastModified: now, changeFrequency: "weekly",  priority: 0.8 },
+    { url: `${BASE_URL}/contact`,         lastModified: now, changeFrequency: "yearly",  priority: 0.6 },
+  ];
 }

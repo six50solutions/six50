@@ -3,9 +3,24 @@ import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { ArrowRight, CheckCircle2, LayoutTemplate, Workflow, Bot, Users, LineChart } from "lucide-react";
 import Link from "next/link";
+import type { Metadata } from "next";
+import { ServiceSchema } from "@/components/JsonLd";
+
+export const metadata: Metadata = {
+  title: "AI & Automation Services",
+  description: "Custom workflow automation, AI integration, operational dashboards, and process design for founder-led and PE-backed businesses. Built for production, not just proofs of concept.",
+  alternates: { canonical: "https://six50.io/services" },
+  openGraph: {
+    title: "AI & Automation Services | six50",
+    description: "We design and build systems that eliminate manual work: AI agents, automated dashboards, CRM implementation, and workflow automation.",
+    url: "https://six50.io/services",
+  },
+};
+
 
 export default function ServicesPage() {
     return (
+                <ServiceSchema name="AI & Automation Implementation" description="Custom workflow automation, AI integration, and operational dashboards for growing businesses." url="https://six50.io/services" />
         <div className="pt-20 flex flex-col">
             {/* Hero Section */}
             <Section className="bg-slate-50 border-b border-slate-200">

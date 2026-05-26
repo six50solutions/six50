@@ -3,10 +3,25 @@ import { FadeIn } from "@/components/ui/FadeIn";
 import { Section } from "@/components/ui/Section";
 import { ArrowRight, Bot, Cpu, ShieldCheck, Calculator, CheckCircle2, LayoutTemplate, LineChart, Users, Workflow } from "lucide-react";
 import Link from "next/link";
+import type { Metadata } from "next";
+import { LocalBusinessSchema } from "@/components/JsonLd";
+
+export const metadata: Metadata = {
+  title: "Chicago AI Automation & Fractional CFO Consulting",
+  description: "six50 combines Big Four financial expertise and AI-driven automation to help founder-led and PE-backed businesses ($2M-$50M) run smarter. Based in Chicago, serving nationally.",
+  alternates: { canonical: "https://six50.io" },
+  openGraph: {
+    title: "six50 | Chicago AI Automation & Fractional CFO Consulting",
+    description: "Big Four financial rigor meets AI automation. Fractional CFO, accounting, and AI implementation for growing businesses.",
+    url: "https://six50.io",
+  },
+};
+
 
 export default function Home() {
   return (
-    <div className="flex flex-col">
+            <LocalBusinessSchema />
+        <div className="flex flex-col">
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center justify-center pt-20 overflow-hidden">
         <div className="container mx-auto px-6 md:px-12 relative z-10">

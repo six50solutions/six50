@@ -3,9 +3,24 @@ import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { ArrowRight, Calculator, PieChart, BarChart3, FileCheck, CheckCircle2, LineChart } from "lucide-react";
 import Link from "next/link";
+import type { Metadata } from "next";
+import { ServiceSchema } from "@/components/JsonLd";
+
+export const metadata: Metadata = {
+  title: "Fractional CFO & Accounting Services",
+  description: "Fractional CFO, accounting, controller services, financial readiness, and transaction support for $2M-$50M businesses. Big Four rigor without the full-time hire.",
+  alternates: { canonical: "https://six50.io/accounting" },
+  openGraph: {
+    title: "Fractional CFO & Accounting Services | six50",
+    description: "Clean books, real reporting, and CFO-level thinking without the full-time hire. Serving founder-led and PE-backed businesses in Chicago and nationally.",
+    url: "https://six50.io/accounting",
+  },
+};
+
 
 export default function AccountingServicesPage() {
     return (
+                <ServiceSchema name="Fractional CFO & Accounting Services" description="Big Four financial rigor without the full-time hire. Fractional CFO, accounting, and transaction support." url="https://six50.io/accounting" />
         <div className="pt-20 flex flex-col">
             {/* Hero Section */}
             <Section className="bg-slate-50 border-b border-slate-200">

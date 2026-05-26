@@ -2,9 +2,24 @@ import { TransformationVisual } from "@/components/ui/TransformationVisual";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { Section } from "@/components/ui/Section";
 import { ShieldCheck, BarChart3, Zap, Users } from "lucide-react";
+import type { Metadata } from "next";
+import { PersonSchema } from "@/components/JsonLd";
+
+export const metadata: Metadata = {
+  title: "About",
+  description: "six50 exists at the intersection of clarity and transformation. Founded by Adil Ghazali, CPA (15+ years PwC), we help businesses see clearly enough to act and act boldly enough to transform.",
+  alternates: { canonical: "https://six50.io/about" },
+  openGraph: {
+    title: "About six50 | AI & Financial Consulting Firm",
+    description: "Founded by Adil Ghazali, CPA. 15+ years PwC experience in financial services transformation. Chicago-based, serving founder-led and PE-backed businesses nationally.",
+    url: "https://six50.io/about",
+  },
+};
+
 
 export default function AboutPage() {
     return (
+                <PersonSchema />
         <div className="pt-20">
             {/* Hero / Philosophy */}
             <Section>

@@ -5,6 +5,7 @@ import { AnimatedBackground } from "@/components/ui/AnimatedBackground";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import ChatWidget from "@/components/ChatWidget";
+import { OrganizationSchema, WebsiteSchema } from "@/components/JsonLd";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -19,95 +20,59 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "six50 | Chicago AI Automation & Fractional CFO Consulting",
-  description: "Six50 is a leading Chicago AI automation and financial consulting firm. We help founder-led and PE-backed businesses transform operations through financial rigor, strategic accounting, and intelligent workflow automation.",
+  metadataBase: new URL("https://six50.io"),
+  title: {
+    default: "six50 | Chicago AI Automation & Fractional CFO Consulting",
+    template: "%s | six50",
+  },
+  description:
+    "six50 combines Big Four financial expertise and AI-driven automation to help founder-led and PE-backed businesses ($2M-$50M) run smarter. Fractional CFO, accounting, workflow automation, and AI implementation. Chicago & national.",
   keywords: [
-    "six50",
-    "650",
-    "6fifty",
-    "sixfifty",
-    "Six50 Solutions",
-    "Six Fifty",
-    "Chicago AI", 
-    "AI automation consulting Chicago", 
-    "fractional CFO services", 
-    "SMB financial consulting", 
-    "PE-backed business consulting", 
-    "workflow automation", 
-    "AI implementation agency", 
-    "Chicago consulting firm", 
-    "Aurora IL business consulting",
-    "financial leadership",
-    "intelligent systems",
-    "accounting services"
+    "six50", "650", "6fifty", "sixfifty", "Six50 Solutions", "Six Fifty",
+    "Chicago AI", "AI automation consulting Chicago", "fractional CFO services",
+    "SMB financial consulting", "PE-backed business consulting", "workflow automation",
+    "AI implementation agency", "Chicago consulting firm", "Aurora IL business consulting",
+    "financial leadership", "intelligent systems", "accounting services",
   ],
+  authors: [{ name: "Adil Ghazali, CPA", url: "https://six50.io/about" }],
+  creator: "six50 solutions LLC",
+  publisher: "six50 solutions LLC",
   openGraph: {
-    title: "six50 | Chicago AI & Financial Consulting",
-    description: "Bringing Big Four financial rigor and practical AI-driven automation to founder-led and PE-backed businesses.",
+    type: "website",
+    locale: "en_US",
     url: "https://six50.io",
     siteName: "six50 strategy & consulting",
-    locale: "en_US",
-    type: "website",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "six50 - Chicago AI Automation & Fractional CFO Consulting" }],
   },
+  twitter: {
+    card: "summary_large_image",
+    site: "@six50solutions",
+    images: ["/og-image.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-video-preview": -1, "max-image-preview": "large", "max-snippet": -1 },
+  },
+  alternates: { canonical: "https://six50.io" },
   icons: {
-    icon: '/icon.svg?v=650',
-    shortcut: '/icon.svg?v=650',
-    apple: '/icon.svg?v=650',
-  }
+    icon: "/icon.svg?v=650",
+    shortcut: "/icon.svg?v=650",
+    apple: "/icon.svg?v=650",
+  },
 };
 
-// Rich Structured Data for Googlebot (Schema.org)
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "ConsultingBusiness",
-  "name": "six50",
-  "alternateName": ["650", "6fifty", "sixfifty", "Six50 Solutions", "Six50 Consulting", "Six Fifty"],
-  "url": "https://six50.io",
-  "logo": "https://six50.io/icon.svg",
-  "description": "Six50 is a premier Chicago AI automation and fractional CFO consulting firm for founder-led and PE-backed businesses.",
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Aurora",
-    "addressRegion": "IL",
-    "addressCountry": "US"
-  },
-  "areaServed": [
-    "Chicago", "Chicago Metro Area", "Illinois", "United States"
-  ],
-  "founder": {
-    "@type": "Person",
-    "name": "Adil Ghazali",
-    "jobTitle": "Founder & Principal"
-  },
-  "sameAs": [
-    "https://six50.io"
-  ]
-};
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-      </head>
-      <body
-        className={`${inter.variable} ${spaceGrotesk.variable} antialiased flex flex-col min-h-screen relative`}
-      >
+      <body className={`${inter.variable} ${spaceGrotesk.variable} antialiased`}>
+        <OrganizationSchema />
+        <WebsiteSchema />
         <AnimatedBackground />
         <Navbar />
-        <main className="flex-grow">
-          {children}
-        </main>
+        {children}
         <Footer />
         <ChatWidget />
-
       </body>
     </html>
   );

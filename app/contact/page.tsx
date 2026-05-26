@@ -5,6 +5,19 @@ import { FadeIn } from "@/components/ui/FadeIn";
 import { Section } from "@/components/ui/Section";
 import { CheckCircle2, Loader2 } from "lucide-react";
 import { useState } from "react";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Contact — Book a Free 30-Minute Call",
+  description: "Book a free 30-minute call with six50. Honest assessment of your financial and operational gaps. No pitch. No fluff. Just clarity.",
+  alternates: { canonical: "https://six50.io/contact" },
+  openGraph: {
+    title: "Book a Free Call | six50",
+    description: "30 minutes. Honest assessment of your financial and operational gaps. No pitch.",
+    url: "https://six50.io/contact",
+  },
+};
+
 
 export default function ContactPage() {
     const [formData, setFormData] = useState({

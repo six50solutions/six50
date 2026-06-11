@@ -44,7 +44,7 @@ export function HomeHero() {
                     className="mb-7 flex items-center gap-3.5 font-mono text-[0.78rem] uppercase tracking-[0.2em] text-fog opacity-0 translate-y-[34px]"
                 >
                     <span className="inline-block h-px w-9 bg-gold-500" />
-                    six50 solutions · finance × intelligence · chicago / national
+                    six50 solutions · finance × intelligence · chicago, il
                 </p>
 
                 <h1

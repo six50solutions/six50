@@ -54,7 +54,7 @@ export function Strike({ children, fix, index = 0 }: StrikeProps) {
             />
             <span
                 data-fix
-                className="absolute left-0 top-[-1.15em] whitespace-nowrap font-mono text-[0.62em] tracking-[0.06em] text-blue-500 opacity-0"
+                className="block py-1 font-mono text-[0.62em] tracking-[0.06em] text-blue-500 opacity-0 md:absolute md:left-0 md:top-[-1.15em] md:whitespace-nowrap md:py-0"
             >
                 {fix}
             </span>

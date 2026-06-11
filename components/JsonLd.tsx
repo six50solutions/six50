@@ -12,7 +12,7 @@ export function OrganizationSchema() {
     foundingDate: "2025",
     founder: { "@type": "Person", name: "Adil Ghazali", jobTitle: "Founder & Managing Principal", sameAs: "https://linkedin.com/in/adil-ghazali-7457039/" },
     address: { "@type": "PostalAddress", addressLocality: "Chicago", addressRegion: "IL", addressCountry: "US" },
-    areaServed: { "@type": "Country", name: "United States" },
+    areaServed: { "@type": "State", name: "Illinois" },
     contactPoint: { "@type": "ContactPoint", contactType: "customer service", url: "https://six50.io/contact" },
   };
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />;
@@ -31,7 +31,6 @@ export function LocalBusinessSchema() {
     areaServed: [
       { "@type": "City", name: "Chicago" },
       { "@type": "AdministrativeArea", name: "Illinois" },
-      { "@type": "Country", name: "United States" },
     ],
   };
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />;
@@ -60,7 +59,7 @@ export function ServiceSchema({ name, description, url }: ServiceSchemaProps) {
     "@type": "Service",
     name, description, url,
     provider: { "@type": "Organization", name: "six50 solutions LLC", url: "https://six50.io" },
-    areaServed: { "@type": "Country", name: "United States" },
+    areaServed: { "@type": "State", name: "Illinois" },
   };
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />;
 }

@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://six50.io/about" },
   openGraph: {
     title: "About six50 | AI & Financial Consulting Firm",
-    description: "Founded by Adil Ghazali, CPA. 15+ years PwC experience in financial services transformation. Chicago-based, serving founder-led and PE-backed businesses nationally.",
+    description: "Founded by Adil Ghazali, CPA. 15+ years PwC experience in financial services transformation. Chicago-based, serving founder-led and PE-backed businesses.",
     url: "https://six50.io/about",
   },
 };

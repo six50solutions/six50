@@ -6,7 +6,7 @@ import { AnimatedLogo } from "@/components/ui/AnimatedLogo";
 
 export function Footer() {
     const pathname = usePathname();
-    if (pathname === "/login") return null;
+    if (pathname === "/login" || pathname === "/card") return null;
 
     return (
         <footer className="relative z-[2] bg-ink-900/70 backdrop-blur-md border-t border-line py-16">
@@ -42,7 +42,6 @@ export function Footer() {
                         <h4 className="font-mono text-fog-2 mb-4 uppercase tracking-[0.18em] text-xs">Location</h4>
                         <ul className="space-y-3 text-fog">
                             <li>Chicago, IL</li>
-                            <li className="pt-2 italic text-xs">Serving clients nationally.</li>
                         </ul>
                     </div>
                 </div>

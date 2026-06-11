@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://six50.io/accounting" },
   openGraph: {
     title: "Fractional CFO & Accounting Services | six50",
-    description: "Clean books, real reporting, and CFO-level thinking without the full-time hire. Serving founder-led and PE-backed businesses in Chicago and nationally.",
+    description: "Clean books, real reporting, and CFO-level thinking without the full-time hire. Serving founder-led and PE-backed businesses in Chicago.",
     url: "https://six50.io/accounting",
   },
 };

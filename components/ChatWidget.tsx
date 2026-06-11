@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 // useChat import removed; using local state for chat
 import { MessageCircle, X, Send, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -18,6 +19,7 @@ type LeadData = {
 };
 
 export default function ChatWidget() {
+    const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
     const [showLeadCapture, setShowLeadCapture] = useState(false);
     const [leadSubmitted, setLeadSubmitted] = useState(false);
@@ -104,7 +106,8 @@ export default function ChatWidget() {
         if (!leadSubmitted && !showLeadCapture) {
             if (userIntent) {
                 const timer = setTimeout(() => setShowLeadCapture(true), 1000);
-                return () => clearTimeout(timer);
+
+    return () => clearTimeout(timer);
             }
         }
     }, [displayMessages, showLeadCapture, leadSubmitted]);
@@ -176,6 +179,8 @@ Timeline: ${timeline}`;
         setLeadSubmitted(true);
         setShowLeadCapture(false);
     };
+
+    if (pathname === '/card' || pathname === '/login') return null;
 
     return (
         <>

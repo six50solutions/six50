@@ -14,7 +14,7 @@ import { Checklist } from "@/components/home/Checklist";
 
 export const metadata: Metadata = {
   title: "Chicago AI Automation & Fractional CFO Consulting",
-  description: "six50 combines Big Four financial expertise and AI-driven automation to help founder-led and PE-backed businesses ($2M-$50M) run smarter. Based in Chicago, serving nationally.",
+  description: "six50 combines Big Four financial expertise and AI-driven automation to help founder-led and PE-backed businesses ($2M-$50M) run smarter. Based in Chicago.",
   alternates: { canonical: "https://six50.io" },
   openGraph: {
     title: "six50 | Chicago AI Automation & Fractional CFO Consulting",
@@ -77,7 +77,7 @@ export default function Home() {
               { no: "c.", pre: "The right tools feel ", strike: "out of reach", post: " — too complex, too expensive, too disconnected.", fix: "→ systems built for you" },
             ].map((p, i) => (
               <Reveal key={p.no}>
-                <div className="grid grid-cols-[64px_1fr] items-baseline gap-6 border-b border-line py-8">
+                <div className="grid grid-cols-[36px_1fr] items-baseline gap-4 border-b border-line py-8 md:grid-cols-[64px_1fr] md:gap-6">
                   <span className="font-mono text-[0.85rem] text-fog-2">{p.no}</span>
                   <p className="max-w-[34ch] text-[clamp(1.25rem,2.6vw,1.9rem)] leading-snug">
                     {p.pre}

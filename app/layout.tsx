@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     template: "%s | six50",
   },
   description:
-    "six50 combines Big Four financial expertise and AI-driven automation to help founder-led and PE-backed businesses ($2M-$50M) run smarter. Fractional CFO, accounting, workflow automation, and AI implementation. Chicago & national.",
+    "six50 combines Big Four financial expertise and AI-driven automation to help founder-led and PE-backed businesses ($2M-$50M) run smarter. Fractional CFO, accounting, workflow automation, and AI implementation. Chicago, IL.",
   keywords: [
     "six50", "650", "6fifty", "sixfifty", "Six50 Solutions", "Six Fifty",
     "Chicago AI", "AI automation consulting Chicago", "fractional CFO services",

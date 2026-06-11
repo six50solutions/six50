@@ -1,10 +1,16 @@
-import { Button } from "@/components/ui/Button";
-import { FadeIn } from "@/components/ui/FadeIn";
-import { Section } from "@/components/ui/Section";
-import { ArrowRight, Bot, Cpu, ShieldCheck, Calculator, CheckCircle2, LayoutTemplate, LineChart, Users, Workflow } from "lucide-react";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { ArrowRight } from "lucide-react";
 import { LocalBusinessSchema } from "@/components/JsonLd";
+import { HomeHero } from "@/components/home/HomeHero";
+import { LedgerHead } from "@/components/ui/LedgerHead";
+import { Reveal } from "@/components/ui/Reveal";
+import { Strike } from "@/components/ui/Strike";
+import { Counter } from "@/components/ui/Counter";
+import { Venn } from "@/components/ui/Venn";
+import { SpotlightCard } from "@/components/ui/SpotlightCard";
+import { Magnetic } from "@/components/ui/Magnetic";
+import { Checklist } from "@/components/home/Checklist";
 
 export const metadata: Metadata = {
   title: "Chicago AI Automation & Fractional CFO Consulting",
@@ -17,336 +23,329 @@ export const metadata: Metadata = {
   },
 };
 
+const finServices = ["Fractional CFO", "Accounting & Controller", "Financial Readiness", "Transaction Support"];
+const aiServices = ["Workflow Automation", "Reporting & Dashboards", "AI Integration", "Process Design"];
+
+const offers = [
+  {
+    kind: "Entry offer",
+    title: "Digital Clarity Assessment",
+    desc: "A comprehensive review of your tech stack, workflows, and AI opportunities.",
+    items: ["Process mapping", "Workflow analysis", "AI opportunity assessment", "30-day roadmap"],
+    cta: "Learn more",
+    popular: false,
+  },
+  {
+    kind: "Implementation",
+    title: "Automation & AI Build",
+    desc: "Project-based execution to deploy specific systems and workflows.",
+    items: ["CRM implementation", "Dashboard build", "AI chatbot rollout", "Workflow automation"],
+    cta: "Get started",
+    popular: true,
+  },
+  {
+    kind: "Recurring",
+    title: "Ongoing Advisor",
+    desc: "Continuous optimization and strategic support for long-term success.",
+    items: ["Continuous optimization", "KPI monitoring", "New AI integrations", "Strategic advisory"],
+    cta: "Contact us",
+    popular: false,
+  },
+];
 
 export default function Home() {
   return (
-            <LocalBusinessSchema />
-        <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center justify-center pt-20 overflow-hidden">
-        <div className="container mx-auto px-6 md:px-12 relative z-10">
-          <FadeIn duration={1.2}>
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-slate-900 mb-8 max-w-5xl">
-              We Help Growing Businesses <br />
-              <span className="text-gold-500">Run Smarter.</span>
-            </h1>
-          </FadeIn>
+    <>
+      <LocalBusinessSchema />
+      <div className="flex flex-col">
+        <HomeHero />
 
-          <FadeIn delay={0.2} duration={1}>
-            <p className="text-lg md:text-xl text-slate-600 max-w-2xl leading-relaxed mb-10">
-              Six50 combines financial expertise and AI-driven automation to give founder-led and PE-backed businesses the clarity, efficiency, and strategic edge that used to be reserved for companies ten times your size.
-            </p>
-          </FadeIn>
-
-          <FadeIn delay={0.4} duration={1}>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/contact">
-                <Button size="lg" className="group">
-                  Book a Free 30-Minute Call
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Button>
-              </Link>
-            </div>
-          </FadeIn>
-        </div>
-      </section>
-
-      {/* Threshold Moment 1 */}
-      <div className="w-full h-px bg-gradient-to-r from-transparent via-gold-500 to-transparent opacity-50" />
-
-      {/* The Problem We Solve Section */}
-      <Section className="py-24 bg-slate-50/50">
-        <div className="container mx-auto px-6 md:px-12 text-center max-w-4xl">
-          <FadeIn>
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-slate-800 mb-6">
-              The <span className="text-gold-500">Problem</span> We Solve
+        {/* 001 — THE PROBLEM */}
+        <section id="problem" className="mx-auto w-full max-w-7xl px-6 py-24 md:px-12 md:py-36">
+          <LedgerHead no="001" title="The problem we solve" tail="DR — what's broken" />
+          <Reveal>
+            <h2 className="font-display max-w-[18ch] text-[clamp(2rem,5vw,3.6rem)]">
+              Most growing businesses are stuck in the{" "}
+              <em className="serif-accent text-gold-500">same place.</em>
             </h2>
-            <p className="text-slate-600 text-lg leading-relaxed mb-8">
-              Most growing businesses are stuck in the same place. The finances are a mess or a mystery. The team is buried in manual work. And the tools that could help feel out of reach - too complex, too expensive, or too disconnected from how the business actually runs.
-            </p>
-            <p className="text-2xl font-semibold text-slate-800">
-              We fix all three.
-            </p>
-          </FadeIn>
-        </div>
-      </Section>
+          </Reveal>
 
-      {/* What We Do Section */}
-      <Section className="py-24">
-        <div className="container mx-auto px-6 md:px-12">
-          <FadeIn>
-            <div className="mb-16 text-center max-w-3xl mx-auto">
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-slate-800 mb-6">
-                What We Do
-              </h2>
-              <p className="text-slate-600 text-xl font-medium">
-                Two core offerings. One firm. Built to work together.
-              </p>
-            </div>
-          </FadeIn>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-            {/* Offering 1 */}
-            <FadeIn delay={0.1}>
-              <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow h-full flex flex-col">
-                <div className="h-12 w-12 bg-blue-50 rounded-xl flex items-center justify-center mb-6 text-blue-600">
-                  <Calculator className="w-6 h-6" />
+          <div className="mt-4 flex flex-col">
+            {[
+              { no: "a.", pre: "The finances are a ", strike: "mess or a mystery", post: ".", fix: "→ clean books, real reporting" },
+              { no: "b.", pre: "The team is buried in ", strike: "manual work", post: ".", fix: "→ automated workflows" },
+              { no: "c.", pre: "The right tools feel ", strike: "out of reach", post: " — too complex, too expensive, too disconnected.", fix: "→ systems built for you" },
+            ].map((p, i) => (
+              <Reveal key={p.no}>
+                <div className="grid grid-cols-[64px_1fr] items-baseline gap-6 border-b border-line py-8">
+                  <span className="font-mono text-[0.85rem] text-fog-2">{p.no}</span>
+                  <p className="max-w-[34ch] text-[clamp(1.25rem,2.6vw,1.9rem)] leading-snug">
+                    {p.pre}
+                    <Strike fix={p.fix} index={i}>{p.strike}</Strike>
+                    {p.post}
+                  </p>
                 </div>
-                <h3 className="text-2xl font-bold text-slate-800 mb-4">Financial Leadership & Accounting</h3>
-                <p className="text-slate-600 mb-6 flex-grow">
-                  Clean books, real reporting, and CFO-level thinking - without the full-time hire. We bring Big Four rigor to businesses that need financial clarity and someone who can actually own the numbers.
-                </p>
-                <div className="space-y-3 mb-8">
-                  <div className="flex items-center text-sm font-medium text-slate-700">
-                    <ArrowRight className="w-4 h-4 mr-2 text-gold-500" /> Fractional CFO
-                  </div>
-                  <div className="flex items-center text-sm font-medium text-slate-700">
-                    <ArrowRight className="w-4 h-4 mr-2 text-gold-500" /> Accounting & Controller Services
-                  </div>
-                  <div className="flex items-center text-sm font-medium text-slate-700">
-                    <ArrowRight className="w-4 h-4 mr-2 text-gold-500" /> Financial Readiness
-                  </div>
-                  <div className="flex items-center text-sm font-medium text-slate-700">
-                    <ArrowRight className="w-4 h-4 mr-2 text-gold-500" /> Transaction Support
-                  </div>
-                </div>
-                <Link href="/accounting">
-                  <Button variant="outline" className="w-full">Explore Financial Services</Button>
-                </Link>
-              </div>
-            </FadeIn>
-
-            {/* Offering 2 */}
-            <FadeIn delay={0.2}>
-              <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow h-full flex flex-col">
-                <div className="h-12 w-12 bg-indigo-50 rounded-xl flex items-center justify-center mb-6 text-indigo-600">
-                  <Bot className="w-6 h-6" />
-                </div>
-                <h3 className="text-2xl font-bold text-slate-800 mb-4">AI & Automation Implementation</h3>
-                <p className="text-slate-600 mb-6 flex-grow">
-                  We design and build the systems that eliminate your manual work - custom dashboards, workflow automation, and AI-powered tools tailored to how your business actually operates.
-                </p>
-                <div className="space-y-3 mb-8">
-                  <div className="flex items-center text-sm font-medium text-slate-700">
-                    <ArrowRight className="w-4 h-4 mr-2 text-gold-500" /> Workflow Automation
-                  </div>
-                  <div className="flex items-center text-sm font-medium text-slate-700">
-                    <ArrowRight className="w-4 h-4 mr-2 text-gold-500" /> Custom Reporting & Dashboards
-                  </div>
-                  <div className="flex items-center text-sm font-medium text-slate-700">
-                    <ArrowRight className="w-4 h-4 mr-2 text-gold-500" /> AI Integration
-                  </div>
-                  <div className="flex items-center text-sm font-medium text-slate-700">
-                    <ArrowRight className="w-4 h-4 mr-2 text-gold-500" /> Process Design
-                  </div>
-                </div>
-                <Link href="/services">
-                  <Button variant="outline" className="w-full">Explore AI Services</Button>
-                </Link>
-              </div>
-            </FadeIn>
+              </Reveal>
+            ))}
           </div>
-        </div>
-      </Section>
 
-      {/* Social Proof Stats Bar */}
-      <Section className="py-12 bg-slate-900 text-white">
-        <div className="container mx-auto px-6 md:px-12">
-          <FadeIn>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-slate-700">
-              <div className="py-4 md:py-0 px-4">
-                <p className="text-xl md:text-2xl font-bold">15+ years of Big Four experience</p>
-              </div>
-              <div className="py-4 md:py-0 px-4">
-                <p className="text-xl md:text-2xl font-bold">Serving $2M–$50M businesses</p>
-              </div>
-              <div className="py-4 md:py-0 px-4">
-                <p className="text-xl md:text-2xl font-bold">Fractional CFO + AI - under one roof</p>
-              </div>
-            </div>
-          </FadeIn>
-        </div>
-      </Section>
+          <Reveal>
+            <p className="font-display mt-10 text-[clamp(1.4rem,3vw,2.2rem)]">
+              We fix <em className="serif-accent text-gold-500">all three.</em>
+            </p>
+          </Reveal>
+        </section>
 
-      {/* Why It Works Better Together */}
-      <Section dark className="py-24">
-        <div className="container mx-auto px-6 md:px-12">
-          <FadeIn>
-            <div className="grid md:grid-cols-2 gap-16 items-center">
-              <div>
-                <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-white mb-6">
-                  Why It Works Better Together
-                </h2>
-                <div className="w-12 h-1 bg-gold-500 mb-8" />
-                <p className="text-slate-300 text-lg leading-relaxed mb-8">
-                  Most businesses hire a bookkeeper and a separate tech consultant and end up with two people who don't talk to each other.
+        {/* 002 — WHAT WE DO */}
+        <section id="services" className="mx-auto w-full max-w-7xl px-6 py-24 md:px-12 md:py-36">
+          <LedgerHead no="002" title="What we do" tail="Two offerings · one firm" />
+          <Reveal>
+            <h2 className="font-display mb-10 max-w-[18ch] text-[clamp(2rem,5vw,3.6rem)]">
+              Two core offerings. Built to{" "}
+              <em className="serif-accent text-gold-500">work together.</em>
+            </h2>
+          </Reveal>
+
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <Reveal>
+              <SpotlightCard glow="gold" className="flex h-full min-h-[430px] flex-col gap-5 p-7 md:p-10">
+                <span className="font-mono text-[0.72rem] uppercase tracking-[0.18em] text-gold-500">
+                  Financial leadership
+                </span>
+                <h3 className="font-display text-[clamp(1.5rem,2.6vw,2.1rem)]">
+                  Financial Leadership &amp; Accounting
+                </h3>
+                <p className="max-w-[46ch] text-fog">
+                  Clean books, real reporting, and CFO-level thinking — without the full-time
+                  hire. Big Four rigor for businesses that need someone who can actually own
+                  the numbers.
                 </p>
-                <p className="text-slate-300 text-lg leading-relaxed mb-8">
-                  We sit at the <span className="text-white font-semibold">intersection of finance and technology</span> - which means when we automate your reporting or build your dashboard, we understand what the numbers mean and what decisions they need to drive. That's a different kind of result.
+                <div className="mt-auto flex flex-wrap gap-2.5">
+                  {finServices.map((s) => (
+                    <span key={s} className="rounded-full border border-line px-3 py-1.5 font-mono text-[0.74rem] text-fog transition-colors hover:border-gold-500 hover:text-gold-500">
+                      {s}
+                    </span>
+                  ))}
+                </div>
+                <Link href="/accounting" className="group mt-3 inline-flex w-fit items-center gap-2.5 font-mono text-[0.8rem] uppercase tracking-[0.08em] text-paper">
+                  Explore financial services
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </SpotlightCard>
+            </Reveal>
+
+            <Reveal delay={0.12}>
+              <SpotlightCard glow="blue" className="flex h-full min-h-[430px] flex-col gap-5 p-7 md:p-10">
+                <span className="font-mono text-[0.72rem] uppercase tracking-[0.18em] text-blue-500">
+                  Intelligent systems
+                </span>
+                <h3 className="font-display text-[clamp(1.5rem,2.6vw,2.1rem)]">
+                  AI &amp; Automation Implementation
+                </h3>
+                <p className="max-w-[46ch] text-fog">
+                  We design and build the systems that eliminate your manual work — custom
+                  dashboards, workflow automation, and AI-powered tools tailored to how your
+                  business actually operates.
                 </p>
-                <div className="space-y-6">
-                  <div className="flex gap-4">
-                    <ShieldCheck className="w-8 h-8 text-gold-500 shrink-0" />
-                    <div>
-                      <h4 className="text-white font-semibold text-lg">Financial Rigor</h4>
-                      <p className="text-slate-400 text-sm">We ensure accuracy and integrity in your automated processes.</p>
-                    </div>
-                  </div>
-                  <div className="flex gap-4">
-                    <Cpu className="w-8 h-8 text-gold-500 shrink-0" />
-                    <div>
-                      <h4 className="text-white font-semibold text-lg">Intelligent Systems</h4>
-                      <p className="text-slate-400 text-sm">We build technology that supports solid business outcomes.</p>
-                    </div>
-                  </div>
+                <div className="mt-auto flex flex-wrap gap-2.5">
+                  {aiServices.map((s) => (
+                    <span key={s} className="rounded-full border border-line px-3 py-1.5 font-mono text-[0.74rem] text-fog transition-colors hover:border-blue-500 hover:text-blue-500">
+                      {s}
+                    </span>
+                  ))}
+                </div>
+                <Link href="/services" className="group mt-3 inline-flex w-fit items-center gap-2.5 font-mono text-[0.8rem] uppercase tracking-[0.08em] text-paper">
+                  Explore AI services
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </SpotlightCard>
+            </Reveal>
+          </div>
+
+          {/* stats band */}
+          <Reveal className="mt-16">
+            <div className="grid grid-cols-1 gap-px overflow-hidden rounded-md border border-line-strong bg-line-strong md:grid-cols-3">
+              <div className="bg-ink-800 px-7 py-8">
+                <div className="font-mono text-[clamp(1.9rem,3.6vw,2.8rem)] font-medium tabular-nums">
+                  <Counter to={15} /><span className="text-gold-500">+</span> yrs
+                </div>
+                <div className="mt-1.5 font-mono text-[0.74rem] uppercase tracking-[0.14em] text-fog-2">
+                  Big Four experience
                 </div>
               </div>
-              <div className="relative">
-                <div className="absolute -inset-4 bg-gold-500/10 rounded-3xl blur-2xl" />
-                <div className="relative bg-slate-800 p-8 rounded-2xl border border-slate-700">
-                  <h3 className="text-xl font-bold text-white mb-6">Who We Work With</h3>
-                  <p className="text-slate-400 mb-6 text-sm leading-relaxed">
-                    We work with a small number of clients at a time - typically founder-led or private equity-backed businesses between $2M and $50M in revenue that are serious about getting their operations and finances under control.
-                  </p>
-                  <p className="text-slate-400 text-sm leading-relaxed mb-6">
-                    If you're at an inflection point - growing fast, preparing for a transaction, or just tired of not having visibility into your own business - we should talk.
-                  </p>
-                  <ul className="space-y-4">
-                    {[
-                      "$2M–$50M in revenue",
-                      "Founder-led or PE-backed businesses",
-                      "Experiencing rapid growth or complexity",
-                      "Preparing for a transaction or fundraise"
-                    ].map((item, i) => (
-                      <li key={i} className="flex items-center text-slate-300">
-                        <div className="w-2 h-2 rounded-full bg-gold-500 mr-3 shrink-0" />
-                        {item}
+              <div className="bg-ink-800 px-7 py-8">
+                <div className="font-mono text-[clamp(1.9rem,3.6vw,2.8rem)] font-medium tabular-nums">
+                  $<Counter to={2} />M–$<Counter to={50} />M
+                </div>
+                <div className="mt-1.5 font-mono text-[0.74rem] uppercase tracking-[0.14em] text-fog-2">
+                  Client revenue range
+                </div>
+              </div>
+              <div className="bg-ink-800 px-7 py-8">
+                <div className="font-mono text-[clamp(1.9rem,3.6vw,2.8rem)] font-medium tabular-nums">
+                  <Counter to={2} /> <span className="text-gold-500">×</span> <Counter to={1} />
+                </div>
+                <div className="mt-1.5 font-mono text-[0.74rem] uppercase tracking-[0.14em] text-fog-2">
+                  Disciplines, one roof
+                </div>
+              </div>
+            </div>
+          </Reveal>
+        </section>
+
+        {/* 003 — WHY TOGETHER */}
+        <section id="approach" className="mx-auto w-full max-w-7xl px-6 py-24 md:px-12 md:py-36">
+          <LedgerHead no="003" title="Why it works better together" tail="CR — the intersection" />
+          <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-2 md:gap-20">
+            <Reveal>
+              <Venn />
+            </Reveal>
+            <div>
+              <Reveal>
+                <h2 className="font-display max-w-[18ch] text-[clamp(2rem,5vw,3.6rem)]">
+                  Most firms give you a bookkeeper{" "}
+                  <em className="serif-accent text-gold-500">or</em> a tech consultant.
+                </h2>
+              </Reveal>
+              <Reveal>
+                <p className="mt-6 max-w-[56ch] text-lg text-fog">
+                  They don&apos;t talk to each other. We sit at the intersection — so when we
+                  automate your reporting or build your dashboard, we understand what the
+                  numbers mean and what decisions they need to drive.
+                </p>
+              </Reveal>
+              <div className="mt-10 grid gap-5">
+                <Reveal>
+                  <div className="grid grid-cols-[14px_1fr] items-start gap-4">
+                    <span className="mt-2 h-[9px] w-[9px] rounded-full bg-gold-500" />
+                    <div>
+                      <h4 className="font-medium">Financial rigor</h4>
+                      <p className="text-sm text-fog">Accuracy and integrity built into every automated process.</p>
+                    </div>
+                  </div>
+                </Reveal>
+                <Reveal delay={0.1}>
+                  <div className="grid grid-cols-[14px_1fr] items-start gap-4">
+                    <span className="mt-2 h-[9px] w-[9px] rounded-full bg-blue-500" />
+                    <div>
+                      <h4 className="font-medium">Intelligent systems</h4>
+                      <p className="text-sm text-fog">Technology engineered to drive real business outcomes.</p>
+                    </div>
+                  </div>
+                </Reveal>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 004 — WHO WE WORK WITH */}
+        <section id="fit" className="mx-auto w-full max-w-7xl px-6 py-24 md:px-12 md:py-36">
+          <LedgerHead no="004" title="Who we work with" tail="Deliberately few clients" />
+          <div className="grid grid-cols-1 items-start gap-12 md:grid-cols-2 md:gap-16">
+            <div>
+              <Reveal>
+                <h2 className="font-display max-w-[18ch] text-[clamp(2rem,5vw,3.6rem)]">
+                  A small number of clients, taken{" "}
+                  <em className="serif-accent text-gold-500">seriously.</em>
+                </h2>
+              </Reveal>
+              <Reveal>
+                <p className="mt-6 max-w-[56ch] text-lg text-fog">
+                  If you&apos;re at an inflection point — growing fast, preparing for a
+                  transaction, or tired of not having visibility into your own business — we
+                  should talk.
+                </p>
+              </Reveal>
+            </div>
+            <Reveal>
+              <Checklist
+                items={[
+                  "$2M–$50M in revenue",
+                  "Founder-led or PE-backed",
+                  "Rapid growth or rising complexity",
+                  "Preparing for a transaction or fundraise",
+                ]}
+              />
+            </Reveal>
+          </div>
+        </section>
+
+        {/* 005 — ENGAGEMENTS */}
+        <section id="engagements" className="mx-auto w-full max-w-7xl px-6 py-24 md:px-12 md:py-36">
+          <LedgerHead no="005" title="Structured offerings" tail="Simple · transparent · built for impact" />
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+            {offers.map((o, i) => (
+              <Reveal key={o.title} delay={i * 0.1}>
+                <article
+                  className={`flex h-full flex-col gap-4 rounded-md border bg-ink-800 p-8 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-black/60 ${
+                    o.popular ? "border-gold-500/45" : "border-line-strong hover:border-paper/30"
+                  }`}
+                >
+                  <div className="flex items-center justify-between font-mono text-[0.7rem] uppercase tracking-[0.18em] text-fog-2">
+                    <span>{o.kind}</span>
+                    {o.popular && (
+                      <span className="rounded-sm bg-gold-500 px-2 py-1 text-[0.66rem] tracking-[0.12em] text-ink-900">
+                        Popular
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="font-display text-[1.35rem]">{o.title}</h3>
+                  <p className="text-sm text-fog">{o.desc}</p>
+                  <ul className="mb-5 mt-1 grid gap-2.5">
+                    {o.items.map((it) => (
+                      <li key={it} className="flex items-baseline gap-3 font-mono text-[0.82rem] text-fog">
+                        <span className="text-gold-500">→</span> {it}
                       </li>
                     ))}
                   </ul>
-                </div>
-              </div>
-            </div>
-          </FadeIn>
-        </div>
-      </Section>
-
-      {/* Packaging Section */}
-      <Section className="py-24 bg-slate-50/50">
-        <div className="container mx-auto px-6 md:px-12">
-          <FadeIn>
-            <div className="text-center mb-16 px-4">
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-slate-800 mb-6">
-                Structured Offerings
-              </h2>
-              <p className="text-slate-600 text-lg max-w-2xl mx-auto">
-                Simple, transparent engagement models designed for impact.
-              </p>
-            </div>
-          </FadeIn>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Package 1 */}
-            <FadeIn delay={0.1}>
-              <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 hover:border-gold-500 transition-colors h-full flex flex-col">
-                <div className="mb-4 text-xs font-bold uppercase tracking-wider text-gold-600">Entry Offer</div>
-                <h3 className="text-2xl font-bold text-slate-800 mb-4">Digital Clarity Assessment</h3>
-                <p className="text-slate-600 mb-8 text-sm h-12">
-                  A comprehensive review of your current tech stack, workflows, and AI opportunities.
-                </p>
-                <div className="space-y-4 mb-8 flex-grow">
-                  <div className="flex items-center text-sm text-slate-700">
-                    <CheckCircle2 className="w-4 h-4 mr-2 text-slate-400" /> Process mapping
-                  </div>
-                  <div className="flex items-center text-sm text-slate-700">
-                    <CheckCircle2 className="w-4 h-4 mr-2 text-slate-400" /> Workflow analysis
-                  </div>
-                  <div className="flex items-center text-sm text-slate-700">
-                    <CheckCircle2 className="w-4 h-4 mr-2 text-slate-400" /> AI opportunity assessment
-                  </div>
-                  <div className="flex items-center text-sm text-slate-700">
-                    <CheckCircle2 className="w-4 h-4 mr-2 text-slate-400" /> 30-day roadmap
-                  </div>
-                </div>
-                <Button className="w-full" variant="outline" href="/contact">Learn More</Button>
-              </div>
-            </FadeIn>
-
-            {/* Package 2 */}
-            <FadeIn delay={0.2}>
-              <div className="bg-slate-900 p-8 rounded-2xl shadow-lg border border-slate-800 relative overflow-hidden h-full flex flex-col">
-                <div className="absolute top-0 right-0 p-4">
-                  <span className="bg-gold-500 text-white text-xs font-bold px-3 py-1 rounded-full">Popular</span>
-                </div>
-                <div className="mb-4 text-xs font-bold uppercase tracking-wider text-gold-400">Implementation</div>
-                <h3 className="text-2xl font-bold text-white mb-4">Automation & AI Build</h3>
-                <p className="text-slate-300 mb-8 text-sm h-12">
-                  Project-based execution to deploy specific systems and workflows.
-                </p>
-                <div className="space-y-4 mb-8 flex-grow">
-                  <div className="flex items-center text-sm text-slate-300">
-                    <CheckCircle2 className="w-4 h-4 mr-2 text-gold-500" /> CRM implementation
-                  </div>
-                  <div className="flex items-center text-sm text-slate-300">
-                    <CheckCircle2 className="w-4 h-4 mr-2 text-gold-500" /> Dashboard build
-                  </div>
-                  <div className="flex items-center text-sm text-slate-300">
-                    <CheckCircle2 className="w-4 h-4 mr-2 text-gold-500" /> AI chatbot rollout
-                  </div>
-                  <div className="flex items-center text-sm text-slate-300">
-                    <CheckCircle2 className="w-4 h-4 mr-2 text-gold-500" /> Workflow automation
-                  </div>
-                </div>
-                <Button className="w-full bg-gold-500 hover:bg-gold-600 text-white border-transparent" href="/contact">Get Started</Button>
-              </div>
-            </FadeIn>
-
-            {/* Package 3 */}
-            <FadeIn delay={0.3}>
-              <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 hover:border-gold-500 transition-colors h-full flex flex-col">
-                <div className="mb-4 text-xs font-bold uppercase tracking-wider text-gold-600">Recurring</div>
-                <h3 className="text-2xl font-bold text-slate-800 mb-4">Ongoing Advisor</h3>
-                <p className="text-slate-600 mb-8 text-sm h-12">
-                  Continuous optimization and strategic support to ensure long-term success.
-                </p>
-                <div className="space-y-4 mb-8 flex-grow">
-                  <div className="flex items-center text-sm text-slate-700">
-                    <CheckCircle2 className="w-4 h-4 mr-2 text-slate-400" /> Continuous optimization
-                  </div>
-                  <div className="flex items-center text-sm text-slate-700">
-                    <CheckCircle2 className="w-4 h-4 mr-2 text-slate-400" /> KPI monitoring
-                  </div>
-                  <div className="flex items-center text-sm text-slate-700">
-                    <CheckCircle2 className="w-4 h-4 mr-2 text-slate-400" /> New AI integrations
-                  </div>
-                  <div className="flex items-center text-sm text-slate-700">
-                    <CheckCircle2 className="w-4 h-4 mr-2 text-slate-400" /> Strategic advisory
-                  </div>
-                </div>
-                <Button className="w-full" variant="outline" href="/contact">Contact Us</Button>
-              </div>
-            </FadeIn>
+                  <Link
+                    href="/contact"
+                    className={`mt-auto rounded-[3px] border px-4 py-3.5 text-center font-mono text-[0.8rem] uppercase tracking-[0.08em] transition-colors ${
+                      o.popular
+                        ? "border-gold-500 bg-gold-500 text-ink-900 hover:bg-gold-400"
+                        : "border-line-strong text-paper hover:border-gold-500 hover:bg-gold-100 hover:text-gold-500"
+                    }`}
+                  >
+                    {o.cta}
+                  </Link>
+                </article>
+              </Reveal>
+            ))}
           </div>
-        </div>
-      </Section>
+        </section>
 
-      {/* CTA */}
-      <div className="py-24 border-t border-slate-200 bg-white">
-        <div className="container mx-auto px-6 md:px-12 text-center">
-          <FadeIn>
-            <h2 className="text-3xl font-bold text-slate-800 mb-6">Ready to see what's actually possible?</h2>
-            <p className="text-slate-500 mb-8 max-w-lg mx-auto">
-              In 30 minutes, we'll tell you exactly where your biggest financial and operational gaps are and what it would take to fix them. <br /><br />
+        {/* CTA */}
+        <section className="mx-auto w-full max-w-7xl px-6 pb-32 pt-16 text-center md:px-12">
+          <Reveal>
+            <h2 className="font-display mx-auto mb-7 max-w-[20ch] text-[clamp(2.2rem,6vw,4.4rem)]">
+              Ready to see what&apos;s{" "}
+              <em className="serif-accent text-gold-500">actually possible?</em>
+            </h2>
+          </Reveal>
+          <Reveal>
+            <p className="mx-auto mb-10 max-w-[56ch] text-lg text-fog">
+              In 30 minutes, we&apos;ll tell you exactly where your biggest financial and
+              operational gaps are — and what it would take to fix them.
+            </p>
+          </Reveal>
+          <Reveal>
+            <Magnetic>
+              <Link
+                href="/contact"
+                className="group inline-flex items-center gap-3 rounded-[3px] bg-gold-500 px-8 py-4 font-mono text-sm uppercase tracking-[0.05em] text-ink-900 transition-colors hover:bg-gold-400"
+              >
+                Book a free 30-minute call
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </Magnetic>
+          </Reveal>
+          <Reveal>
+            <p className="mt-7 font-mono text-[0.78rem] uppercase tracking-[0.1em] text-fog-2">
               No pitch. No fluff. Just clarity.
             </p>
-            <Link href="/contact">
-              <Button size="lg" className="bg-gold-500 hover:bg-gold-600 text-white border-transparent">
-                Book a Free 30-Minute Call
-              </Button>
-            </Link>
-          </FadeIn>
-        </div>
+          </Reveal>
+        </section>
       </div>
-    </div>
+    </>
   );
 }

@@ -81,10 +81,10 @@ export default async function BlogIndexPage() {
                     <div className="max-w-4xl mx-auto">
                         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-16">
                             <div>
-                                <h1 className="text-4xl md:text-5xl font-bold text-slate-800 mb-6">
+                                <h1 className="text-4xl md:text-5xl font-bold text-paper mb-6">
                                     Insights
                                 </h1>
-                                <p className="text-xl text-slate-600 max-w-2xl">
+                                <p className="text-xl text-fog max-w-2xl">
                                     Thoughts on strategy, efficiency, and the practical application of AI in the enterprise.
                                 </p>
                             </div>
@@ -93,7 +93,7 @@ export default async function BlogIndexPage() {
                                     href="https://adilghazali.substack.com"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="inline-flex items-center px-6 py-3 bg-[#FF6719] text-white font-medium rounded-md hover:bg-[#E54D00] transition-colors shadow-sm"
+                                    className="inline-flex items-center px-6 py-3 bg-[#FF6719] text-paper font-medium rounded-md hover:bg-[#E54D00] transition-colors shadow-none"
                                 >
                                     Subscribe on Substack <ExternalLink className="w-4 h-4 ml-2" />
                                 </a>
@@ -103,7 +103,7 @@ export default async function BlogIndexPage() {
                         <div className="grid gap-8">
                             {allPosts.map((post, index) => (
                                 <LinkTypeWrapper key={index} post={post}>
-                                    <article className="border border-slate-200 rounded-sm p-8 hover:shadow-md transition-all bg-white h-full">
+                                    <article className="border border-line rounded-sm p-8 hover:shadow-2xl hover:shadow-black/50 transition-all bg-ink-800 h-full">
                                         <div className="flex flex-col md:flex-row gap-6 md:items-center justify-between h-full">
                                             <div className="flex-1">
                                                 <div className="flex items-center gap-2 mb-2">
@@ -111,20 +111,20 @@ export default async function BlogIndexPage() {
                                                         {post.category}
                                                     </div>
                                                     {post.date && (
-                                                        <span className="text-xs text-slate-400">
+                                                        <span className="text-xs text-fog-2">
                                                             • {new Date(post.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
                                                         </span>
                                                     )}
                                                 </div>
-                                                <h2 className="text-2xl font-bold text-slate-800 mb-3 group-hover:text-gold-600 transition-colors">
+                                                <h2 className="text-2xl font-bold text-paper mb-3 group-hover:text-gold-500 transition-colors">
                                                     {post.title}
                                                 </h2>
-                                                <p className="text-slate-600 leading-relaxed max-w-2xl mb-4 line-clamp-3">
+                                                <p className="text-fog leading-relaxed max-w-2xl mb-4 line-clamp-3">
                                                     {post.excerpt}
                                                 </p>
                                             </div>
                                             <div className="flex-shrink-0 mt-auto md:mt-0">
-                                                <span className="inline-flex items-center text-sm font-medium text-slate-500 group-hover:text-gold-600 transition-colors">
+                                                <span className="inline-flex items-center text-sm font-medium text-fog group-hover:text-gold-500 transition-colors">
                                                     {post.isExternal ? "Read on Substack" : "Read Article"} <ArrowRight className="w-4 h-4 ml-2" />
                                                 </span>
                                             </div>

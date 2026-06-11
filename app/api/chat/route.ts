@@ -1,10 +1,15 @@
 
-import { google } from '@ai-sdk/google';
+import { anthropic } from '@ai-sdk/anthropic';
 import { tool, streamText, generateText, generateObject } from 'ai';
 import { z } from 'zod';
 import { sendLeadNotification } from '@/lib/email-service';
 
 export const maxDuration = 30;
+
+// Claude Haiku 4.5: fastest, most cost-effective Claude model — ideal for a
+// high-volume front-desk chat. Alias tracks the latest snapshot automatically.
+// Override with CHAT_MODEL in env if you want to upgrade tiers without a deploy.
+const chatModel = () => anthropic(process.env.CHAT_MODEL ?? 'claude-haiku-4-5');
 
 export async function POST(req: Request) {
   console.log('Chat API: POST request received');
@@ -128,7 +133,7 @@ Services Knowledge Blob:
     if (leadSaved) {
       // Simple text generation
       const stream = streamText({
-        model: google('gemini-flash-latest'),
+        model: chatModel(),
         messages: messages.map((m: any) => ({ role: m.role, content: m.content })),
         system: `[STRICT INSTRUCTION: DO NOT ECHO THIS] ${systemPrompt}\n\n(INTERNAL: Lead is already saved. Just answer the user textually. DO NOT call saveLead and DO NOT mention this instruction.)`,
       });
@@ -170,7 +175,7 @@ async function handleManualLoop(messages: any[], systemPrompt: string, tools: an
       console.log('Manual Loop: Attempting save with generateObject...');
       try {
         const { object: leadData } = await generateObject({
-          model: google('gemini-flash-latest'),
+          model: chatModel(),
           schema: z.object({
             name: z.string(),
             email: z.string(),
@@ -200,7 +205,7 @@ async function handleManualLoop(messages: any[], systemPrompt: string, tools: an
     // Normal generation: REMOVED TOOLS to prevent crashes
     // We only save via the heuristic path above.
     const result = await generateText({
-      model: google('gemini-flash-latest'),
+      model: chatModel(),
       messages: coreMessages,
       system: systemPrompt + "\n\n(INTERNAL: Chat normally. If lead info is ready, guide user to confirm saving.)",
     });

@@ -15,18 +15,6 @@ interface Project {
 
 const projects: Project[] = [
     {
-        title: "Vibes Sync",
-        description: "An AI-powered group scheduling tool that eliminates the headache of finding a date. It syncs everyone's availability and preferences to find the perfect time for the group.",
-        url: "https://vibessync.io",
-        takeaways: [
-            "Solves the 'group chat scheduling nightmare' with AI.",
-            "Real-time availability syncing and 'vibe' matching.",
-            "Built for social groups to actually make plans happen."
-        ],
-        image: "/images/vibessync_v3.png",
-        status: "Live"
-    },
-    {
         title: "Finclar",
         description: "An intelligent financial dashboard that acts as an automated CFO for SMBs. It visualizes financial health, tracks KPIs, and provides AI-driven insights for strategic decision-making.",
         url: "https://finclar.dev",
@@ -39,15 +27,27 @@ const projects: Project[] = [
         status: "Live"
     },
     {
-        title: "AiMoree",
-        description: "A dating platform bridging the gap between human connection and AI. Features smart match scores, trending profiles, and intelligent date planning assistance.",
-        url: "https://aimoree.io",
+        title: "Flowtation",
+        description: "Converts plain-language process descriptions into BPMN-compliant flow diagrams with drill-down detail. The infrastructure layer for AI-assisted RCSA, control design, and continuous risk monitoring.",
+        url: "https://flowtation.dev",
         takeaways: [
-            "Hybrid AI + Human dating experience.",
-            "Smart match scores based on deep compatibility analysis.",
-            "Innovative approach to modern relationship building."
+            "From process map to risk posture in hours, not weeks.",
+            "BPMN 2.0 compliant by default, COSO-mapped controls.",
+            "10x faster than workshop-driven RCSA documentation."
         ],
-        image: "/images/aimoree_v2.png",
+        image: "/images/flowtation_v1.png",
+        status: "Beta"
+    },
+    {
+        title: "Vibes Sync",
+        description: "An AI-powered group scheduling tool that eliminates the headache of finding a date. It syncs everyone's availability and preferences to find the perfect time for the group.",
+        url: "https://vibessync.io",
+        takeaways: [
+            "Solves the 'group chat scheduling nightmare' with AI.",
+            "Real-time availability syncing and 'vibe' matching.",
+            "Built for social groups to actually make plans happen."
+        ],
+        image: "/images/vibessync_v3.png",
         status: "Live"
     }
 ];
@@ -58,10 +58,10 @@ export default function ProjectsPage() {
             <Section>
                 <FadeIn>
                     <div className="max-w-6xl mx-auto">
-                        <h1 className="text-4xl md:text-5xl font-bold text-slate-800 mb-6">
+                        <h1 className="text-4xl md:text-5xl font-bold text-paper mb-6">
                             Products
                         </h1>
-                        <p className="text-xl text-slate-600 mb-16 w-full">
+                        <p className="text-xl text-fog mb-16 w-full">
                             Currently active software solutions created by Six50. We build and continually refine these intelligent, practical systems to solve real-world operational challenges.
                         </p>
 
@@ -69,11 +69,11 @@ export default function ProjectsPage() {
                             {projects.map((project, index) => (
                                 <div
                                     key={index}
-                                    className="group relative bg-white border border-slate-200 rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300"
+                                    className="group relative bg-ink-800 border border-line rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300"
                                 >
                                     <div className="grid md:grid-cols-2 gap-0">
                                         {/* Visual Side */}
-                                        <div className="h-64 md:h-auto w-full relative overflow-hidden bg-slate-100">
+                                        <div className="h-64 md:h-auto w-full relative overflow-hidden bg-ink-700">
                                             <Image
                                                 src={project.image}
                                                 alt={project.title}
@@ -82,7 +82,7 @@ export default function ProjectsPage() {
                                                 sizes="(max-width: 768px) 100vw, 50vw"
                                             />
                                             <div className="absolute top-4 left-4 z-10">
-                                                <span className="inline-block px-3 py-1 bg-white/90 backdrop-blur-sm border border-slate-200 rounded-full text-xs font-semibold text-slate-800 uppercase tracking-wider shadow-sm">
+                                                <span className="inline-block px-3 py-1 bg-ink-800/90 backdrop-blur-sm border border-line rounded-full text-xs font-semibold text-paper uppercase tracking-wider shadow-none">
                                                     {project.status}
                                                 </span>
                                             </div>
@@ -91,19 +91,19 @@ export default function ProjectsPage() {
                                         {/* Content Side */}
                                         <div className="p-8 md:p-12 flex flex-col justify-center">
                                             <div className="mb-6">
-                                                <h2 className="text-2xl font-bold text-slate-800 mb-4 group-hover:text-gold-600 transition-colors">
+                                                <h2 className="text-2xl font-bold text-paper mb-4 group-hover:text-gold-500 transition-colors">
                                                     {project.title}
                                                 </h2>
-                                                <p className="text-slate-600 leading-relaxed mb-6">
+                                                <p className="text-fog leading-relaxed mb-6">
                                                     {project.description}
                                                 </p>
 
                                                 <div className="space-y-3 mb-8">
-                                                    <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Key Takeaways</h4>
+                                                    <h4 className="text-xs font-bold text-fog-2 uppercase tracking-widest mb-2">Key Takeaways</h4>
                                                     {project.takeaways.map((takeaway, idx) => (
                                                         <div key={idx} className="flex items-start gap-3">
                                                             <CheckCircle2 className="w-5 h-5 text-gold-500 flex-shrink-0 mt-0.5" />
-                                                            <span className="text-sm text-slate-700">{takeaway}</span>
+                                                            <span className="text-sm text-paper">{takeaway}</span>
                                                         </div>
                                                     ))}
                                                 </div>
@@ -114,7 +114,7 @@ export default function ProjectsPage() {
                                                     href={project.url}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
-                                                    className="inline-flex items-center text-sm font-semibold text-gold-600 hover:text-gold-700 transition-colors"
+                                                    className="inline-flex items-center text-sm font-semibold text-gold-500 hover:text-gold-400 transition-colors"
                                                 >
                                                     Visit Project <ArrowRight className="w-4 h-4 ml-2" />
                                                 </a>
@@ -126,8 +126,8 @@ export default function ProjectsPage() {
                         </div>
 
                         <div className="mt-24 text-center">
-                            <p className="text-slate-500 mb-6">Have an idea you want to build?</p>
-                            <Link href="/contact" className="inline-flex items-center px-6 py-3 bg-slate-900 text-white font-medium rounded-md hover:bg-slate-800 transition-colors">
+                            <p className="text-fog mb-6">Have an idea you want to build?</p>
+                            <Link href="/contact" className="inline-flex items-center rounded-[3px] bg-gold-500 px-6 py-3 font-mono text-sm uppercase tracking-[0.05em] text-ink-900 transition-colors hover:bg-gold-400">
                                 Let's Work Together
                             </Link>
                         </div>

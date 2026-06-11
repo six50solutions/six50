@@ -15,13 +15,13 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
     ];
 
     return (
-        <div className="min-h-screen bg-slate-50 flex">
+        <div className="min-h-screen bg-ink-800 flex">
             {/* Sidebar */}
-            <aside className="w-64 bg-slate-900 text-white flex flex-col fixed h-full z-10">
-                <div className="p-6 border-b border-slate-800">
+            <aside className="w-64 bg-ink-900 text-paper flex flex-col fixed h-full z-10">
+                <div className="p-6 border-b border-line-strong">
                     <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-full bg-slate-800 border border-gold-500/50 flex items-center justify-center">
-                            <span className="font-bold text-white text-xs">650</span>
+                        <div className="w-8 h-8 rounded-full bg-ink-800 border border-gold-500/50 flex items-center justify-center">
+                            <span className="font-bold text-paper text-xs">650</span>
                         </div>
                         <span className="font-bold text-lg tracking-tight">Client Portal</span>
                     </div>
@@ -35,8 +35,8 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
                                 key={item.name}
                                 href={item.href}
                                 className={`flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors ${isActive
-                                        ? "bg-gold-500 text-slate-900"
-                                        : "text-slate-400 hover:bg-slate-800 hover:text-white"
+                                        ? "bg-gold-500 text-paper"
+                                        : "text-fog-2 hover:bg-ink-800 hover:text-paper"
                                     }`}
                             >
                                 <item.icon size={18} />
@@ -46,14 +46,14 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
                     })}
                 </nav>
 
-                <div className="p-4 border-t border-slate-800">
+                <div className="p-4 border-t border-line-strong">
                     <div className="flex items-center gap-3 mb-4 px-4">
                         <div className="w-8 h-8 rounded-full bg-indigo-500 flex items-center justify-center text-xs font-bold">
                             AG
                         </div>
                         <div className="flex-1 min-w-0">
                             <p className="text-sm font-medium truncate">Adil Ghazali</p>
-                            <p className="text-xs text-slate-500 truncate">adilghazali@yahoo.com</p>
+                            <p className="text-xs text-fog truncate">adilghazali@yahoo.com</p>
                         </div>
                     </div>
                     <Link

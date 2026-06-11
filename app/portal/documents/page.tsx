@@ -10,10 +10,10 @@ export default function DocumentsPage() {
 
     return (
         <div className="space-y-6">
-            <h1 className="text-3xl font-bold text-slate-900">Documents</h1>
-            <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+            <h1 className="text-3xl font-bold text-paper">Documents</h1>
+            <div className="bg-ink-800 rounded-xl shadow-sm border border-line overflow-hidden">
                 <table className="w-full text-sm text-left">
-                    <thead className="bg-slate-50 text-slate-500 font-medium border-b border-slate-200">
+                    <thead className="bg-ink-800 text-fog font-medium border-b border-line">
                         <tr>
                             <th className="px-6 py-4">Name</th>
                             <th className="px-6 py-4">Date Uploaded</th>
@@ -23,13 +23,13 @@ export default function DocumentsPage() {
                     </thead>
                     <tbody className="divide-y divide-slate-100">
                         {docs.map((doc) => (
-                            <tr key={doc.name} className="hover:bg-slate-50 transition-colors group">
-                                <td className="px-6 py-4 flex items-center gap-3 font-medium text-slate-900">
-                                    <FileText size={16} className="text-slate-400 group-hover:text-gold-500 transition-colors" />
+                            <tr key={doc.name} className="hover:bg-ink-800 transition-colors group">
+                                <td className="px-6 py-4 flex items-center gap-3 font-medium text-paper">
+                                    <FileText size={16} className="text-fog-2 group-hover:text-gold-500 transition-colors" />
                                     {doc.name}
                                 </td>
-                                <td className="px-6 py-4 text-slate-500">{doc.date}</td>
-                                <td className="px-6 py-4 text-slate-500">{doc.size}</td>
+                                <td className="px-6 py-4 text-fog">{doc.date}</td>
+                                <td className="px-6 py-4 text-fog">{doc.size}</td>
                                 <td className="px-6 py-4 text-right">
                                     <button className="text-blue-600 hover:text-blue-700 font-medium text-xs flex items-center justify-end gap-1">
                                         <Download size={14} /> Download

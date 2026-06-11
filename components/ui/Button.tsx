@@ -16,16 +16,16 @@ export function Button({
     ...props
 }: ButtonProps) {
     const classes = cn(
-        "inline-flex items-center justify-center rounded-sm font-medium transition-all duration-300",
-        "focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2",
-        // Variants
-        variant === "primary" && "bg-slate-800 text-white hover:bg-slate-900 shadow-sm border border-transparent",
-        variant === "outline" && "bg-transparent text-slate-800 border-slate-300 hover:border-slate-800 border",
-        variant === "white" && "bg-white text-slate-900 border border-transparent hover:bg-slate-50 shadow-md",
+        "inline-flex items-center justify-center rounded-[3px] font-mono uppercase tracking-[0.06em] transition-all duration-300",
+        "focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-2 focus-visible:ring-offset-ink-900",
+        // Variants — gold = primary action, hairline = secondary
+        variant === "primary" && "bg-gold-500 text-ink-900 hover:bg-gold-400 border border-transparent",
+        variant === "outline" && "bg-transparent text-paper border border-line-strong hover:border-gold-500 hover:bg-gold-100",
+        variant === "white" && "bg-paper text-ink-900 border border-transparent hover:bg-white",
         // Sizes
-        size === "sm" && "px-4 py-2 text-xs uppercase tracking-wide",
-        size === "md" && "px-6 py-3 text-sm tracking-wide",
-        size === "lg" && "px-8 py-4 text-sm font-semibold uppercase tracking-wider",
+        size === "sm" && "px-4 py-2 text-xs",
+        size === "md" && "px-6 py-3 text-sm",
+        size === "lg" && "px-8 py-4 text-sm",
         className
     );
 
@@ -37,7 +37,5 @@ export function Button({
         );
     }
 
-    return (
-        <button className={classes} {...props} />
-    );
+    return <button className={classes} {...props} />;
 }

@@ -1,36 +1,26 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# six50.io
 
-## Getting Started
+Marketing site for six50 solutions LLC — finance × intelligence.
 
-First, run the development server:
+Built with Next.js 16 (App Router), Tailwind CSS 4, GSAP (ScrollTrigger), and Three.js.
 
-```bash
+## Design system — "the ledger"
+
+- **Palette:** ink `#0A0E14` base · paper `#EAE7DE` text · gold `#E8B44C` (financial rigor) · electric blue `#6BA8FF` (intelligent systems). Tokens live in `app/globals.css` under `@theme`.
+- **Type:** Archivo (display/body) · Instrument Serif italic (accent words) · IBM Plex Mono (ledger labels, data, CTAs). Loaded via `next/font` in `app/layout.tsx`.
+- **Signature interaction:** `components/ui/ParticleField.tsx` — a site-wide Three.js field. Clicking any non-interactive area sends a burst that snaps nearby particles into an ordered grid (gold/blue glow) before they decay back to drift. Chaos → order → entropy. Add `data-no-burst` to any element that should swallow clicks (forms already do).
+- **Motion components:** `Reveal` (GSAP scroll reveal, also backs the legacy `FadeIn`), `Strike` (problem strike-through + fix annotation), `Venn` (scroll-scrubbed convergence), `Counter`, `Checklist`, `Magnetic`, `ScrollProgress`, `SpotlightCard`. All respect `prefers-reduced-motion`.
+- **Section headers:** `LedgerHead` renders `001 / TITLE / annotation` rows.
+
+## Getting started
+
+```
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deploy
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Push to `main` — Vercel builds automatically. Fonts are fetched from Google Fonts at build time.

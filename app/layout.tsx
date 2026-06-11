@@ -1,21 +1,31 @@
 import type { Metadata } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Archivo, Instrument_Serif, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
-import { AnimatedBackground } from "@/components/ui/AnimatedBackground";
+import { ParticleField } from "@/components/ui/ParticleField";
+import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import ChatWidget from "@/components/ChatWidget";
 import { OrganizationSchema, WebsiteSchema } from "@/components/JsonLd";
 
-const inter = Inter({
-  variable: "--font-inter",
+const archivo = Archivo({
+  variable: "--font-archivo",
   subsets: ["latin"],
   display: "swap",
 });
 
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-instrument-serif",
   subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+  display: "swap",
+});
+
+const plexMono = IBM_Plex_Mono({
+  variable: "--font-plex-mono",
+  subsets: ["latin"],
+  weight: ["400", "500"],
   display: "swap",
 });
 
@@ -31,7 +41,7 @@ export const metadata: Metadata = {
     "six50", "650", "6fifty", "sixfifty", "Six50 Solutions", "Six Fifty",
     "Chicago AI", "AI automation consulting Chicago", "fractional CFO services",
     "SMB financial consulting", "PE-backed business consulting", "workflow automation",
-    "AI implementation agency", "Chicago consulting firm", "Aurora IL business consulting",
+    "AI implementation agency", "Chicago consulting firm", "Chicago business consulting",
     "financial leadership", "intelligent systems", "accounting services",
   ],
   authors: [{ name: "Adil Ghazali, CPA", url: "https://six50.io/about" }],
@@ -65,12 +75,13 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${spaceGrotesk.variable} antialiased`}>
+      <body className={`${archivo.variable} ${instrumentSerif.variable} ${plexMono.variable} antialiased`}>
         <OrganizationSchema />
         <WebsiteSchema />
-        <AnimatedBackground />
+        <ParticleField />
+        <ScrollProgress />
         <Navbar />
-        {children}
+        <div className="relative z-[2]">{children}</div>
         <Footer />
         <ChatWidget />
       </body>

@@ -42,12 +42,12 @@ export default function LoginPage() {
             <header className="p-6 md:p-8 flex justify-between items-center">
                 <Link href="/">
                     <div className="flex items-center gap-2 group">
-                        <div className="w-8 h-8 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center group-hover:border-gold-500 transition-colors">
-                            <span className="font-bold text-white text-xs">650</span>
+                        <div className="w-8 h-8 rounded-full bg-ink-900 border border-line-strong flex items-center justify-center group-hover:border-gold-500 transition-colors">
+                            <span className="font-bold text-paper text-xs">650</span>
                         </div>
                     </div>
                 </Link>
-                <Link href="/" className="text-sm text-slate-400 hover:text-white transition-colors">
+                <Link href="/" className="text-sm text-fog-2 hover:text-paper transition-colors">
                     Back to Website
                 </Link>
             </header>
@@ -55,15 +55,15 @@ export default function LoginPage() {
             {/* Login Form Container */}
             <div className="flex-grow flex items-center justify-center p-6">
                 <FadeIn>
-                    <div className="w-full max-w-md bg-slate-900/50 border border-slate-800 p-8 md:p-12 rounded-lg backdrop-blur-sm shadow-2xl">
+                    <div className="w-full max-w-md bg-ink-900/50 border border-line-strong p-8 md:p-12 rounded-lg backdrop-blur-sm shadow-2xl">
                         <div className="mb-10 text-center">
-                            <h1 className="text-2xl md:text-3xl font-bold text-white mb-2">Client Portal</h1>
-                            <p className="text-slate-400">Secure access for six50 partners.</p>
+                            <h1 className="text-2xl md:text-3xl font-bold text-paper mb-2">Client Portal</h1>
+                            <p className="text-fog-2">Secure access for six50 partners.</p>
                         </div>
 
                         <form onSubmit={handleSubmit} className="space-y-6">
                             <div>
-                                <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
+                                <label className="block text-xs font-bold text-fog uppercase tracking-wider mb-2">
                                     Email Address
                                 </label>
                                 <input
@@ -71,14 +71,14 @@ export default function LoginPage() {
                                     required
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    className="w-full bg-slate-950 border border-slate-700 rounded-sm p-3 text-white focus:outline-none focus:border-gold-500 transition-colors placeholder:text-slate-700"
+                                    className="w-full bg-slate-950 border border-line-strong rounded-sm p-3 text-paper focus:outline-none focus:border-gold-500 transition-colors placeholder:text-paper"
                                     placeholder="name@company.com"
                                 />
                             </div>
 
                             <div>
                                 <div className="flex justify-between items-center mb-2">
-                                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider">
+                                    <label className="block text-xs font-bold text-fog uppercase tracking-wider">
                                         Password
                                     </label>
                                     <a href="#" className="text-xs text-gold-500 hover:text-gold-400 transition-colors">
@@ -91,17 +91,17 @@ export default function LoginPage() {
                                         required
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
-                                        className="w-full bg-slate-950 border border-slate-700 rounded-sm p-3 text-white focus:outline-none focus:border-gold-500 transition-colors placeholder:text-slate-700"
+                                        className="w-full bg-slate-950 border border-line-strong rounded-sm p-3 text-paper focus:outline-none focus:border-gold-500 transition-colors placeholder:text-paper"
                                         placeholder="••••••••"
                                     />
-                                    <Lock className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600" />
+                                    <Lock className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-fog" />
                                 </div>
                             </div>
 
                             <button
                                 type="submit"
                                 disabled={isLoading}
-                                className="w-full bg-gold-500 text-slate-900 font-bold py-3 mt-4 rounded-sm hover:bg-gold-400 transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                                className="w-full bg-gold-500 text-paper font-bold py-3 mt-4 rounded-sm hover:bg-gold-400 transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
                             >
                                 {isLoading ? (
                                     <span className="w-4 h-4 border-2 border-slate-900 border-t-transparent rounded-full animate-spin" />
@@ -113,8 +113,8 @@ export default function LoginPage() {
                             </button>
                         </form>
 
-                        <div className="mt-8 pt-8 border-t border-slate-800 text-center">
-                            <p className="text-xs text-slate-500">
+                        <div className="mt-8 pt-8 border-t border-line-strong text-center">
+                            <p className="text-xs text-fog">
                                 This portal is restricted to authorized personnel only.
                                 <br />Access attempts are monitored and logged.
                             </p>

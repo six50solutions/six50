@@ -1,18 +1,17 @@
 @import "tailwindcss";
 
 :root {
-  /* Warm cream background - slightly richer than before */
-  --background: #FDFBF7;
-  /* Deep Navy text */
-  --foreground: #0F172A;
-  /* Antique Gold accent */
-  --accent: #C5A065;
-  /* Matching Gold for borders/lines */
-  --border: #E2E8F0;
-  /* Keep light grey for subtle borders, or specific gold-border? */
-  --gold-dim: #E5D4B3;
-  /* Navy Muted */
-  --muted: #475569;
+  /* Ink — deep blue-black base */
+  --background: #0A0E14;
+  --foreground: #EAE7DE;
+  /* Gold — financial rigor */
+  --accent: #E8B44C;
+  /* Electric blue — intelligent systems */
+  --accent-blue: #6BA8FF;
+  --border: rgba(234, 231, 222, 0.09);
+  --gold-dim: rgba(232, 180, 76, 0.16);
+  --blue-dim: rgba(107, 168, 255, 0.14);
+  --muted: #8A93A6;
 }
 
 @theme inline {
@@ -22,17 +21,34 @@
   --color-border: var(--border);
   --color-muted: var(--muted);
 
-  /* Custom colors to use in tailwind classes */
-  --color-navy-900: #0F172A;
-  --color-navy-800: #1E293B;
-  --color-navy-700: #334155;
-  --color-navy-600: #475569;
+  /* Ink scale (backgrounds) */
+  --color-ink-950: #06090e;
+  --color-ink-900: #0A0E14;
+  --color-ink-800: #0E141E;
+  --color-ink-700: #131B28;
+  --color-ink-600: #1B2536;
 
-  --color-gold-500: #C5A065;
-  --color-gold-400: #D4AF37;
-  --color-gold-100: #F3EAD3;
+  /* Text */
+  --color-paper: #EAE7DE;
+  --color-fog: #8A93A6;
+  --color-fog-2: #5A6376;
 
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  /* Accents */
+  --color-gold-600: #C99A33;
+  --color-gold-500: #E8B44C;
+  --color-gold-400: #F5C869;
+  --color-gold-100: rgba(232, 180, 76, 0.16);
+
+  --color-blue-500: #6BA8FF;
+  --color-blue-100: rgba(107, 168, 255, 0.14);
+
+  /* Hairlines */
+  --color-line: rgba(234, 231, 222, 0.09);
+  --color-line-strong: rgba(234, 231, 222, 0.18);
+
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-instrument-serif), Georgia, serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
 }
 
 /* Base styles */
@@ -42,9 +58,145 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 ::selection {
   background-color: var(--accent);
-  color: #fff;
+  color: #0A0E14;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ---------- display typography ---------- */
+.font-display {
+  font-family: var(--font-sans);
+  font-weight: 620;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+}
+
+.serif-accent {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.serif-gradient {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  background: linear-gradient(95deg, #E8B44C 20%, #6BA8FF 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding-right: 0.06em;
+}
+
+/* ---------- ledger system ---------- */
+.ledger-head {
+  display: flex;
+  align-items: baseline;
+  gap: 1.25rem;
+  border-bottom: 1px solid var(--color-line-strong);
+  padding-bottom: 1rem;
+}
+
+/* ---------- reveal default (GSAP animates to visible) ---------- */
+.gsap-reveal {
+  opacity: 0;
+  transform: translateY(34px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .gsap-reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- service card spotlight ---------- */
+.spotlight-card {
+  position: relative;
+  overflow: hidden;
+}
+.spotlight-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.45s;
+  background: radial-gradient(
+    600px circle at var(--mx, 50%) var(--my, 0%),
+    var(--glow, var(--gold-dim)),
+    transparent 55%
+  );
+  pointer-events: none;
+}
+.spotlight-card:hover::before {
+  opacity: 1;
+}
+.spotlight-card[data-glow="blue"] {
+  --glow: var(--blue-dim);
+}
+
+/* ---------- field hint pulse ---------- */
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(107, 168, 255, 0.55); }
+  70% { box-shadow: 0 0 0 11px rgba(107, 168, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(107, 168, 255, 0); }
+}
+.pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent-blue);
+  animation: pulse-ring 2.2s infinite;
+}
+
+/* ---------- scroll cue ---------- */
+@keyframes drip {
+  0% { top: -50%; }
+  100% { top: 110%; }
+}
+.scroll-bar {
+  width: 1px;
+  height: 42px;
+  background: var(--color-line-strong);
+  position: relative;
+  overflow: hidden;
+}
+.scroll-bar::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: var(--accent);
+  animation: drip 2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse-dot,
+  .scroll-bar::after {
+    animation: none;
+  }
+}
+
+/* ---------- vignette over the particle field ---------- */
+.field-vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 120% 90% at 50% 10%,
+    transparent 40%,
+    rgba(10, 14, 20, 0.55) 100%
+  );
 }

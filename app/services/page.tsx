@@ -1,6 +1,7 @@
-import { FadeIn } from "@/components/ui/FadeIn";
-import { Section } from "@/components/ui/Section";
-import { Button } from "@/components/ui/Button";
+import { Reveal } from "@/components/ui/Reveal";
+import { LedgerHead } from "@/components/ui/LedgerHead";
+import { Magnetic } from "@/components/ui/Magnetic";
+import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { ArrowRight, CheckCircle2, LayoutTemplate, Workflow, Bot, Users, LineChart } from "lucide-react";
 import Link from "next/link";
 import type { Metadata } from "next";
@@ -17,203 +18,172 @@ export const metadata: Metadata = {
   },
 };
 
+const services = [
+  {
+    icon: LayoutTemplate,
+    title: "Digital Product Strategy & Development",
+    desc: "Turn ideas into working digital assets. We design and build tailored digital solutions aligned to your business goals.",
+    items: ["Web design & development", "App prototypes & mockups", "Client portals & dashboards"],
+  },
+  {
+    icon: Workflow,
+    title: "Workflow Automation & Process Engineering",
+    desc: "Eliminate manual work. Reduce friction. Increase control. We analyze your current processes and redesign them using automation.",
+    items: ["Workflow mapping", "CRM implementation", "Automated lead intake"],
+  },
+  {
+    icon: Bot,
+    title: "AI Strategy & Use Case Implementation",
+    desc: "Move beyond hype. We help businesses identify and deploy AI where it actually adds value.",
+    items: ["AI-powered reporting", "Chatbots & call agents", "Document summarization"],
+  },
+  {
+    icon: Users,
+    title: "Digital Tool Adoption & Team Enablement",
+    desc: "Technology only works if people use it. We don't just build systems — we ensure adoption.",
+    items: ["Tool selection", "Training workshops", "SOP documentation"],
+  },
+  {
+    icon: LineChart,
+    title: "Practical Tech Strategy",
+    desc: "We help you figure out exactly which AI tools and systems make sense for your business — so you don't waste money on hype. We build a clear roadmap to safely deploy technology that drives growth.",
+    items: ["Tech stack planning", "Data security & privacy", "Custom rollout roadmaps"],
+  },
+];
 
 export default function ServicesPage() {
-    return (
-                <ServiceSchema name="AI & Automation Implementation" description="Custom workflow automation, AI integration, and operational dashboards for growing businesses." url="https://six50.io/services" />
-        <div className="pt-20 flex flex-col">
-            {/* Hero Section */}
-            <Section className="bg-slate-50 border-b border-slate-200">
-                <FadeIn>
-                    <div className="max-w-4xl mx-auto text-center">
-                        <h1 className="text-4xl md:text-6xl font-bold text-slate-800 mb-6 tracking-tight">
-                            Intelligent <span className="text-gold-500">Systems.</span><br />
-                            Built for Growing Businesses.
-                        </h1>
-                        <p className="text-xl text-slate-600 leading-relaxed mb-8">
-                            We design and build tailored digital solutions aligned to your business goals.
-                        </p>
-                        <div className="flex justify-center gap-4">
-                            <Link href="/contact">
-                                <Button size="lg" className="group">
-                                    Schedule a Call
-                                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                                </Button>
-                            </Link>
-                        </div>
-                    </div>
-                </FadeIn>
-            </Section>
+  return (
+    <>
+      <ServiceSchema name="AI & Automation Implementation" description="Custom workflow automation, AI integration, and operational dashboards for growing businesses." url="https://six50.io/services" />
+      <div className="flex flex-col pt-20">
+        {/* Hero */}
+        <section className="mx-auto w-full max-w-7xl px-6 pb-16 pt-20 md:px-12 md:pt-28">
+          <Reveal>
+            <p className="mb-7 flex items-center gap-3.5 font-mono text-[0.78rem] uppercase tracking-[0.2em] text-fog">
+              <span className="inline-block h-px w-9 bg-blue-500" />
+              Service line · AI &amp; automation
+            </p>
+          </Reveal>
+          <Reveal>
+            <h1 className="font-display max-w-[16ch] text-[clamp(2.6rem,6.5vw,5.2rem)]">
+              Intelligent <em className="serif-accent text-blue-500">systems.</em>
+              <br />
+              Built for growing businesses.
+            </h1>
+          </Reveal>
+          <Reveal>
+            <p className="mt-8 max-w-[54ch] text-lg leading-relaxed text-fog">
+              We help organizations move past AI experimentation into clarity, confidence, and
+              execution — where insight becomes action and systems actually change. Technical
+              rigor and strategic thinking for businesses that need automation built for
+              production, not proofs of concept.
+            </p>
+          </Reveal>
+          <Reveal>
+            <div className="mt-10">
+              <Magnetic>
+                <Link
+                  href="/contact"
+                  className="group inline-flex items-center gap-3 rounded-[3px] bg-gold-500 px-7 py-4 font-mono text-sm uppercase tracking-[0.05em] text-ink-900 transition-colors hover:bg-gold-400"
+                >
+                  Schedule a call
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </Magnetic>
+            </div>
+          </Reveal>
+        </section>
 
-            {/* Introduction */}
-            <Section className="py-24">
-                <div className="container mx-auto px-6 md:px-12">
-                    <FadeIn>
-                        <div className="max-w-3xl mx-auto text-lg text-slate-700 leading-relaxed space-y-6 text-center">
-                            <p>
-                                We help organizations move past AI experimentation into clarity, confidence, and execution - where insight becomes action and systems actually change.
-                            </p>
-                            <p>
-                                Six50 brings technical rigor and strategic thinking to businesses that need robust AI and workflow automation implementations — helping you scale efficiently.
-                            </p>
-                        </div>
-                    </FadeIn>
-                </div>
-            </Section>
+        {/* What we offer */}
+        <section className="mx-auto w-full max-w-7xl px-6 py-24 md:px-12 md:py-32">
+          <LedgerHead no="001" title="What we offer" tail="Five capabilities · one build team" />
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {services.map((s, i) => (
+              <Reveal key={s.title} delay={(i % 3) * 0.1}>
+                <SpotlightCard glow="blue" className="flex h-full flex-col p-8">
+                  <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-md border border-line bg-ink-700 text-blue-500">
+                    <s.icon className="h-6 w-6" />
+                  </div>
+                  <h3 className="font-display mb-4 text-xl">{s.title}</h3>
+                  <p className="mb-6 flex-grow leading-relaxed text-fog">{s.desc}</p>
+                  <ul className="space-y-2.5">
+                    {s.items.map((it) => (
+                      <li key={it} className="flex items-start font-mono text-[0.82rem] text-fog">
+                        <CheckCircle2 className="mr-2.5 mt-0.5 h-4 w-4 shrink-0 text-blue-500" />
+                        {it}
+                      </li>
+                    ))}
+                  </ul>
+                </SpotlightCard>
+              </Reveal>
+            ))}
+          </div>
+        </section>
 
-            {/* What We Offer */}
-            <Section className="py-24 bg-slate-900 border-t border-slate-800">
-                <div className="container mx-auto px-6 md:px-12">
-                    <FadeIn>
-                        <div className="text-center mb-16">
-                            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-white mb-6">
-                                What We Offer
-                            </h2>
-                            <div className="w-24 h-1 bg-gold-500 mx-auto" />
-                        </div>
-                    </FadeIn>
+        {/* Why six50 */}
+        <section className="mx-auto w-full max-w-7xl px-6 py-24 md:px-12 md:py-32">
+          <LedgerHead no="002" title="Why six50" tail="Finance × intelligence" />
+          <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-2 md:gap-16">
+            <div>
+              <Reveal>
+                <h2 className="font-display max-w-[16ch] text-[clamp(2rem,4.5vw,3.2rem)]">
+                  Built by people who understand the{" "}
+                  <em className="serif-accent text-gold-500">numbers.</em>
+                </h2>
+              </Reveal>
+              <Reveal>
+                <p className="mt-6 max-w-[54ch] text-lg leading-relaxed text-fog">
+                  Our team sits at the rare intersection of deep financial expertise and
+                  cutting-edge technology deployment. We don&apos;t build technology for the sake
+                  of it — we build systems that drive real business outcomes, backed by the
+                  rigor of enterprise-grade control frameworks.
+                </p>
+              </Reveal>
+            </div>
+            <Reveal>
+              <div className="rounded-md border border-line-strong bg-ink-800 p-8">
+                <h3 className="font-display mb-4 flex items-center text-xl">
+                  <CheckCircle2 className="mr-3 h-6 w-6 text-gold-500" /> A note on pricing
+                </h3>
+                <p className="leading-relaxed text-fog">
+                  Engagements are structured as monthly retainers or fixed-scope projects
+                  depending on your needs.
+                  <br />
+                  <br />
+                  We work with a small number of clients at a time intentionally — so if
+                  you&apos;re working with us, you have our full attention.
+                </p>
+              </div>
+            </Reveal>
+          </div>
+        </section>
 
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {/* Service 1 */}
-                        <FadeIn delay={0.1}>
-                            <div className="bg-slate-800 p-8 rounded-2xl border border-slate-700 h-full flex flex-col">
-                                <div className="w-12 h-12 bg-slate-700 rounded-lg flex items-center justify-center mb-6 text-gold-500">
-                                    <LayoutTemplate className="w-6 h-6" />
-                                </div>
-                                <h3 className="text-2xl font-bold text-white mb-4">Digital Product Strategy & Development</h3>
-                                <p className="text-slate-300 mb-6 flex-grow leading-relaxed">
-                                    Turn ideas into working digital assets. We design and build tailored digital solutions aligned to your business goals.
-                                </p>
-                                <ul className="space-y-2 text-sm text-slate-400">
-                                    <li className="flex items-start"><CheckCircle2 className="w-4 h-4 mr-2 mt-0.5 text-gold-500 shrink-0" /> Web design & development</li>
-                                    <li className="flex items-start"><CheckCircle2 className="w-4 h-4 mr-2 mt-0.5 text-gold-500 shrink-0" /> App prototypes & mockups</li>
-                                    <li className="flex items-start"><CheckCircle2 className="w-4 h-4 mr-2 mt-0.5 text-gold-500 shrink-0" /> Client portals & dashboards</li>
-                                </ul>
-                            </div>
-                        </FadeIn>
-
-                        {/* Service 2 */}
-                        <FadeIn delay={0.2}>
-                            <div className="bg-slate-800 p-8 rounded-2xl border border-slate-700 h-full flex flex-col">
-                                <div className="w-12 h-12 bg-slate-700 rounded-lg flex items-center justify-center mb-6 text-gold-500">
-                                    <Workflow className="w-6 h-6" />
-                                </div>
-                                <h3 className="text-2xl font-bold text-white mb-4">Workflow Automation & Process Engineering</h3>
-                                <p className="text-slate-300 mb-6 flex-grow leading-relaxed">
-                                    Eliminate manual work. Reduce friction. Increase control. We analyze your current processes and redesign them using automation.
-                                </p>
-                                <ul className="space-y-2 text-sm text-slate-400">
-                                    <li className="flex items-start"><CheckCircle2 className="w-4 h-4 mr-2 mt-0.5 text-gold-500 shrink-0" /> Workflow mapping</li>
-                                    <li className="flex items-start"><CheckCircle2 className="w-4 h-4 mr-2 mt-0.5 text-gold-500 shrink-0" /> CRM implementation</li>
-                                    <li className="flex items-start"><CheckCircle2 className="w-4 h-4 mr-2 mt-0.5 text-gold-500 shrink-0" /> Automated lead intake</li>
-                                </ul>
-                            </div>
-                        </FadeIn>
-
-                        {/* Service 3 */}
-                        <FadeIn delay={0.3}>
-                            <div className="bg-slate-800 p-8 rounded-2xl border border-slate-700 h-full flex flex-col">
-                                <div className="w-12 h-12 bg-slate-700 rounded-lg flex items-center justify-center mb-6 text-gold-500">
-                                    <Bot className="w-6 h-6" />
-                                </div>
-                                <h3 className="text-2xl font-bold text-white mb-4">AI Strategy & Use Case Implementation</h3>
-                                <p className="text-slate-300 mb-6 flex-grow leading-relaxed">
-                                    Move beyond hype. We help businesses identify and deploy AI where it actually adds value.
-                                </p>
-                                <ul className="space-y-2 text-sm text-slate-400">
-                                    <li className="flex items-start"><CheckCircle2 className="w-4 h-4 mr-2 mt-0.5 text-gold-500 shrink-0" /> AI-powered reporting</li>
-                                    <li className="flex items-start"><CheckCircle2 className="w-4 h-4 mr-2 mt-0.5 text-gold-500 shrink-0" /> Chatbots & call agents</li>
-                                    <li className="flex items-start"><CheckCircle2 className="w-4 h-4 mr-2 mt-0.5 text-gold-500 shrink-0" /> Document summarization</li>
-                                </ul>
-                            </div>
-                        </FadeIn>
-
-                        {/* Service 4 */}
-                        <FadeIn delay={0.4}>
-                            <div className="bg-slate-800 p-8 rounded-2xl border border-slate-700 h-full flex flex-col">
-                                <div className="w-12 h-12 bg-slate-700 rounded-lg flex items-center justify-center mb-6 text-gold-500">
-                                    <Users className="w-6 h-6" />
-                                </div>
-                                <h3 className="text-2xl font-bold text-white mb-4">Digital Tool Adoption & Team Enablement</h3>
-                                <p className="text-slate-300 mb-6 flex-grow leading-relaxed">
-                                    Technology only works if people use it. We don't just build systems - we ensure adoption.
-                                </p>
-                                <ul className="space-y-2 text-sm text-slate-400">
-                                    <li className="flex items-start"><CheckCircle2 className="w-4 h-4 mr-2 mt-0.5 text-gold-500 shrink-0" /> Tool selection</li>
-                                    <li className="flex items-start"><CheckCircle2 className="w-4 h-4 mr-2 mt-0.5 text-gold-500 shrink-0" /> Training workshops</li>
-                                    <li className="flex items-start"><CheckCircle2 className="w-4 h-4 mr-2 mt-0.5 text-gold-500 shrink-0" /> SOP documentation</li>
-                                </ul>
-                            </div>
-                        </FadeIn>
-
-                        {/* Service 5 */}
-                        <FadeIn delay={0.5}>
-                            <div className="bg-slate-800 p-8 rounded-2xl border border-slate-700 h-full flex flex-col">
-                                <div className="w-12 h-12 bg-slate-700 rounded-lg flex items-center justify-center mb-6 text-gold-500">
-                                    <LineChart className="w-6 h-6" />
-                                </div>
-                                <h3 className="text-2xl font-bold text-white mb-4">Practical Tech Strategy</h3>
-                                <p className="text-slate-300 mb-6 flex-grow leading-relaxed">
-                                    We help you figure out exactly which AI tools and systems make sense for your business - so you don't waste money on hype. We build a clear roadmap to safely deploy technology that drives growth.
-                                </p>
-                                <ul className="space-y-2 text-sm text-slate-400">
-                                    <li className="flex items-start"><CheckCircle2 className="w-4 h-4 mr-2 mt-0.5 text-gold-500 shrink-0" /> Tech stack planning</li>
-                                    <li className="flex items-start"><CheckCircle2 className="w-4 h-4 mr-2 mt-0.5 text-gold-500 shrink-0" /> Data security & privacy</li>
-                                    <li className="flex items-start"><CheckCircle2 className="w-4 h-4 mr-2 mt-0.5 text-gold-500 shrink-0" /> Custom rollout roadmaps</li>
-                                </ul>
-                            </div>
-                        </FadeIn>
-                    </div>
-                </div>
-            </Section>
-
-            {/* Why Six50 */}
-            <Section className="py-24 bg-white">
-                <div className="container mx-auto px-6 md:px-12 max-w-5xl">
-                    <FadeIn>
-                        <div className="md:flex gap-16 items-center">
-                            <div className="md:w-1/2 mb-10 md:mb-0">
-                                <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-slate-800 mb-6">
-                                    Why Six50
-                                </h2>
-                                <div className="w-12 h-1 bg-gold-500 mb-8" />
-                                <p className="text-lg text-slate-600 leading-relaxed mb-6">
-                                    Our team sits at the rare intersection of deep financial expertise and cutting-edge technology deployment.
-                                </p>
-                                <p className="text-lg text-slate-600 leading-relaxed">
-                                    We don't build technology for the sake of it. We build systems that drive real business outcomes, backed by the rigor of enterprise-grade control frameworks, to businesses that are ready to scale securely.
-                                </p>
-                            </div>
-                            <div className="md:w-1/2 bg-slate-50 p-8 rounded-2xl border border-slate-100 shadow-sm">
-                                <h3 className="text-xl font-bold text-slate-800 mb-4 flex items-center">
-                                    <CheckCircle2 className="w-6 h-6 mr-3 text-gold-500" /> A note on pricing
-                                </h3>
-                                <p className="text-slate-600 leading-relaxed">
-                                    Engagements are structured as monthly retainers or fixed-scope projects depending on your needs. <br /><br />
-                                    We work with a small number of clients at a time intentionally - so if you're working with us, you have our full attention.
-                                </p>
-                            </div>
-                        </div>
-                    </FadeIn>
-                </div>
-            </Section>
-
-            {/* CTA */}
-            <Section className="py-24 border-t border-slate-200 bg-slate-50">
-                <div className="container mx-auto px-6 md:px-12 text-center">
-                    <FadeIn>
-                        <h2 className="text-3xl font-bold text-slate-800 mb-6">Let's talk about your systems.</h2>
-                        <p className="text-slate-600 mb-8 max-w-lg mx-auto text-lg leading-relaxed">
-                            Book a free 30-minute call to walk through where you are and what you actually need. No pitch, no pressure - just a straight conversation.
-                        </p>
-                        <Link href="/contact">
-                            <Button size="lg" className="bg-gold-500 hover:bg-gold-600 text-white border-transparent">
-                                Schedule a Call
-                            </Button>
-                        </Link>
-                    </FadeIn>
-                </div>
-            </Section>
-        </div>
-    );
+        {/* CTA */}
+        <section className="mx-auto w-full max-w-7xl px-6 pb-32 pt-12 text-center md:px-12">
+          <Reveal>
+            <h2 className="font-display mx-auto mb-6 max-w-[18ch] text-[clamp(2rem,5vw,3.6rem)]">
+              Let&apos;s talk about your <em className="serif-accent text-blue-500">systems.</em>
+            </h2>
+          </Reveal>
+          <Reveal>
+            <p className="mx-auto mb-10 max-w-[52ch] text-lg leading-relaxed text-fog">
+              Book a free 30-minute call to walk through where you are and what you actually
+              need. No pitch, no pressure — just a straight conversation.
+            </p>
+          </Reveal>
+          <Reveal>
+            <Magnetic>
+              <Link
+                href="/contact"
+                className="group inline-flex items-center gap-3 rounded-[3px] bg-gold-500 px-8 py-4 font-mono text-sm uppercase tracking-[0.05em] text-ink-900 transition-colors hover:bg-gold-400"
+              >
+                Schedule a call
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </Magnetic>
+          </Reveal>
+        </section>
+      </div>
+    </>
+  );
 }

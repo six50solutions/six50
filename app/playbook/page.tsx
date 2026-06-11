@@ -4,7 +4,7 @@ import React from 'react';
 
 export default function PlaybookPage() {
     return (
-        <div className="min-h-screen bg-white text-gray-900 font-sans selection:bg-[#D4AF37] selection:text-white pb-20 print:pb-0">
+        <div className="min-h-screen bg-ink-800 text-gray-900 font-sans selection:bg-[#D4AF37] selection:text-paper pb-20 print:pb-0">
             <style jsx global>{`
         @media print {
           @page { margin: 1.5cm; }
@@ -15,7 +15,7 @@ export default function PlaybookPage() {
       `}</style>
 
             {/* Navigation / Actions - Hidden in Print */}
-            <div className="fixed top-0 left-0 right-0 bg-[#0B1F33] text-white p-4 flex justify-between items-center z-50 no-print shadow-lg">
+            <div className="fixed top-0 left-0 right-0 bg-[#0B1F33] text-paper p-4 flex justify-between items-center z-50 no-print shadow-lg">
                 <div className="font-semibold text-lg tracking-tight">six50 <span className="text-[#D4AF37]">Playbook</span></div>
                 <button
                     onClick={() => window.print()}
@@ -36,7 +36,7 @@ export default function PlaybookPage() {
                             <p className="text-xl text-[#D4AF37] font-medium">From Insight to Impact</p>
                         </div>
                         <div className="text-right">
-                            <div className="bg-[#0B1F33] text-white font-bold text-xl px-4 py-2 inline-block">six50</div>
+                            <div className="bg-[#0B1F33] text-paper font-bold text-xl px-4 py-2 inline-block">six50</div>
                         </div>
                     </div>
                 </header>
@@ -61,7 +61,7 @@ export default function PlaybookPage() {
                 <section className="mb-12">
                     <h2 className="text-2xl font-bold text-[#0B1F33] mb-6 uppercase tracking-wider text-sm border-l-4 border-[#D4AF37] pl-3 py-1">Our Engagement Philosophy</h2>
                     <div className="grid grid-cols-2 gap-6">
-                        <div className="bg-[#0B1F33] text-white p-6 rounded-lg shadow-sm print:bg-white print:text-black print:border print:border-gray-200">
+                        <div className="bg-[#0B1F33] text-paper p-6 rounded-lg shadow-none print:bg-ink-800 print:text-black print:border print:border-gray-200">
                             <ul className="space-y-3 font-medium">
                                 <li className="flex items-start gap-2"><span className="text-[#D4AF37] mt-1">✓</span> Outcome-driven (not tool-driven)</li>
                                 <li className="flex items-start gap-2"><span className="text-[#D4AF37] mt-1">✓</span> Fast, pragmatic, and iterative</li>
@@ -93,7 +93,7 @@ export default function PlaybookPage() {
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-100 text-gray-700">
-                                <tr className="bg-white">
+                                <tr className="bg-ink-800">
                                     <td className="p-4 font-bold text-[#D4AF37]">1</td>
                                     <td className="p-4 font-medium">Diagnose & Prioritize</td>
                                     <td className="p-4 text-right">1–2 weeks</td>
@@ -103,7 +103,7 @@ export default function PlaybookPage() {
                                     <td className="p-4 font-medium">Design & Blueprint</td>
                                     <td className="p-4 text-right">1–2 weeks</td>
                                 </tr>
-                                <tr className="bg-white">
+                                <tr className="bg-ink-800">
                                     <td className="p-4 font-bold text-[#D4AF37]">3</td>
                                     <td className="p-4 font-medium">Build & Implement</td>
                                     <td className="p-4 text-right">2–6 weeks</td>
@@ -121,8 +121,8 @@ export default function PlaybookPage() {
                 {/* Phase 1 */}
                 <div className="break-before-page"></div>
                 <section className="mb-10">
-                    <h3 className="text-xl font-bold text-white bg-[#0B1F33] px-4 py-2 inline-block rounded-t-lg mb-0 text-transform uppercase tracking-wider">Phase 1: Diagnose & Prioritize</h3>
-                    <div className="border border-[#0B1F33] p-6 rounded-b-lg rounded-tr-lg shadow-sm mt-[-1px] bg-white">
+                    <h3 className="text-xl font-bold text-paper bg-[#0B1F33] px-4 py-2 inline-block rounded-t-lg mb-0 text-transform uppercase tracking-wider">Phase 1: Diagnose & Prioritize</h3>
+                    <div className="border border-[#0B1F33] p-6 rounded-b-lg rounded-tr-lg shadow-none mt-[-1px] bg-ink-800">
                         <p className="text-gray-700 italic mb-6 border-b border-gray-100 pb-4">Objective: Identify where AI, automation, or process redesign will create the most value now.</p>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 print:grid-cols-2">
                             <div>
@@ -150,8 +150,8 @@ export default function PlaybookPage() {
 
                 {/* Phase 2 */}
                 <section className="mb-10 break-inside-avoid">
-                    <h3 className="text-xl font-bold text-white bg-[#0B1F33] px-4 py-2 inline-block rounded-t-lg mb-0 text-transform uppercase tracking-wider">Phase 2: Design & Blueprint</h3>
-                    <div className="border border-[#0B1F33] p-6 rounded-b-lg rounded-tr-lg shadow-sm mt-[-1px] bg-white">
+                    <h3 className="text-xl font-bold text-paper bg-[#0B1F33] px-4 py-2 inline-block rounded-t-lg mb-0 text-transform uppercase tracking-wider">Phase 2: Design & Blueprint</h3>
+                    <div className="border border-[#0B1F33] p-6 rounded-b-lg rounded-tr-lg shadow-none mt-[-1px] bg-ink-800">
                         <p className="text-gray-700 italic mb-6 border-b border-gray-100 pb-4">Objective: Turn prioritized ideas into an executable plan.</p>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 print:grid-cols-2">
                             <div>
@@ -183,8 +183,8 @@ export default function PlaybookPage() {
                 {/* Phase 3 */}
                 <div className="break-before-page"></div>
                 <section className="mb-10 break-inside-avoid">
-                    <h3 className="text-xl font-bold text-white bg-[#0B1F33] px-4 py-2 inline-block rounded-t-lg mb-0 text-transform uppercase tracking-wider">Phase 3: Build & Implement</h3>
-                    <div className="border border-[#0B1F33] p-6 rounded-b-lg rounded-tr-lg shadow-sm mt-[-1px] bg-white">
+                    <h3 className="text-xl font-bold text-paper bg-[#0B1F33] px-4 py-2 inline-block rounded-t-lg mb-0 text-transform uppercase tracking-wider">Phase 3: Build & Implement</h3>
+                    <div className="border border-[#0B1F33] p-6 rounded-b-lg rounded-tr-lg shadow-none mt-[-1px] bg-ink-800">
                         <p className="text-gray-700 italic mb-6 border-b border-gray-100 pb-4">Objective: Make it real — fast, stable, and usable.</p>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 print:grid-cols-2">
                             <div>
@@ -212,8 +212,8 @@ export default function PlaybookPage() {
 
                 {/* Phase 4 */}
                 <section className="mb-12 break-inside-avoid">
-                    <h3 className="text-xl font-bold text-white bg-gray-500 px-4 py-2 inline-block rounded-t-lg mb-0 text-transform uppercase tracking-wider">Phase 4: Optimize & Scale</h3>
-                    <div className="border border-gray-300 p-6 rounded-b-lg rounded-tr-lg shadow-sm mt-[-1px] bg-white">
+                    <h3 className="text-xl font-bold text-paper bg-gray-500 px-4 py-2 inline-block rounded-t-lg mb-0 text-transform uppercase tracking-wider">Phase 4: Optimize & Scale</h3>
+                    <div className="border border-gray-300 p-6 rounded-b-lg rounded-tr-lg shadow-none mt-[-1px] bg-ink-800">
                         <p className="text-gray-700 italic mb-6 border-b border-gray-100 pb-4">Objective: Improve performance and expand impact over time.</p>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 print:grid-cols-2">
                             <div>

@@ -1,6 +1,6 @@
 import { TransformationVisual } from "@/components/ui/TransformationVisual";
-import { FadeIn } from "@/components/ui/FadeIn";
-import { Section } from "@/components/ui/Section";
+import { Reveal } from "@/components/ui/Reveal";
+import { LedgerHead } from "@/components/ui/LedgerHead";
 import { ShieldCheck, BarChart3, Zap, Users } from "lucide-react";
 import type { Metadata } from "next";
 import { PersonSchema } from "@/components/JsonLd";
@@ -16,115 +16,148 @@ export const metadata: Metadata = {
   },
 };
 
+const differentiators = [
+  { title: "Clarity over hype", desc: "No buzzwords, no AI theater. Just results.", icon: BarChart3 },
+  { title: "Transformation over experimentation", desc: "Built for production, not just proofs of concept.", icon: Zap },
+  { title: "Human-centered AI", desc: "Judgment, controls, and trust embedded in every system.", icon: Users },
+  { title: "Enterprise-grade execution", desc: "Designed for real businesses with real constraints.", icon: ShieldCheck },
+];
 
 export default function AboutPage() {
-    return (
-                <PersonSchema />
-        <div className="pt-20">
-            {/* Hero / Philosophy */}
-            <Section>
-                <FadeIn>
-                    <div className="max-w-4xl">
-                        <h1 className="text-4xl md:text-6xl font-bold text-slate-800 mb-8 tracking-tight">
-                            Where clarity triggers <span className="text-slate-400">transformation.</span>
-                        </h1>
-                        <div className="w-24 h-1 bg-gold-500 mb-12" />
+  return (
+    <>
+      <PersonSchema />
+      <div className="flex flex-col pt-20">
+        {/* Hero / Philosophy */}
+        <section className="mx-auto w-full max-w-7xl px-6 pb-16 pt-20 md:px-12 md:pt-28">
+          <Reveal>
+            <p className="mb-7 flex items-center gap-3.5 font-mono text-[0.78rem] uppercase tracking-[0.2em] text-fog">
+              <span className="inline-block h-px w-9 bg-gold-500" />
+              About six50
+            </p>
+          </Reveal>
+          <Reveal>
+            <h1 className="font-display max-w-[18ch] text-[clamp(2.6rem,6.5vw,5.2rem)]">
+              Where clarity triggers{" "}
+              <em className="serif-gradient">transformation.</em>
+            </h1>
+          </Reveal>
+          <Reveal>
+            <p className="mt-8 max-w-[54ch] text-xl leading-relaxed text-fog md:text-2xl">
+              AI doesn&apos;t fail because the technology isn&apos;t powerful enough. It fails
+              because organizations can&apos;t see clearly enough to act.
+            </p>
+          </Reveal>
+          <Reveal>
+            <p className="mt-6 max-w-[60ch] text-lg leading-relaxed text-fog-2">
+              six50 exists at the threshold where clarity becomes transformation — helping
+              organizations turn complex data, emerging technology, and operational
+              constraints into trusted, measurable impact.
+            </p>
+          </Reveal>
+        </section>
 
-                        <p className="text-xl md:text-2xl text-slate-600 leading-relaxed mb-8">
-                            AI doesn’t fail because the technology isn’t powerful enough. It fails because organizations can’t see clearly enough to act.
-                        </p>
-                        <p className="text-lg text-slate-500 leading-relaxed">
-                            six50 exists at the threshold where clarity becomes transformation — helping organizations turn complex data, emerging technology, and operational constraints into trusted, measurable impact.
-                        </p>
-                    </div>
-                </FadeIn>
-            </Section>
+        {/* Why 650 */}
+        <section className="mx-auto w-full max-w-7xl px-6 py-24 md:px-12 md:py-32">
+          <LedgerHead no="001" title="Why six50" tail="λ ≈ 650nm · T ≈ 650°C" />
+          <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-2 md:gap-16">
+            <div className="space-y-8">
+              <Reveal>
+                <div className="border-l-2 border-gold-500 pl-6">
+                  <h3 className="font-mono text-sm uppercase tracking-[0.14em] text-gold-500">
+                    650 nanometers — perception &amp; clarity
+                  </h3>
+                  <p className="mt-3 leading-relaxed text-fog">
+                    ~650 nm sits in the red portion of the visible light spectrum, near the
+                    upper boundary of what the human eye can clearly perceive. It represents
+                    the point where invisible data turns into a signal humans can see,
+                    understand, and act on.
+                  </p>
+                </div>
+              </Reveal>
+              <Reveal delay={0.1}>
+                <div className="border-l-2 border-blue-500 pl-6">
+                  <h3 className="font-mono text-sm uppercase tracking-[0.14em] text-blue-500">
+                    650°C — the transformation threshold
+                  </h3>
+                  <p className="mt-3 leading-relaxed text-fog">
+                    In materials science, this temperature range is where structural changes
+                    occur and bonds reorganize. It represents the energy required to
+                    fundamentally change structure, not just optimize the surface.
+                  </p>
+                </div>
+              </Reveal>
+              <Reveal delay={0.2}>
+                <p className="leading-relaxed text-fog">
+                  We exist at the intersection of these two concepts:{" "}
+                  <strong className="font-medium text-paper">clarity and transformation.</strong>{" "}
+                  We help organizations see clearly enough to act, and act boldly enough to
+                  transform.
+                </p>
+              </Reveal>
+            </div>
+            <Reveal>
+              <div className="relative flex h-64 min-h-[300px] items-center justify-center overflow-hidden rounded-md border border-line-strong bg-ink-950 md:h-full">
+                <TransformationVisual />
+                <div className="absolute bottom-4 right-4 z-10 flex flex-col items-end gap-1 font-mono text-xs text-paper/50">
+                  <span className="flex items-center gap-2">
+                    <span className="h-2 w-2 animate-pulse rounded-full bg-red-500" />
+                    λ ≈ 650nm (Clarity)
+                  </span>
+                  <span className="flex items-center gap-2">
+                    <span className="h-2 w-2 animate-pulse rounded-full bg-gold-500 delay-75" />
+                    T ≈ 650°C (Change)
+                  </span>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </section>
 
-            {/* The Metaphor: Why 650 */}
-            <Section className="bg-slate-50">
-                <FadeIn>
-                    <div className="grid md:grid-cols-2 gap-16 items-center">
-                        <div>
-                            <h2 className="text-3xl font-bold text-slate-800 mb-6">Why six50?</h2>
-                            <div className="space-y-6 text-slate-600 leading-loose">
-                                <p>
-                                    <strong>650 Nanometers = Human Perception & Clarity</strong><br />
-                                    ~650 nm sits in the red portion of the visible light spectrum, near the upper boundary of what the human eye can clearly perceive. It represents the point where invisible data turns into a signal humans can see, understand, and act on.
-                                </p>
-                                <p>
-                                    <strong>650°C = The Transformation Threshold</strong><br />
-                                    In materials science, this temperature range is where structural changes occur and bonds reorganize. It represents the energy required to fundamentally change structure, not just optimize the surface.
-                                </p>
-                                <p>
-                                    <strong>Why six50?</strong><br />
-                                    We exist at the intersection of these two concepts: <strong>Clarity and Transformation.</strong> We help organizations see clearly enough to act, and act boldly enough to transform.
-                                </p>
-                            </div>
-                        </div>
-                        <div className="relative h-64 md:h-full min-h-[300px] bg-slate-900 rounded-sm overflow-hidden flex items-center justify-center border border-slate-800">
-                            <TransformationVisual />
-                            <div className="absolute bottom-4 right-4 text-xs font-mono text-white/50 z-10 flex flex-col items-end gap-1">
-                                <span className="flex items-center gap-2">
-                                    <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-                                    λ ≈ 650nm (Clarity)
-                                </span>
-                                <span className="flex items-center gap-2">
-                                    <span className="w-2 h-2 rounded-full bg-gold-500 animate-pulse delay-75" />
-                                    T ≈ 650°C (Change)
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </FadeIn>
-            </Section>
+        {/* How we're different */}
+        <section className="mx-auto w-full max-w-7xl px-6 py-24 md:px-12 md:py-32">
+          <LedgerHead no="002" title="How we're different" tail="Four commitments" />
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            {differentiators.map((item, i) => (
+              <Reveal key={item.title} delay={(i % 2) * 0.1}>
+                <div className="flex h-full gap-5 rounded-md border border-line bg-ink-800/60 p-7 transition-colors hover:border-line-strong">
+                  <item.icon className="h-8 w-8 flex-shrink-0 text-gold-500" />
+                  <div>
+                    <h3 className="font-display mb-2 text-lg">{item.title}</h3>
+                    <p className="text-sm leading-relaxed text-fog">{item.desc}</p>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </section>
 
-            {/* How We're Different */}
-            <Section>
-                <FadeIn>
-                    <h2 className="text-3xl font-bold text-slate-800 mb-12">How We’re Different</h2>
-                    <div className="grid md:grid-cols-2 gap-8">
-                        {[
-                            { title: "Clarity over hype", desc: "No buzzwords, no AI theater. Just results.", icon: BarChart3 },
-                            { title: "Transformation over experimentation", desc: "Built for production, not just proofs of concept.", icon: Zap },
-                            { title: "Human-centered AI", desc: "Judgment, controls, and trust embedded in every system.", icon: Users },
-                            { title: "Enterprise-grade execution", desc: "Designed for real businesses with real constraints.", icon: ShieldCheck },
-                        ].map((item, i) => (
-                            <div key={i} className="flex gap-4 p-6 border border-slate-100 hover:border-slate-200 hover:shadow-sm transition-all rounded-sm">
-                                <item.icon className="w-8 h-8 text-gold-500 flex-shrink-0" />
-
-                                <div>
-                                    <h3 className="font-semibold text-slate-800 mb-2">{item.title}</h3>
-                                    <p className="text-slate-500 text-sm">{item.desc}</p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </FadeIn>
-            </Section>
-
-            {/* Philosophy & Partners */}
-            <Section dark className="text-center">
-                <FadeIn>
-                    <h2 className="text-white text-3xl font-bold mb-12">Our Philosophy</h2>
-                    <p className="text-slate-300 text-lg mb-8">AI is only valuable when it is:</p>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
-                        {["Understandable", "Trusted", "Governed", "Executable"].map((val) => (
-                            <div key={val} className="p-4 border border-slate-700 rounded-sm text-white font-medium hover:border-gold-500 hover:text-gold-500 transition-colors cursor-default">
-                                {val}
-                            </div>
-                        ))}
-                    </div>
-
-                    <div className="max-w-2xl mx-auto border-t border-slate-800 pt-16">
-                        <h3 className="text-slate-400 text-sm uppercase tracking-widest mb-6">Who We Work With</h3>
-                        <ul className="text-slate-300 space-y-3">
-                            <li>Financial services and regulated industries</li>
-                            <li>Healthcare and operations-driven organizations</li>
-                            <li>Mid-market and enterprise teams modernizing legacy systems</li>
-                        </ul>
-                    </div>
-                </FadeIn>
-            </Section>
-        </div>
-    );
+        {/* Philosophy */}
+        <section className="mx-auto w-full max-w-7xl px-6 pb-32 pt-12 text-center md:px-12">
+          <LedgerHead no="003" title="Our philosophy" tail="AI is only valuable when it is —" />
+          <div className="mb-16 grid grid-cols-2 gap-4 md:grid-cols-4">
+            {["Understandable", "Trusted", "Governed", "Executable"].map((val, i) => (
+              <Reveal key={val} delay={i * 0.08}>
+                <div className="cursor-default rounded-md border border-line p-5 font-mono text-sm uppercase tracking-[0.08em] text-paper transition-colors hover:border-gold-500 hover:text-gold-500">
+                  {val}
+                </div>
+              </Reveal>
+            ))}
+          </div>
+          <Reveal>
+            <div className="mx-auto max-w-2xl border-t border-line pt-14">
+              <h3 className="mb-6 font-mono text-sm uppercase tracking-[0.18em] text-fog-2">
+                Who we work with
+              </h3>
+              <ul className="space-y-3 text-fog">
+                <li>Financial services and regulated industries</li>
+                <li>Healthcare and operations-driven organizations</li>
+                <li>Mid-market and enterprise teams modernizing legacy systems</li>
+              </ul>
+            </div>
+          </Reveal>
+        </section>
+      </div>
+    </>
+  );
 }

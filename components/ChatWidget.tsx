@@ -28,6 +28,7 @@ export default function ChatWidget() {
     // Local state for chat input and messages
     const [localInput, setLocalInput] = useState('');
     const [localMessages, setLocalMessages] = useState<any[]>([]);
+    const [isStreaming, setIsStreaming] = useState(false);
 
     // Use local messages as the source of truth
     const displayMessages = localMessages;
@@ -42,10 +43,12 @@ export default function ChatWidget() {
     // Removed legacy hook-based logic; using local state only
 
     const manualSubmit = async (content: string) => {
-        // Optimistic update - fresh build trigger
+        if (isStreaming || !content.trim()) return; // prevent double-submit mid-stream
+
         const userMsg = { id: Date.now().toString(), role: 'user', content };
         setLocalMessages(prev => [...prev, userMsg]);
         setLocalInput('');
+        setIsStreaming(true);
 
         try {
             const response = await fetch('/api/chat', {
@@ -56,7 +59,6 @@ export default function ChatWidget() {
 
             if (!response.ok) throw new Error(response.statusText);
 
-            // Basic stream reader
             const reader = response.body?.getReader();
             const decoder = new TextDecoder();
 
@@ -64,28 +66,36 @@ export default function ChatWidget() {
                 const assistantMsg = { id: (Date.now() + 1).toString(), role: 'assistant', content: '' };
                 setLocalMessages(prev => [...prev, assistantMsg]);
 
+                // Batch token flushes to one state update per animation frame so
+                // streaming doesn't re-render the widget on every chunk and
+                // compete with GSAP / particle-field work on the main thread.
+                let buffer = '';
+                let rafId: number | null = null;
+                const flush = () => {
+                    rafId = null;
+                    setLocalMessages(prev => prev.map(m => m.id === assistantMsg.id ? { ...m, content: buffer } : m));
+                };
+
                 while (true) {
                     const { done, value } = await reader.read();
                     if (done) break;
-                    const chunk = decoder.decode(value, { stream: true });
-                    assistantMsg.content += chunk;
-
-                    // Force update matching message
-                    setLocalMessages(prev => prev.map(m => m.id === assistantMsg.id ? { ...m, content: assistantMsg.content } : m));
+                    buffer += decoder.decode(value, { stream: true });
+                    if (rafId === null) rafId = requestAnimationFrame(flush);
                 }
+                if (rafId !== null) cancelAnimationFrame(rafId);
 
-                if (!assistantMsg.content) {
-                    assistantMsg.content = "I'm currently experiencing high traffic. Please try again in a moment.";
-                    setLocalMessages(prev => prev.map(m => m.id === assistantMsg.id ? { ...m, content: assistantMsg.content } : m));
-                }
+                if (!buffer) buffer = "I'm currently experiencing high traffic. Please try again in a moment.";
+                setLocalMessages(prev => prev.map(m => m.id === assistantMsg.id ? { ...m, content: buffer } : m));
             }
         } catch (e) {
             console.error("Manual submit error:", e);
             setLocalMessages(prev => [...prev, {
                 id: Date.now().toString(),
                 role: 'assistant',
-                content: 'I encountered an error connecting to the server. Please check your logs.'
+                content: 'I ran into a connection issue. Please try again, or use the contact form.'
             }]);
+        } finally {
+            setIsStreaming(false);
         }
     };
 
@@ -199,8 +209,8 @@ Timeline: ${timeline}`;
                                 <div className="flex items-center gap-3">
                                     <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                                     <div>
-                                        <h3 className="font-semibold text-sm">Dylan</h3>
-                                        <p className="text-xs text-zinc-400">Strategy & Operations AI</p>
+                                        <h3 className="font-semibold text-sm">Dylan <span className="font-normal text-zinc-400">· AI Assistant</span></h3>
+                                        <p className="text-xs text-zinc-400">Automated — not a human</p>
                                     </div>
                                 </div>
                                 <button onClick={toggleOpen} className="text-zinc-400 hover:text-paper transition-colors">
@@ -216,6 +226,10 @@ Timeline: ${timeline}`;
                                             <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100">Welcome to six50.</p>
                                             <p className="text-xs text-zinc-500 dark:text-zinc-400 max-w-[280px] mx-auto">
                                                 I can help you navigate our services, understand our methodology, or book a consultation.
+                                            </p>
+                                            <p className="text-[11px] text-zinc-400 dark:text-zinc-500 max-w-[280px] mx-auto">
+                                                Dylan is an AI assistant. Responses are generated automatically and may contain errors. Messages are processed by our AI provider and handled per our{' '}
+                                                <a href="/privacy" className="underline hover:text-zinc-600 dark:hover:text-zinc-300">Privacy Policy</a>. Please don't share sensitive personal or financial information here.
                                             </p>
                                         </div>
 
@@ -277,42 +291,45 @@ Timeline: ${timeline}`;
                                             <input name="timeline" placeholder="Timeline (e.g. ASAP, 2 weeks)" className="w-full text-sm p-2 rounded border border-zinc-300 dark:border-zinc-600 bg-ink-800 dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-zinc-500" />
                                             <button type="submit" className="w-full bg-zinc-900 dark:bg-zinc-100 text-paper dark:text-zinc-900 text-sm font-medium py-2 rounded hover:opacity-90 transition-opacity">
                                                 Submit
-                                            </button>
-                                        </form>
-                                    </motion.div>
-                                )}
-                            </div>
+                                        </button>
+                                    </form>
+                                </motion.div>
+                            )}
+                        </div>
 
-                            {/* Input Area */}
-                            <form onSubmit={onFormSubmit} className="p-3 border-t border-zinc-200 dark:border-zinc-800 bg-ink-800 dark:bg-zinc-950 flex gap-2 shrink-0">
-                                <input
-                                    className="flex-1 bg-transparent text-sm p-2 focus:outline-none text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400"
-                                    value={inputValue}
-                                    onChange={onInputChange}
-                                    placeholder="Ask a question..."
-                                />
-                                <button
-                                    type="submit"
-                                    disabled={!inputValue?.trim()}
-                                    className="bg-zinc-900 dark:bg-zinc-100 text-paper dark:text-zinc-900 p-2 rounded-lg hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-                                >
-                                    <Send size={16} />
-                                </button>
-                            </form>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+                        {/* Input Area */}
+                        <form onSubmit={onFormSubmit} className="p-3 border-t border-zinc-200 dark:border-zinc-800 bg-ink-800 dark:bg-zinc-950 flex gap-2 shrink-0">
+                            <input
+                                className="flex-1 bg-transparent text-sm p-2 focus:outline-none text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400"
+                                value={inputValue}
+                                onChange={onInputChange}
+                                placeholder={isStreaming ? "Dylan is responding..." : "Ask a question..."}
+                                disabled={isStreaming}
+                                aria-label="Chat message"
+                            />
+                            <button
+                                type="submit"
+                                aria-label="Send message"
+                                disabled={!inputValue?.trim() || isStreaming}
+                                className="bg-zinc-900 dark:bg-zinc-100 text-paper dark:text-zinc-900 p-2 rounded-lg hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                            >
+                                <Send size={16} />
+                            </button>
+                        </form>
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
-                <button
-                    onClick={toggleOpen}
-                    className="bg-gold-500 hover:bg-gold-400 text-paper p-4 rounded-full shadow-2xl flex items-center gap-2 group transition-all transform hover:scale-105 active:scale-95 border-2 border-white/20"
-                >
-                    {isOpen ? <X size={24} /> : <MessageCircle size={24} />}
-                    <span className="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-300 ease-in-out whitespace-nowrap text-sm font-bold">
-                        {!isOpen && "Contact Dylan"}
-                    </span>
-                </button>
-            </div>
-        </>
-    );
+            <button
+                onClick={toggleOpen}
+                className="bg-gold-500 hover:bg-gold-400 text-paper p-4 rounded-full shadow-2xl flex items-center gap-2 group transition-all transform hover:scale-105 active:scale-95 border-2 border-white/20"
+            >
+                {isOpen ? <X size={24} /> : <MessageCircle size={24} />}
+                <span className="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-300 ease-in-out whitespace-nowrap text-sm font-bold">
+                    {!isOpen && "Contact Dylan"}
+                </span>
+            </button>
+        </div>
+    </>
+);
 }

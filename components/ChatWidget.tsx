@@ -202,7 +202,7 @@ Timeline: ${timeline}`;
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: 20, scale: 0.95 }}
                             transition={{ duration: 0.2 }}
-                            className="w-[90vw] sm:w-[400px] h-[600px] max-h-[80vh] bg-ink-800 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl flex flex-col overflow-hidden font-sans"
+                            className="w-[90vw] sm:w-[400px] h-[600px] max-h-[80vh] bg-zinc-950 border border-zinc-800 rounded-2xl shadow-2xl flex flex-col overflow-hidden font-sans"
                         >
                             {/* Header */}
                             <div className="bg-zinc-900 text-paper p-4 flex items-center justify-between shrink-0">
@@ -219,17 +219,17 @@ Timeline: ${timeline}`;
                             </div>
 
                             {/* Messages Area */}
-                            <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-4 bg-zinc-50 dark:bg-zinc-900/50">
+                            <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-4 bg-zinc-900/60">
                                 {displayMessages.length === 0 && (
                                     <div className="space-y-6 mt-4">
                                         <div className="text-center space-y-2">
-                                            <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100">Welcome to six50.</p>
-                                            <p className="text-xs text-zinc-500 dark:text-zinc-400 max-w-[280px] mx-auto">
+                                            <p className="text-sm font-medium text-zinc-100">Welcome to six50.</p>
+                                            <p className="text-xs text-zinc-400 max-w-[280px] mx-auto">
                                                 I can help you navigate our services, understand our methodology, or book a consultation.
                                             </p>
-                                            <p className="text-[11px] text-zinc-400 dark:text-zinc-500 max-w-[280px] mx-auto">
+                                            <p className="text-[11px] text-zinc-500 max-w-[280px] mx-auto">
                                                 Dylan is an AI assistant. Responses are generated automatically and may contain errors. Messages are processed by our AI provider and handled per our{' '}
-                                                <a href="/privacy" className="underline hover:text-zinc-600 dark:hover:text-zinc-300">Privacy Policy</a>. Please don't share sensitive personal or financial information here.
+                                                <a href="/privacy" className="underline hover:text-zinc-300">Privacy Policy</a>. Please don't share sensitive personal or financial information here.
                                             </p>
                                         </div>
 
@@ -239,7 +239,7 @@ Timeline: ${timeline}`;
                                                 <button
                                                     key={i}
                                                     onClick={() => handlePromptClick(prompt)}
-                                                    className="text-left text-sm bg-ink-800 dark:bg-zinc-800 p-3 rounded-lg border border-zinc-200 dark:border-zinc-700 hover:border-zinc-400 dark:hover:border-zinc-500 transition-colors shadow-sm text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-750"
+                                                    className="text-left text-sm bg-zinc-800 p-3 rounded-lg border border-zinc-700 hover:border-zinc-500 transition-colors shadow-sm text-zinc-200 hover:bg-zinc-700"
                                                 >
                                                     {prompt}
                                                 </button>
@@ -260,8 +260,8 @@ Timeline: ${timeline}`;
                                             className={cn(
                                                 "max-w-[85%] rounded-2xl p-3 text-sm",
                                                 m.role === 'user'
-                                                    ? "bg-zinc-900 text-paper rounded-tr-sm"
-                                                    : "bg-ink-800 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 shadow-sm rounded-tl-sm text-zinc-800 dark:text-zinc-100"
+                                                    ? "bg-zinc-100 text-zinc-900 rounded-tr-sm"
+                                                    : "bg-zinc-800 border border-zinc-700 shadow-sm rounded-tl-sm text-zinc-100"
                                             )}
                                         >
                                             {m.content}
@@ -273,48 +273,48 @@ Timeline: ${timeline}`;
                                     <motion.div
                                         initial={{ opacity: 0, y: 10 }}
                                         animate={{ opacity: 1, y: 0 }}
-                                        className="bg-zinc-100 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700 p-4 rounded-xl space-y-3"
+                                        className="bg-zinc-800/80 border border-zinc-700 p-4 rounded-xl space-y-3"
                                     >
                                         <div className="flex justify-between items-start">
-                                            <h4 className="text-sm font-semibold text-zinc-900 dark:text-paper">Let's connect properly.</h4>
+                                            <h4 className="text-sm font-semibold text-zinc-100">Let's connect properly.</h4>
                                             <button onClick={() => setShowLeadCapture(false)} className="text-xs text-zinc-400 hover:underline">Dismiss</button>
                                         </div>
 
                                         <form onSubmit={handleLeadSubmit} className="space-y-3">
-                                            <input name="name" required placeholder="Name" className="w-full text-sm p-2 rounded border border-zinc-300 dark:border-zinc-600 bg-ink-800 dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-zinc-500" />
+                                            <input name="name" required placeholder="Name" className="w-full text-sm p-2 rounded border border-zinc-600 bg-zinc-900 text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500" />
                                             <div className="grid grid-cols-2 gap-2">
-                                                <input name="email" type="email" required placeholder="Email" className="w-full text-sm p-2 rounded border border-zinc-300 dark:border-zinc-600 bg-ink-800 dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-zinc-500" />
-                                                <input name="phone" required placeholder="Phone" className="w-full text-sm p-2 rounded border border-zinc-300 dark:border-zinc-600 bg-ink-800 dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-zinc-500" />
+                                                <input name="email" type="email" required placeholder="Email" className="w-full text-sm p-2 rounded border border-zinc-600 bg-zinc-900 text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500" />
+                                                <input name="phone" required placeholder="Phone" className="w-full text-sm p-2 rounded border border-zinc-600 bg-zinc-900 text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500" />
                                             </div>
-                                            <input name="company" placeholder="Company" className="w-full text-sm p-2 rounded border border-zinc-300 dark:border-zinc-600 bg-ink-800 dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-zinc-500" />
-                                            <input name="goal" placeholder="What are you trying to accomplish?" className="w-full text-sm p-2 rounded border border-zinc-300 dark:border-zinc-600 bg-ink-800 dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-zinc-500" />
-                                            <input name="timeline" placeholder="Timeline (e.g. ASAP, 2 weeks)" className="w-full text-sm p-2 rounded border border-zinc-300 dark:border-zinc-600 bg-ink-800 dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-zinc-500" />
-                                            <button type="submit" className="w-full bg-zinc-900 dark:bg-zinc-100 text-paper dark:text-zinc-900 text-sm font-medium py-2 rounded hover:opacity-90 transition-opacity">
+                                            <input name="company" placeholder="Company" className="w-full text-sm p-2 rounded border border-zinc-600 bg-zinc-900 text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500" />
+                                            <input name="goal" placeholder="What are you trying to accomplish?" className="w-full text-sm p-2 rounded border border-zinc-600 bg-zinc-900 text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500" />
+                                            <input name="timeline" placeholder="Timeline (e.g. ASAP, 2 weeks)" className="w-full text-sm p-2 rounded border border-zinc-600 bg-zinc-900 text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500" />
+                                            <button type="submit" className="w-full bg-zinc-100 text-zinc-900 text-sm font-medium py-2 rounded hover:opacity-90 transition-opacity">
                                                 Submit
-                                        </button>
-                                    </form>
-                                </motion.div>
-                            )}
-                        </div>
+                                            </button>
+                                        </form>
+                                    </motion.div>
+                                )}
+                            </div>
 
-                        {/* Input Area */}
-                        <form onSubmit={onFormSubmit} className="p-3 border-t border-zinc-200 dark:border-zinc-800 bg-ink-800 dark:bg-zinc-950 flex gap-2 shrink-0">
-                            <input
-                                className="flex-1 bg-transparent text-sm p-2 focus:outline-none text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400"
-                                value={inputValue}
-                                onChange={onInputChange}
-                                placeholder={isStreaming ? "Dylan is responding..." : "Ask a question..."}
-                                disabled={isStreaming}
-                                aria-label="Chat message"
+                            {/* Input Area */}
+                            <form onSubmit={onFormSubmit} className="p-3 border-t border-zinc-800 bg-zinc-950 flex gap-2 shrink-0">
+                                <input
+                                    className="flex-1 bg-transparent text-sm p-2 focus:outline-none text-zinc-100 placeholder:text-zinc-500"
+                                    value={inputValue}
+                                    onChange={onInputChange}
+                                    placeholder={isStreaming ? "Dylan is responding..." : "Ask a question..."}
+                                    disabled={isStreaming}
+                                    aria-label="Chat message"
                             />
                             <button
                                 type="submit"
                                 aria-label="Send message"
                                 disabled={!inputValue?.trim() || isStreaming}
-                                className="bg-zinc-900 dark:bg-zinc-100 text-paper dark:text-zinc-900 p-2 rounded-lg hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-                            >
+                                className="bg-zinc-100 text-zinc-900 p-2 rounded-lg hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                        >
                                 <Send size={16} />
-                            </button>
+                        </button>
                         </form>
                     </motion.div>
                 )}
@@ -331,5 +331,5 @@ Timeline: ${timeline}`;
             </button>
         </div>
     </>
-);
+    );
 }

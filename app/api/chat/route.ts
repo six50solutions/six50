@@ -5,7 +5,6 @@ import { sendLeadNotification } from '@/lib/email-service';
 
 // Edge runtime: ~50ms cold starts vs 1-2s on Node serverless, native streaming.
 // Resend is fetch-based and fully edge-compatible.
-export const runtime = 'edge';
 export const maxDuration = 30;
 
 const chatModel = () => anthropic(process.env.CHAT_MODEL ?? 'claude-haiku-4-5');

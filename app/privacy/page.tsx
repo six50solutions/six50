@@ -50,7 +50,23 @@ export default function PrivacyPolicyPage() {
                             </section>
 
                             <section>
-                                <h2 className="text-xl font-semibold text-paper mb-4">5. Contact Us</h2>
+                                <h2 className="text-xl font-semibold text-paper mb-4">5. AI Chat Assistant ("Dylan")</h2>
+                                <p className="mb-4">
+                                    Our website includes an AI-powered chat assistant named Dylan. Dylan is an automated system, not a human. We disclose this in the chat interface, and we design Dylan to identify itself as an AI if asked. This section explains how chat interactions are handled.
+                                </p>
+                                <ul className="list-disc pl-5 space-y-2">
+                                    <li><strong>What is processed:</strong> The messages you type into the chat, and any contact details you choose to provide (such as name, email, phone, company, goal, and timeline).</li>
+                                    <li><strong>How it is processed:</strong> Chat messages are transmitted to Anthropic, our AI service provider, to generate responses. Anthropic acts as a processor of this data; its handling is governed by its own commercial terms and privacy documentation.</li>
+                                    <li><strong>Lead information:</strong> If you provide contact details through the chat or its form, they are sent to the six50 team by email so we can follow up on your inquiry. They are not sold or shared with third parties for marketing.</li>
+                                    <li><strong>Retention:</strong> Chat conversations are not stored in a database by six50. Your conversation history exists in your browser session and is cleared when you leave the site. Lead details you submit are retained as business correspondence.</li>
+                                    <li><strong>What not to share:</strong> Please do not submit sensitive personal information through the chat, including financial account numbers, government identifiers, or health information. Dylan is instructed to decline such information.</li>
+                                    <li><strong>Accuracy:</strong> AI-generated responses may contain errors and do not constitute professional, legal, financial, or accounting advice. For engagement-specific guidance, contact us directly.</li>
+                                    <li><strong>Human review and accountability:</strong> We log technical metadata about chat usage (such as timestamps, token counts, and model version) for reliability, cost, and quality monitoring. We review the assistant's configuration on a recurring basis and maintain a change log of its instructions. Questions or corrections can be directed to us via the Contact page.</li>
+                                </ul>
+                            </section>
+
+                            <section>
+                                <h2 className="text-xl font-semibold text-paper mb-4">6. Contact Us</h2>
                                 <p>
                                     If you have questions or comments about this Privacy Policy, please contact us at:
                                 </p>

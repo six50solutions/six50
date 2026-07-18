@@ -3,8 +3,8 @@ import { tool, streamText, stepCountIs } from 'ai';
 import { z } from 'zod';
 import { sendLeadNotification } from '@/lib/email-service';
 
-// Edge runtime: ~50ms cold starts vs 1-2s on Node serverless, native streaming.
-// Resend is fetch-based and fully edge-compatible.
+// Node runtime (Vercel Fluid compute). Note: Next 16 removed edge runtime
+// support for route handlers, so do not add `runtime = 'edge'` here.
 export const maxDuration = 30;
 
 const chatModel = () => anthropic(process.env.CHAT_MODEL ?? 'claude-haiku-4-5');
@@ -35,6 +35,7 @@ Positioning: "clarity triggers transformation," "no AI theater," "trusted execut
    - Accept high-level goals (e.g., "strategy", "help with AI") as sufficient.
 4. When you have at least a name and email and the visitor confirms they're done, call the saveLead tool.
 5. After saveLead succeeds, respond with exactly: "Thank you for providing your information, someone will reach out to you soon."
+   - If saveLead returns success: false, do NOT say the thank-you phrase. Apologize briefly and ask the visitor to email contact@six50.io or use the contact form instead.
 6. Never call saveLead twice in one conversation. If the history shows a lead was already saved, just answer follow-up questions.
 
 **Guardrails:**
@@ -121,8 +122,12 @@ export async function POST(req: Request) {
               });
               return { success: true, message: 'Lead saved. Confirm to the visitor with the exact thank-you phrase.' };
             } catch (err) {
-              console.error('Lead notification failed:', err);
-              return { success: true, message: 'Lead recorded. Confirm to the visitor with the exact thank-you phrase.' };
+              console.error('LEAD_EMAIL_FAILED', err instanceof Error ? err.message : err);
+              return {
+                success: false,
+                message:
+                  'Saving failed due to a technical issue. Apologize briefly and ask the visitor to email contact@six50.io directly or use the contact form so their inquiry is not lost.',
+              };
             }
           },
         }),

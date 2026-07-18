@@ -1,4 +1,3 @@
-
 import { Resend } from 'resend';
 
 // const resend = new Resend(process.env.RESEND_API_KEY); // Moved inside function
@@ -21,14 +20,14 @@ export async function sendLeadNotification({
     console.log(`Sending lead notification: ${email} from ${source}`);
 
     if (!process.env.RESEND_API_KEY) {
-        console.warn('RESEND_API_KEY is missing. Email skipped.');
-        return { error: 'Missing API Key' };
+        console.error('RESEND_API_KEY is missing. Lead email cannot be sent.');
+        throw new Error('RESEND_API_KEY is not configured');
     }
 
     const resend = new Resend(process.env.RESEND_API_KEY);
 
     try {
-        const data = await resend.emails.send({
+        const { data, error } = await resend.emails.send({
             from: 'Six50 Bot <contact@six50.io>', // Using the verified domain
             to: ['contact@six50.io'],
             subject: `New Lead from ${source === 'chat' ? 'Chat' : 'Website'}: ${name}`,
@@ -46,7 +45,13 @@ export async function sendLeadNotification({
       `,
         });
 
-        console.log('Lead notification sent:', data);
+        if (error) {
+            // Resend does NOT throw on API errors - it returns them here.
+            console.error('Resend rejected the send:', JSON.stringify(error));
+            throw new Error(`Resend error: ${error.message ?? JSON.stringify(error)}`);
+        }
+
+        console.log('Lead notification sent, id:', data?.id);
         return data;
     } catch (error) {
         console.error('Failed to send lead notification:', error);

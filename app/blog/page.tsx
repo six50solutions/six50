@@ -90,8 +90,9 @@ export const revalidate = 3600; // Revalidate every hour
 
 export default async function BlogIndexPage() {
     const substackPosts = await getSubstackPosts();
-    // Combine posts, placing Substack posts at the top as they are likely timely
-    const allPosts = [...substackPosts, ...arbitragePosts, ...localPosts];
+    // Combine posts, sorting dated posts (Substack + AI Arbitrage) by recency, evergreen local posts last
+        const datedPosts = [...substackPosts, ...arbitragePosts].sort((a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime());
+        const allPosts = [...datedPosts, ...localPosts];
 
     return (
         <div className="pt-20">

@@ -47,6 +47,25 @@ const localPosts: BlogPost[] = [
     },
 ];
 
+const arbitragePosts: BlogPost[] = [
+    {
+                title: "The Fable 5 Saga Ends in Two Tiers, Not One",
+                excerpt: "Three deadline extensions later, Anthropic has finally committed to where Fable 5 lives. The answer depends entirely on which plan you're paying for.",
+                category: "AI Arbitrage",
+                href: "/ai-arbitrage/2026-07-20.html",
+                isExternal: true,
+                date: "2026-07-20",
+    },
+    {
+                title: "The Fable 5 Cliff",
+                excerpt: "Anthropic has now moved the goalposts on Claude's flagship model three times in five weeks. Sunday is when the bill actually comes due.",
+                category: "AI Arbitrage",
+                href: "/ai-arbitrage/2026-07-17.html",
+                isExternal: true,
+                date: "2026-07-17",
+    },
+    ];
+
 async function getSubstackPosts(): Promise<BlogPost[]> {
     const parser = new Parser();
     try {
@@ -56,7 +75,7 @@ async function getSubstackPosts(): Promise<BlogPost[]> {
             .map((item) => ({
                 title: item.title || "Untitled Post",
                 excerpt: item.contentSnippet?.slice(0, 160) + (item.contentSnippet && item.contentSnippet.length > 160 ? "..." : "") || "",
-                category: "Newsletter",
+                category: "Substack",
                 href: item.link || "#",
                 isExternal: true,
                 date: item.pubDate,
@@ -72,7 +91,7 @@ export const revalidate = 3600; // Revalidate every hour
 export default async function BlogIndexPage() {
     const substackPosts = await getSubstackPosts();
     // Combine posts, placing Substack posts at the top as they are likely timely
-    const allPosts = [...substackPosts, ...localPosts];
+    const allPosts = [...substackPosts, ...arbitragePosts, ...localPosts];
 
     return (
         <div className="pt-20">

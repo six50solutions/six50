@@ -551,7 +551,7 @@
       <li><span class="num">04</span><span><span class="pill ai">AI</span><b>Google missed its own Gemini 3.5 Pro deadline a third time.</b> The widely reported July 17 stopgap date came and went with no model card, no pricing, and no public API listing as of this morning.</span></li>
       <li><span class="num">05</span><span><span class="pill ai">AI</span><b>A Chinese lab just landed at No. 3 on the leaderboard.</b> Moonshot AI's Kimi K3, a 2.8-trillion-parameter model, debuted behind only Claude Fable 5 and GPT-5.6 Sol, with open weights promised by July 27.</span></li>
       <li><span class="num">06</span><span><span class="pill ai">AI</span><b>Apple's trade-secret suit against OpenAI just got more specific.</b> New reporting over the weekend ties the allegations directly to OpenAI's consumer hardware ambitions, not just its hiring practices.</span></li>
-      <li><span class="num">07</span><span><span class="pill ai">AI</span><b>Claude Code shipped a stability-first release.</b> Version 2.1.215, out Saturday, tightens permission checks and stops auto-running /verify and /code-review, small changes that matter if you've built automation on top of it.</span></li>
+      <li><span class="num">07</span><span><span class="pill ai">AI</span><b>Claude Code shipped two stability-first releases.</b> Version 2.1.214, out Saturday, tightened permission checks and Bash/PowerShell handling; 2.1.215, out Sunday, stopped auto-running /verify and /code-review, small changes that matter if you've built automation on top of it.</span></li>
     </ul>
   </div>
 
@@ -586,14 +586,14 @@
       <div class="chart-foot">Source: <span class="source-tag"><a href="https://www.dawn.com/news/2016483" target="_blank">Dawn.com, Jul 18 2026</a></span> <span class="source-tag"><a href="https://www.techtimes.com/articles/320905/20260718/claude-fable-5-ends-subscription-limbo-permanent-max-credits-only-pro.htm" target="_blank">Tech Times, Jul 18 2026</a></span></div>
     </div>
 
-    <p>The mechanics split cleanly along plan lines. The personal Max 5x ($110/mo) and Max x20 ($220/mo) tiers, plus the business Team Premium tier ($100/mo), now treat Fable 5 as a normal part of the weekly allowance, just at half the draw-down rate of the smaller models. Everyone else pays per token once the $100 credit runs out, at the same $10 input / $50 output per million tokens rate that took effect this weekend.</p>
+    <p>The mechanics split cleanly along plan lines. The personal Max 5x ($100/mo) and Max x20 ($200/mo) tiers, plus the business Team Premium tier ($100/mo), now treat Fable 5 as a normal part of the weekly allowance, just at half the draw-down rate of the smaller models. Everyone else pays per token once the $100 credit runs out, at the same $10 input / $50 output per million tokens rate that took effect this weekend.</p>
 
     <div class="fm-grid">
       <div class="fm-card flat">
         <div class="fm-head">✓ Included, Half Limits</div>
         <ul>
-          <li>Max 5x ($110/mo) — Fable 5 in weekly pool</li>
-          <li>Max x20 ($220/mo) — Fable 5 in weekly pool</li>
+          <li>Max 5x ($100/mo) — Fable 5 in weekly pool</li>
+          <li>Max x20 ($200/mo) — Fable 5 in weekly pool</li>
           <li>Team Premium ($100/mo/seat) — same terms</li>
         </ul>
       </div>
@@ -693,8 +693,8 @@
     <div class="wk-item">
       <div class="wk-tag">OPS</div>
       <div class="wk-body">
-        <h3>Claude Code 2.1.215 tightens permissions, stops auto-running skills</h3>
-        <p>Saturday's release adds stricter permission checks, safer Bash/PowerShell handling, and an EndConversation tool for long-running sessions. It also stops automatically invoking /verify and /code-review, both now require an explicit call, worth checking if you've built automation that assumed the old default.</p>
+        <h3>Claude Code 2.1.214 and 2.1.215 tighten permissions, stop auto-running skills</h3>
+        <p>Saturday's 2.1.214 adds stricter permission checks, safer Bash/PowerShell handling, and an EndConversation tool for long-running sessions. Sunday's 2.1.215 stops automatically invoking /verify and /code-review, both now require an explicit call, worth checking if you've built automation that assumed the old default.</p>
         <a href="https://github.com/anthropics/claude-code/releases" target="_blank">Claude Code releases →</a>
       </div>
     </div>

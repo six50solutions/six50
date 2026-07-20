@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The AI Arbitrage — Issue 02 — July 20, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0b0f19;
+    --ink-soft:#1c2333;
+    --paper:#faf8f3;
+    --paper-card:#ffffff;
+    --line:#e4ddc9;
+    --gold:#b8873a;
+    --gold-bright:#d4a94c;
+    --gold-pale:#f4e9d0;
+    --green:#2f6b4f;
+    --green-pale:#e7f0ea;
+    --red:#a8402f;
+    --red-pale:#f6e6e2;
+    --slate:#5b6373;
+    --slate-light:#8890a0;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:#e9e4d6;
+    font-family:'Inter',system-ui,-apple-system,sans-serif;
+    color:var(--ink);
+  }
+  .sheet{
+    max-width:760px;
+    margin:0 auto;
+    background:var(--paper);
+    box-shadow:0 0 60px rgba(0,0,0,0.12);
+  }
+  /* ===== MASTHEAD ===== */
+  .masthead{
+    background:var(--ink);
+    color:#fff;
+    padding:14px 32px 0;
+    border-bottom:6px solid var(--gold-bright);
+  }
+  .masthead-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-family:'JetBrains Mono',monospace;
+    font-size:10.5px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--gold-bright);
+    padding-bottom:12px;
+    border-bottom:1px solid rgba(255,255,255,0.15);
+  }
+  .wordmark{
+    text-align:center;
+    padding:22px 0 18px;
+  }
+  .wordmark h1{
+    font-family:'Playfair Display',serif;
+    font-weight:900;
+    font-size:46px;
+    letter-spacing:-0.01em;
+    margin:0;
+    line-height:1;
+  }
+  .wordmark .arb{color:var(--gold-bright);font-style:italic;}
+  .wordmark .tagline{
+    font-family:'Inter',sans-serif;
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:#c7cbd6;
+    margin-top:10px;
+    font-weight:500;
+  }
+  .masthead-strip{
+    display:flex;
+    justify-content:space-between;
+    font-family:'JetBrains Mono',monospace;
+    font-size:10.5px;
+    color:#8890a0;
+    padding:10px 0 12px;
+    letter-spacing:0.04em;
+  }
+  .masthead-strip b{color:var(--gold-bright);}
+
+  /* ===== TLDR BAR ===== */
+  .tldr{
+    background:var(--gold-pale);
+    border-bottom:2px solid var(--ink);
+    padding:22px 32px 24px;
+  }
+  .tldr-label{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.14em;
+    color:var(--ink);
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:14px;
+  }
+  .tldr-label::before{
+    content:"";
+    width:8px;height:8px;
+    background:var(--red);
+    border-radius:50%;
+    display:inline-block;
+  }
+  .tldr ul{margin:0;padding:0;list-style:none;}
+  .tldr li{
+    font-size:14.5px;
+    line-height:1.55;
+    padding:9px 0;
+    border-top:1px solid rgba(11,15,25,0.1);
+    display:flex;
+    gap:10px;
+  }
+  .tldr li:first-child{border-top:none;}
+  .tldr li .num{
+    font-family:'JetBrains Mono',monospace;
+    font-weight:700;
+    color:var(--gold);
+    flex-shrink:0;
+  }
+  .tldr li b{color:var(--ink);}
+  .pill{
+    display:inline-block;
+    font-family:'JetBrains Mono',monospace;
+    font-size:8.5px;
+    font-weight:700;
+    letter-spacing:0.06em;
+    padding:1px 6px;
+    border-radius:3px;
+    margin-right:6px;
+    position:relative;
+    top:-1px;
+  }
+  .pill.finance{background:var(--green);color:#fff;}
+  .pill.ai{background:var(--ink);color:var(--gold-bright);}
+
+  /* ===== SECTION LABELS ===== */
+  .section-head{
+    padding:34px 32px 0;
+  }
+  .section-kicker{
+    font-family:'JetBrains Mono',monospace;
+    font-size:10.5px;
+    font-weight:700;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--gold);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .section-kicker.finance{color:var(--green);}
+  .section-kicker::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:var(--line);
+  }
+
+  /* ===== STORY ===== */
+  .story{
+    padding:16px 32px 8px;
+  }
+  .story h2{
+    font-family:'Playfair Display',serif;
+    font-size:29px;
+    line-height:1.18;
+    font-weight:800;
+    margin:10px 0 6px;
+  }
+  .story .dek{
+    font-size:15.5px;
+    color:var(--slate);
+    line-height:1.5;
+    margin:0 0 18px;
+    font-weight:500;
+  }
+  .story p{
+    font-size:15.5px;
+    line-height:1.72;
+    margin:0 0 16px;
+    color:#232939;
+  }
+  .story p b{color:var(--ink);}
+  .drop{
+    float:left;
+    font-family:'Playfair Display',serif;
+    font-size:58px;
+    line-height:0.78;
+    font-weight:800;
+    padding:6px 8px 0 0;
+    color:var(--gold);
+  }
+  .pull{
+    border-left:3px solid var(--gold-bright);
+    background:var(--gold-pale);
+    padding:14px 18px;
+    margin:8px 0 22px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-size:18px;
+    line-height:1.4;
+    color:var(--ink-soft);
+  }
+  .pull.green{border-left-color:var(--green);background:var(--green-pale);}
+  .stat-row{
+    display:flex;
+    gap:12px;
+    margin:6px 0 24px;
+  }
+  .stat-box{
+    flex:1;
+    background:var(--ink);
+    color:#fff;
+    border-radius:6px;
+    padding:14px 12px;
+    text-align:center;
+  }
+  .stat-box .v{
+    font-family:'JetBrains Mono',monospace;
+    font-size:22px;
+    font-weight:700;
+    color:var(--gold-bright);
+    display:block;
+  }
+  .stat-box .l{
+    font-size:10px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:#a9b0c0;
+    margin-top:4px;
+    display:block;
+  }
+  .chart-card{
+    background:var(--paper-card);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:18px 18px 8px;
+    margin:6px 0 26px;
+  }
+  .chart-card .chart-title{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--ink);
+    margin-bottom:2px;
+  }
+  .chart-card .chart-sub{
+    font-size:12px;
+    color:var(--slate-light);
+    margin-bottom:12px;
+  }
+  .chart-wrap{position:relative;height:230px;}
+  .chart-wrap svg{width:100%;height:100%;display:block;overflow:visible;}
+  .svg-legend{display:flex;gap:18px;justify-content:center;margin-top:6px;}
+  .svg-legend span{
+    display:flex;align-items:center;gap:6px;
+    font-family:'Inter',sans-serif;font-size:11px;color:var(--slate);
+  }
+  .svg-legend i{width:10px;height:10px;border-radius:2px;display:inline-block;}
+  .chart-foot{
+    font-size:10.5px;
+    color:var(--slate-light);
+    margin-top:10px;
+    padding-top:8px;
+    border-top:1px dashed var(--line);
+    line-height:1.5;
+  }
+  .source-tag{
+    display:inline-block;
+    font-family:'JetBrains Mono',monospace;
+    font-size:10.5px;
+    color:#fff;
+    background:var(--ink-soft);
+    padding:3px 9px;
+    border-radius:20px;
+    margin-top:2px;
+  }
+  .source-tag a{color:var(--gold-bright);text-decoration:none;}
+
+  /* timeline */
+  .timeline{
+    display:flex;
+    justify-content:space-between;
+    position:relative;
+    margin:24px 4px 6px;
+    padding-top:8px;
+  }
+  .timeline::before{
+    content:"";
+    position:absolute;
+    top:16px;left:4%;right:4%;
+    height:2px;
+    background:var(--line);
+  }
+  .tl-point{
+    flex:1;
+    text-align:center;
+    position:relative;
+  }
+  .tl-dot{
+    width:14px;height:14px;
+    border-radius:50%;
+    background:var(--gold-bright);
+    border:3px solid var(--ink);
+    margin:0 auto 10px;
+    position:relative;
+    z-index:2;
+  }
+  .tl-point.final .tl-dot{background:var(--red);}
+  .tl-date{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    font-weight:700;
+    color:var(--ink);
+  }
+  .tl-desc{
+    font-size:11.5px;
+    color:var(--slate);
+    margin-top:3px;
+    line-height:1.35;
+    padding:0 4px;
+  }
+
+  /* flat vs metered grid */
+  .fm-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    margin:6px 0 26px;
+  }
+  .fm-card{
+    border-radius:8px;
+    padding:16px;
+  }
+  .fm-card.flat{background:var(--green-pale);border:1px solid #cfe0d5;}
+  .fm-card.metered{background:var(--red-pale);border:1px solid #e7c9c0;}
+  .fm-card .fm-head{
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    margin-bottom:10px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .fm-card.flat .fm-head{color:var(--green);}
+  .fm-card.metered .fm-head{color:var(--red);}
+  .fm-card ul{margin:0;padding:0;list-style:none;}
+  .fm-card li{
+    font-size:13px;
+    line-height:1.5;
+    padding:5px 0;
+    color:#232939;
+  }
+
+  /* checklist */
+  .checklist{
+    background:var(--ink);
+    border-radius:8px;
+    padding:20px 20px 16px;
+    margin:6px 0 26px;
+    color:#fff;
+  }
+  .checklist .cl-title{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--gold-bright);
+    margin-bottom:14px;
+  }
+  .cl-item{
+    display:flex;
+    gap:12px;
+    padding:10px 0;
+    border-top:1px solid rgba(255,255,255,0.12);
+  }
+  .cl-item:first-of-type{border-top:none;}
+  .cl-num{
+    flex-shrink:0;
+    width:22px;height:22px;
+    border-radius:50%;
+    background:var(--gold-bright);
+    color:var(--ink);
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    font-weight:700;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .cl-item p{margin:0;font-size:13.5px;line-height:1.55;color:#dfe2ea;}
+
+  /* ===== WORTH KNOWING ===== */
+  .wk-list{padding:6px 32px 8px;}
+  .wk-item{
+    display:flex;
+    gap:14px;
+    padding:15px 0;
+    border-top:1px solid var(--line);
+  }
+  .wk-item:last-child{border-bottom:1px solid var(--line);}
+  .wk-tag{
+    flex-shrink:0;
+    width:64px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:9.5px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    color:var(--gold);
+    padding-top:2px;
+  }
+  .wk-body h3{
+    font-size:15px;
+    margin:0 0 4px;
+    font-family:'Inter',sans-serif;
+    font-weight:700;
+  }
+  .wk-body p{
+    font-size:13.5px;
+    color:var(--slate);
+    line-height:1.55;
+    margin:0 0 4px;
+  }
+  .wk-body a{
+    font-size:11.5px;
+    color:var(--gold);
+    text-decoration:none;
+    font-weight:600;
+  }
+
+  /* ===== SIX50 POV ===== */
+  .arbitrage{
+    margin:30px 32px 10px;
+    background:var(--ink);
+    color:#fff;
+    border-radius:10px;
+    padding:26px 26px 10px;
+    position:relative;
+    overflow:hidden;
+  }
+  .arbitrage::before{
+    content:"$";
+    position:absolute;
+    right:-10px; top:-30px;
+    font-family:'Playfair Display',serif;
+    font-size:180px;
+    color:rgba(212,169,76,0.07);
+    font-weight:900;
+  }
+  .arbitrage h2{
+    font-family:'Playfair Display',serif;
+    font-size:24px;
+    margin:0 0 4px;
+    color:var(--gold-bright);
+  }
+  .arbitrage .sub{
+    font-size:12.5px;
+    color:#a9b0c0;
+    margin-bottom:18px;
+  }
+  .arb-item{
+    border-top:1px solid rgba(255,255,255,0.14);
+    padding:16px 0;
+    position:relative;
+    z-index:1;
+  }
+  .arb-item .arb-num{
+    font-family:'JetBrains Mono',monospace;
+    color:var(--gold-bright);
+    font-size:11px;
+    font-weight:700;
+    margin-bottom:6px;
+    letter-spacing:0.08em;
+  }
+  .arb-item p{
+    font-size:14px;
+    line-height:1.6;
+    margin:0;
+    color:#dfe2ea;
+  }
+  .arb-item b{color:#fff;}
+
+  /* ===== FOOTER ===== */
+  .footer{
+    padding:34px 32px 40px;
+    font-size:11.5px;
+    color:var(--slate-light);
+    line-height:1.7;
+  }
+  .footer .brand{
+    font-family:'Playfair Display',serif;
+    font-weight:800;
+    font-size:15px;
+    color:var(--ink);
+    margin-bottom:6px;
+  }
+  .footer hr{border:none;border-top:1px solid var(--line);margin:18px 0;}
+  .divider-gold{height:2px;background:linear-gradient(90deg,var(--gold-bright),transparent);margin:0 32px;}
+
+  @media (max-width:480px){
+    .fm-grid{grid-template-columns:1fr;}
+    .stat-row{flex-direction:column;}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <!-- MASTHEAD -->
+  <div class="masthead">
+    <div class="masthead-top">
+      <span>SIX50 RESEARCH DESK</span>
+      <span>AI &amp; FINANCE FOR OPERATORS</span>
+    </div>
+    <div class="wordmark">
+      <h1>THE AI <span class="arb">ARBITRAGE</span></h1>
+      <div class="tagline">Where the information gap becomes your edge</div>
+    </div>
+    <div class="masthead-strip">
+      <span>ISSUE NO. <b>02</b></span>
+      <span>MONDAY, <b>JULY 20, 2026</b></span>
+      <span><b>6</b> MIN READ</span>
+    </div>
+  </div>
+
+  <!-- TLDR -->
+  <div class="tldr">
+    <div class="tldr-label">TL;DR — TODAY IN THREE MINUTES</div>
+    <ul>
+      <li><span class="num">01</span><span><span class="pill ai">AI</span><span class="pill finance">$</span><b>Fable 5 finally has a permanent home, sort of.</b> As of today, Claude's top model is built into Max and Team Premium plans at 50% of weekly limits. Pro and Team Standard get a one-time $100 credit and stay on pay-per-token pricing.</span></li>
+      <li><span class="num">02</span><span><span class="pill finance">$</span><b>OpenAI's own CFO says the industry has been measuring AI wrong.</b> Sarah Friar introduced a "useful-intelligence-per-dollar" scorecard on Friday, explicitly ditching seats and active users in favor of cost per completed task.</span></li>
+      <li><span class="num">03</span><span><span class="pill finance">$</span><b>The ROI math isn't pretty industry-wide.</b> Worldwide AI spend is forecast at $2.59 trillion this year, yet a PwC survey found just 12% of CEOs have seen both cost and revenue benefits, and 56% have seen no financial benefit at all.</span></li>
+      <li><span class="num">04</span><span><span class="pill ai">AI</span><b>Google missed its own Gemini 3.5 Pro deadline a third time.</b> The widely reported July 17 stopgap date came and went with no model card, no pricing, and no public API listing as of this morning.</span></li>
+      <li><span class="num">05</span><span><span class="pill ai">AI</span><b>A Chinese lab just landed at No. 3 on the leaderboard.</b> Moonshot AI's Kimi K3, a 2.8-trillion-parameter model, debuted behind only Claude Fable 5 and GPT-5.6 Sol, with open weights promised by July 27.</span></li>
+      <li><span class="num">06</span><span><span class="pill ai">AI</span><b>Apple's trade-secret suit against OpenAI just got more specific.</b> New reporting over the weekend ties the allegations directly to OpenAI's consumer hardware ambitions, not just its hiring practices.</span></li>
+      <li><span class="num">07</span><span><span class="pill ai">AI</span><b>Claude Code shipped a stability-first release.</b> Version 2.1.215, out Saturday, tightens permission checks and stops auto-running /verify and /code-review, small changes that matter if you've built automation on top of it.</span></li>
+    </ul>
+  </div>
+
+  <!-- STORY 1: FABLE 5 RESOLUTION -->
+  <div class="section-head"><div class="section-kicker">LEAD STORY</div></div>
+  <div class="story">
+    <h2>The Fable 5 Saga Ends in Two Tiers, Not One</h2>
+    <p class="dek">Three deadline extensions later, Anthropic has finally committed to where Fable 5 lives. The answer depends entirely on which plan you're paying for.</p>
+
+    <p><span class="drop">A</span>nthropic's flagship model stops being a free-for-all today. Beginning July 20, Claude Fable 5 is built into every Max and Team Premium plan at 50% of weekly usage limits, a permanent seat at the table rather than a promotional grace period. Pro and Team Standard subscribers get a different deal: continued access through prepaid usage credits, not the weekly pool, along with a one-time $100 credit as a parting gesture. Anthropic's own explanation was candid about the back-and-forth: "Demand for Fable has been challenging to predict, which is why we rolled it out to subscription plans in stages, extending access several times as we secured additional capacity."</p>
+
+    <div class="chart-card">
+      <div class="chart-title">From Free Preview to Permanent Tiering</div>
+      <div class="chart-sub">Confirmed dates from Anthropic's support documentation and subsequent reporting</div>
+      <div class="timeline">
+        <div class="tl-point">
+          <div class="tl-dot"></div>
+          <div class="tl-date">JUL 1</div>
+          <div class="tl-desc">Fable 5 redeployed to paid plans after a national-security access pause</div>
+        </div>
+        <div class="tl-point">
+          <div class="tl-dot"></div>
+          <div class="tl-date">JUL 19</div>
+          <div class="tl-desc">Third extended "free within plan limits" deadline expires at 11:59pm PT</div>
+        </div>
+        <div class="tl-point final">
+          <div class="tl-dot"></div>
+          <div class="tl-date">JUL 20</div>
+          <div class="tl-desc">Permanent tiering begins: built-in for Max/Team Premium, credits-only for Pro/Team Standard</div>
+        </div>
+      </div>
+      <div class="chart-foot">Source: <span class="source-tag"><a href="https://www.dawn.com/news/2016483" target="_blank">Dawn.com, Jul 18 2026</a></span> <span class="source-tag"><a href="https://www.techtimes.com/articles/320905/20260718/claude-fable-5-ends-subscription-limbo-permanent-max-credits-only-pro.htm" target="_blank">Tech Times, Jul 18 2026</a></span></div>
+    </div>
+
+    <p>The mechanics split cleanly along plan lines. The personal Max 5x ($110/mo) and Max x20 ($220/mo) tiers, plus the business Team Premium tier ($100/mo), now treat Fable 5 as a normal part of the weekly allowance, just at half the draw-down rate of the smaller models. Everyone else pays per token once the $100 credit runs out, at the same $10 input / $50 output per million tokens rate that took effect this weekend.</p>
+
+    <div class="fm-grid">
+      <div class="fm-card flat">
+        <div class="fm-head">✓ Included, Half Limits</div>
+        <ul>
+          <li>Max 5x ($110/mo) — Fable 5 in weekly pool</li>
+          <li>Max x20 ($220/mo) — Fable 5 in weekly pool</li>
+          <li>Team Premium ($100/mo/seat) — same terms</li>
+        </ul>
+      </div>
+      <div class="fm-card metered">
+        <div class="fm-head">$ Credits Only</div>
+        <ul>
+          <li>Pro plan — one-time $100 credit, then metered</li>
+          <li>Team Standard — same credit-then-metered path</li>
+          <li>Metered rate: $10 in / $50 out per million tokens</li>
+        </ul>
+      </div>
+    </div>
+
+    <p><b>The read for operators:</b> if your team is on Pro or Team Standard and leans on Fable 5 for anything beyond occasional use, that $100 credit is a countdown clock, not a benefit. This is the same plan-versus-usage audit we run at the start of every First 90 Days Diagnostic, just applied to a software bill instead of a general ledger.</p>
+  </div>
+
+  <div class="divider-gold"></div>
+
+  <!-- STORY 2: FINANCE DESK -->
+  <div class="section-head"><div class="section-kicker finance">FINANCE DESK</div></div>
+  <div class="story">
+    <h2>CFOs Want to Know What Their AI Dollar Actually Buys</h2>
+    <p class="dek">OpenAI's own CFO just admitted the software industry's usual adoption metrics don't work for AI. The fix she proposed says as much about the state of enterprise AI as the metric itself.</p>
+
+    <p>On Friday, OpenAI CFO Sarah Friar published a blog post and a companion LinkedIn post introducing what she called a "useful-intelligence-per-dollar" framework for measuring AI's value, explicitly rejecting the seat-count and active-user metrics software vendors have leaned on for decades. "For years, software was measured through adoption: seats, active users, renewals," Friar wrote. "AI is different, it needs to be measured by work accomplished." The framework scores AI investments on four dimensions: whether the tool performs meaningful work, the cost of each successful task, the reliability of the output, and whether each AI dollar produces more value as usage scales.</p>
+
+    <p>The timing isn't subtle. Worldwide AI spending is forecast to hit $2.59 trillion in 2026, up 47% year over year, according to Gartner. But a PwC survey released in January found only 12% of CEOs say AI has delivered both cost and revenue benefits, and 56% report no significant financial benefit at all. Palantir CEO Alex Karp put the tension bluntly in a recent CNBC interview: "The enterprises are just tired of it," he said, questioning whether rising token costs are translating into ROI, a comment worth noting even though he made it while promoting Palantir's own competing platform.</p>
+
+    <div class="stat-row">
+      <div class="stat-box"><span class="v">$2.59T</span><span class="l">2026 Global AI Spend Forecast</span></div>
+      <div class="stat-box"><span class="v">12%</span><span class="l">CEOs Seeing Cost + Revenue Gains</span></div>
+      <div class="stat-box"><span class="v">56%</span><span class="l">Seeing No Financial Benefit</span></div>
+    </div>
+    <div class="chart-foot" style="margin:0 0 26px;">Sources: <span class="source-tag"><a href="https://www.cfodive.com/news/openai-pushes-new-roi-yardstick-ai-cfos/825606/" target="_blank">CFO Dive, Jul 17 2026</a></span> <span class="source-tag"><a href="https://www.gartner.com/en/newsroom/press-releases/2026-05-19-gartner-forecasts-worldwide-ai-spending-to-grow-47-percent-in-2026" target="_blank">Gartner</a></span> <span class="source-tag"><a href="https://www.pwc.com/gx/en/news-room/press-releases/2026/pwc-2026-global-ceo-survey.html" target="_blank">PwC</a></span></div>
+
+    <div class="fm-grid">
+      <div class="fm-card flat">
+        <div class="fm-head">✓ What the New Scorecard Measures</div>
+        <ul>
+          <li>Whether the tool performs real, completed work</li>
+          <li>Cost per successful task, not per seat</li>
+          <li>Reliability of the output, not adoption rate</li>
+          <li>Value per dollar as usage scales</li>
+        </ul>
+      </div>
+      <div class="fm-card metered">
+        <div class="fm-head">$ What Legacy Metrics Missed</div>
+        <ul>
+          <li>Seats purchased and active-user counts</li>
+          <li>Renewal rate as a proxy for value</li>
+          <li>Feature adoption instead of task completion</li>
+          <li>A flat fee that hides the real usage cost underneath</li>
+        </ul>
+      </div>
+    </div>
+
+    <p>The measurement gap sits on top of an adoption gap that hasn't closed yet. A CFO Connect report published earlier this year found 56% of finance leaders now use AI in some form, double the 2023 rate, yet only 17% are running it in core workflows and 45% remain in limited pilots. Two-thirds of CFOs said the reason they've been slow is simpler than budget or risk: they don't know where to start.</p>
+    <div class="chart-foot" style="margin:0 0 22px;padding-top:0;border-top:none;">Background context, not new this issue. Source: <span class="source-tag"><a href="https://www.cfoconnect.eu/resources/reports/state-of-ai-in-finance-2026/" target="_blank">CFO Connect, published Mar 11 2026</a></span></div>
+
+    <p><b>The read for operators:</b> if a company with OpenAI's own resources needs a brand-new framework just to tell whether its AI spend is working, an SMB with far thinner measurement infrastructure should assume it doesn't know either, until it checks. That check, cost per completed task against a specific workflow, not a department-wide vibe, is exactly the audit our First 90 Days Diagnostic runs before it recommends an automation roadmap.</p>
+  </div>
+
+  <div class="divider-gold"></div>
+
+  <!-- STORY 3: COMPETITIVE LANDSCAPE -->
+  <div class="section-head"><div class="section-kicker">COMPETITIVE LANDSCAPE</div></div>
+  <div class="story">
+    <h2>Google Slips a Third Time. China Doesn't Wait.</h2>
+    <p class="dek">The widely reported Gemini 3.5 Pro relaunch date came and went again this weekend. Meanwhile, a Moonshot AI model most SMB operators have never heard of just landed three spots off the top of the leaderboard.</p>
+
+    <p>Gemini 3.5 Pro's July 17 target, itself a rebuild-driven revision of earlier June and July dates, passed with no model card, no confirmed pricing, and no public API listing as of this morning. Bloomberg reported the delay traces to the model falling short of Google's own internal reliability and hallucination-rate goals, prompting DeepMind to scrap and rebuild the base architecture rather than patch it. Prediction markets have now shifted their expected launch window to late July or early August.</p>
+
+    <p>While Google was missing its own deadline, Moonshot AI wasn't waiting around. The Beijing-based lab released Kimi K3, a 2.8-trillion-parameter model, on July 16. It debuted at No. 3 on the Artificial Analysis leaderboard, trailing only Claude Fable 5 and GPT-5.6 Sol, and ahead of everything Google currently has in general availability. Moonshot has committed to releasing Kimi K3's weights openly by July 27, which would make it one of the most capable open-weight models available to any business willing to self-host or fine-tune it.</p>
+
+    <div class="stat-row">
+      <div class="stat-box"><span class="v">3</span><span class="l">Missed Gemini Deadlines</span></div>
+      <div class="stat-box"><span class="v">No. 3</span><span class="l">Kimi K3 Leaderboard Rank</span></div>
+      <div class="stat-box"><span class="v">2.8T</span><span class="l">Kimi K3 Parameters</span></div>
+    </div>
+
+    <div class="pull">The lab with the deepest pockets in this race has now missed three internal deadlines in a row, while a competitor most SMB operators have never heard of shipped a top-three model and open-sourced it. Ship dates are not a benchmark, but they are a signal.</div>
+
+    <p><b>The read for operators:</b> don't build a roadmap around a model that hasn't shipped, no matter how capable the demo looked at I/O. And keep an eye on Kimi K3's July 27 weights release, an open, top-three-ranked model is exactly the kind of alternative that resets pricing leverage against the Anthropic/OpenAI duopoly, whether or not you ever run it yourself.</p>
+  </div>
+
+  <!-- WORTH KNOWING -->
+  <div class="section-head"><div class="section-kicker">WORTH KNOWING</div></div>
+  <div class="wk-list">
+    <div class="wk-item">
+      <div class="wk-tag">LEGAL</div>
+      <div class="wk-body">
+        <h3>Apple's suit against OpenAI now reads as a hardware-roadmap threat</h3>
+        <p>Weekend reporting sharpened the frame on Apple's trade-secret lawsuit: beyond the hiring allegations, the suit's real risk to OpenAI is delaying or derailing its consumer hardware ambitions just as it heads toward an IPO. Over 400 former Apple employees are reported to now work at OpenAI.</p>
+        <a href="https://techcrunch.com/2026/07/19/can-an-apple-lawsuit-derail-openais-hardware-plans/" target="_blank">TechCrunch →</a>
+      </div>
+    </div>
+    <div class="wk-item">
+      <div class="wk-tag">OPS</div>
+      <div class="wk-body">
+        <h3>Claude Code 2.1.215 tightens permissions, stops auto-running skills</h3>
+        <p>Saturday's release adds stricter permission checks, safer Bash/PowerShell handling, and an EndConversation tool for long-running sessions. It also stops automatically invoking /verify and /code-review, both now require an explicit call, worth checking if you've built automation that assumed the old default.</p>
+        <a href="https://github.com/anthropics/claude-code/releases" target="_blank">Claude Code releases →</a>
+      </div>
+    </div>
+    <div class="wk-item">
+      <div class="wk-tag">MODEL</div>
+      <div class="wk-body">
+        <h3>Kimi K3's open weights are due July 27</h3>
+        <p>Moonshot AI's 2.8-trillion-parameter model is currently API-only, but the company has committed to an open-weight release within the week. Worth a calendar note if you're evaluating self-hosted or fine-tunable alternatives to the closed frontier labs.</p>
+        <a href="https://simonwillison.net/2026/Jul/16/kimi-k3/" target="_blank">Simon Willison →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIX50 POV -->
+  <div class="arbitrage">
+    <h2>The Six50 POV</h2>
+    <div class="sub">What we'd tell a $2M-$50M operator to do with today's news</div>
+    <div class="arb-item">
+      <div class="arb-num">01 — PLAN AUDIT</div>
+      <p><b>Check which side of the Fable 5 split your team landed on.</b> If you're on Pro or Team Standard and Fable 5 is in daily use, that $100 credit will run out fast at $10/$50 per million tokens. This is a five-minute check we'd flag on day one of a First 90 Days Diagnostic.</p>
+    </div>
+    <div class="arb-item">
+      <div class="arb-num">02 — COST GOVERNANCE</div>
+      <p><b>Measure cost per completed task, not adoption.</b> If OpenAI's own CFO had to invent a new scorecard because seats and logins don't capture AI's value, don't let your close process run on a department-wide "AI budget" either. Price each automated workflow on its own, the same discipline behind our token/model routing cost governance work.</p>
+    </div>
+    <div class="arb-item">
+      <div class="arb-num">03 — FINANCE AI ADOPTION</div>
+      <p><b>Pick one workflow, not a platform.</b> Only 17% of finance teams are running AI in core workflows, and 68% of CFOs say they simply don't know where to start. That gap between awareness and execution is exactly what our AI automation roadmap is built to close, one process at a time.</p>
+    </div>
+    <div class="arb-item">
+      <div class="arb-num">04 — MODEL ROUTING</div>
+      <p><b>Put July 27 on the calendar.</b> If Kimi K3's weights land as promised, it becomes a real option for token/model routing cost governance, a top-three-ranked, self-hostable model gives you negotiating leverage against whichever closed vendor you're currently locked into.</p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="brand">THE AI ARBITRAGE</div>
+    <p>A Six50 Research Desk publication. Six50 is an AI strategy and operations advisory for founder-led and PE-backed businesses in the $2M-$50M revenue range. Built from Import AI, TLDR AI, Ben's Bites, The Rundown AI, Anthropic News, Hugging Face, OpenAI, Simon Willison, CFO Dive, CIO Dive, and primary reporting, cross-checked before publication.</p>
+    <p style="font-style:italic;">This issue was researched and drafted with the assistance of AI, then reviewed before publication.</p>
+    <hr>
+    <p><b>Not reached this issue:</b> Import AI, Lenny's Newsletter, Ben's Bites, and The Rundown AI did not surface a distinctly dated July 18-20 issue via search at time of writing. Hugging Face Daily Papers trending items reviewed did not clear the relevance bar for an SMB-operator audience this issue. Reddit (r/LocalLLaMA, r/ClaudeAI) and X were not reachable without login in this environment.</p>
+    <p style="margin-top:14px;">Issue No. 02 · July 20, 2026 · Six50</p>
+  </div>
+
+</div>
+
+</body>
+</html>

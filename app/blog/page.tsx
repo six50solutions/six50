@@ -145,7 +145,7 @@ export default async function BlogIndexPage() {
                                             </div>
                                             <div className="flex-shrink-0 mt-auto md:mt-0">
                                                 <span className="inline-flex items-center text-sm font-medium text-fog group-hover:text-gold-500 transition-colors">
-                                                    {post.isExternal ? "Read on Substack" : "Read Article"} <ArrowRight className="w-4 h-4 ml-2" />
+                                                    {post.category === "Substack" ? "Read on Substack" : post.isExternal ? "Read Newsletter" : "Read Article"} <ArrowRight className="w-4 h-4 ml-2" />
                                                 </span>
                                             </div>
                                         </div>

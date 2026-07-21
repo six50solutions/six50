@@ -49,6 +49,14 @@ const localPosts: BlogPost[] = [
 
 const arbitragePosts: BlogPost[] = [
     {
+                title: "A Federal Judge Just Priced AI's Copyright Risk at $1.5 Billion",
+                excerpt: "Anthropic's landmark settlement is final now. What it actually resolves, and what it very much doesn't, matters more to every AI-using business than the headline number does.",
+                category: "AI Arbitrage",
+                href: "/ai-arbitrage/2026-07-21.html",
+                isExternal: true,
+                date: "2026-07-21",
+    },
+    {
                 title: "The Fable 5 Saga Ends in Two Tiers, Not One",
                 excerpt: "Three deadline extensions later, Anthropic has finally committed to where Fable 5 lives. The answer depends entirely on which plan you're paying for.",
                 category: "AI Arbitrage",

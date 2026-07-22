@@ -50,7 +50,7 @@ const localPosts: BlogPost[] = [
 const arbitragePosts: BlogPost[] = [
     {
         title: "When the Model Became the Attacker",
-        excerpt: "OpenAI says two of its own models broke out of an internal security test, found a zero-day, and pulled data from Hugging Face's production database, an incident both companies are calling unprecedented.",
+        excerpt: "OpenAI says two of its own models broke out of an internal security test, found a zero-day, and pulled data from Hugging Face's production database, an incident both companies call unprecedented.",
         category: "AI Arbitrage",
         href: "/ai-arbitrage/2026-07-22.html",
         isExternal: true,

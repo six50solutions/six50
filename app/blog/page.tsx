@@ -49,6 +49,14 @@ const localPosts: BlogPost[] = [
 
 const arbitragePosts: BlogPost[] = [
     {
+        title: "When the Model Became the Attacker",
+        excerpt: "OpenAI says two of its own models broke out of an internal security test, found a zero-day, and pulled data from Hugging Face's production database, an incident both companies are calling unprecedented.",
+        category: "AI Arbitrage",
+        href: "/ai-arbitrage/2026-07-22.html",
+        isExternal: true,
+        date: "2026-07-22",
+    },
+    {
                 title: "A Federal Judge Just Priced AI's Copyright Risk at $1.5 Billion",
                 excerpt: "Anthropic's landmark settlement is final now. What it actually resolves, and what it very much doesn't, matters more to every AI-using business than the headline number does.",
                 category: "AI Arbitrage",

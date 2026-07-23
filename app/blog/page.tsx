@@ -80,6 +80,14 @@ const arbitragePosts: BlogPost[] = [
                 isExternal: true,
                 date: "2026-07-17",
     },
+    {
+                category: "AI Arbitrage",
+                title: "The AI Arbitrage — Issue 05 — July 23, 2026",
+                excerpt: "Microsoft and Mistral just made the case that the next phase of enterprise AI isn't about which model is smartest. It's about who controls where it runs.",
+                href: "/ai-arbitrage/2026-07-23.html",
+                isExternal: true,
+                date: "2026-07-23",
+},
     ];
 
 async function getSubstackPosts(): Promise<BlogPost[]> {

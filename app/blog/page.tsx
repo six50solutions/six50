@@ -88,6 +88,14 @@ const arbitragePosts: BlogPost[] = [
                 isExternal: true,
                 date: "2026-07-23",
 },
+    {
+                    category: "AI Arbitrage",
+                    title: "The Sandbox Had One Door Left Open",
+                    excerpt: "A security researcher connected a folder to Claude Cowork, the same agentic tool six50 uses to research and draft this newsletter, sent one message, and reached the host Mac's SSH keys and cloud credentials.",
+                    href: "/ai-arbitrage/2026-07-24.html",
+                    isExternal: true,
+                    date: "2026-07-24",
+    },
     ];
 
 async function getSubstackPosts(): Promise<BlogPost[]> {

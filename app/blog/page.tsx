@@ -82,9 +82,9 @@ const arbitragePosts: BlogPost[] = [
     },
     {
                 category: "AI Arbitrage",
-                title: "Two-Thirds of Companies Can't Keep AI Spending on Budget",
-                excerpt: "Microsoft and Mistral just made the case that the next phase of enterprise AI isn't about which model is smartest. It's about who controls where it runs.",
-                href: "/ai-arbitrage/2026-07-23.html",
+                            title: "Frontier AI, Built to Stay Home",
+                                    excerpt: "Microsoft and Mistral just made the case that the next phase of enterprise AI isn't about which model is smartest. It's about who controls where it runs.",
+        href: "/ai-arbitrage/2026-07-23.html",
                 isExternal: true,
                 date: "2026-07-23",
 },

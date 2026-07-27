@@ -1,13 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { after } from 'next/server';
 import { supabaseAdmin, hashIp } from '@/lib/supabase/admin';
 import { score, type Answers } from '@/lib/diagnostic/scoring';
 import { QUESTIONS } from '@/lib/diagnostic/instrument';
 import { generateNarrativeSafe } from '@/lib/diagnostic/narrative';
+import { sendSubmissionNotification } from '@/lib/diagnostic/notify';
 
 export const dynamic = 'force-dynamic';
 
 // Free-text answers worth handing the model as color, if the owner filled them in.
 const FREE_TEXT_KEYS: Record<string, string> = {
+  PAIN_POINTS: 'What they told us directly, in their own words',
   D2_Q5: 'Process that would hurt most if the owner left',
   D6_Q5: 'What breaks first if volume rose 30%',
   D10_Q5: 'What would make this a win in 12 months',
@@ -124,6 +127,35 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ tok
     event: 'submitted',
     metadata: { ols: result.ols, flags: result.flags.map((f) => f.code) },
     ip_hash: hashIp(req.headers.get('x-forwarded-for')),
+  });
+
+  // Notify after the response is returned, so the person submitting never
+  // waits on an email round-trip. Their answers are already committed, and
+  // sendSubmissionNotification swallows its own failures.
+  after(async () => {
+    const outcome = await sendSubmissionNotification({
+      tier: inv.tier,
+      submissionId: submission.id,
+      invitationId: inv.invitation_id,
+      businessName: bizName,
+      contactName,
+      contactEmail,
+      objective,
+      ols: result.ols,
+      band: result.band,
+      flags: result.flags,
+      divergences: result.divergences,
+      automation: result.automation,
+      scaling: result.scaling,
+      narrative,
+      freeText,
+    });
+
+    await supabaseAdmin.from('diagnostic_events').insert({
+      invitation_id: inv.invitation_id,
+      event: outcome.sent ? 'notification_sent' : 'notification_skipped',
+      metadata: outcome,
+    });
   });
 
   // Scan tier returns results immediately. Full tier confirms receipt only —

@@ -43,6 +43,7 @@ export default function DiagnosticForm({
   const [step, setStep] = useState(0);
   const [submitting, setSubmitting] = useState(false);
   const [result, setResult] = useState<any>(null);
+  const [showErrors, setShowErrors] = useState(false);
   const headingRef = useRef<HTMLHeadingElement>(null);
 
   // Group into screens: intro items first, then one screen per domain.
@@ -94,6 +95,38 @@ export default function DiagnosticForm({
   const isLast = step === screens.length - 1;
   const progressPct = Math.round(((step + 1) / screens.length) * 100);
 
+  // Long free-text and multi-select are genuinely optional ("none apply" is a
+  // real answer for multi, and indistinguishable from skipping). Everything
+  // else must be answered — otherwise the score is computed from a partial
+  // picture and, worse, testers sail past the intake screen leaving us with
+  // submissions we can't attribute to anyone.
+  const isAnswered = (q: Question) => {
+    const a = answers[q.key];
+    if (!a) return false;
+    if (q.type === 'shortText' || q.type === 'text') return Boolean(a.text?.trim());
+    if (q.type === 'multi') return true;
+    return a.num != null || a.choice != null;
+  };
+  const isRequired = (q: Question) => q.type !== 'text' && q.type !== 'multi';
+
+  const emailInvalid = (q: Question) => {
+    if (q.key !== 'CONTACT_EMAIL') return false;
+    const v = answers[q.key]?.text?.trim();
+    if (!v) return false;
+    return !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  };
+
+  const missing = current.questions.filter((q) => isRequired(q) && !isAnswered(q));
+  const badEmail = current.questions.some(emailInvalid);
+  const canAdvance = missing.length === 0 && !badEmail;
+
+  const handleAdvance = () => {
+    if (!canAdvance) { setShowErrors(true); return; }
+    setShowErrors(false);
+    if (isLast) submit();
+    else { setStep((s) => s + 1); window.scrollTo(0, 0); }
+  };
+
   return (
     <main style={THEME} className="min-h-dvh bg-[var(--dx-bg)] text-[var(--dx-ink)] pb-[env(safe-area-inset-bottom)]">
       {/* Sticky progress header — replaces the old desktop-only sidebar rail */}
@@ -104,7 +137,7 @@ export default function DiagnosticForm({
             style={{ width: `${progressPct}%` }}
           />
         </div>
-        <div className="mx-auto flex max-w-[600px] items-center justify-between gap-3 px-5 py-3.5">
+        <div className="mx-auto flex max-w-[600px] items-center justify-between gap-3 px-5 py-3.5 sm:px-6">
           <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--dx-muted)]">
             Step {step + 1} of {screens.length}
           </span>
@@ -122,15 +155,35 @@ export default function DiagnosticForm({
 
         <div className="space-y-8">
           {current.questions.map((q) => (
-            <QuestionBlock key={q.key} q={q} value={answers[q.key]} onChange={setAnswer} />
+            <QuestionBlock
+              key={q.key}
+              q={q}
+              value={answers[q.key]}
+              onChange={setAnswer}
+              invalid={showErrors && ((isRequired(q) && !isAnswered(q)) || emailInvalid(q))}
+              invalidMessage={emailInvalid(q) ? 'Enter a valid email address' : 'This one\u2019s required'}
+            />
           ))}
         </div>
 
+        {showErrors && !canAdvance && (
+          <p role="alert" className="mt-7 border-l-2 border-[var(--dx-accent)] pl-4 text-[14px] leading-relaxed text-[var(--dx-ink)]">
+            {badEmail && missing.length === 0
+              ? 'That email address doesn\u2019t look right — mind checking it?'
+              : `${missing.length} question${missing.length === 1 ? '' : 's'} still to answer on this page.`}
+          </p>
+        )}
+
         <div className="mt-11 sm:flex sm:items-center sm:gap-4">
           <button
-            onClick={() => { if (isLast) submit(); else { setStep((s) => s + 1); window.scrollTo(0, 0); } }}
+            onClick={handleAdvance}
             disabled={submitting}
-            className="block min-h-[52px] w-full border border-[var(--dx-accent)] bg-[var(--dx-accent)] px-6 py-4 text-[16px] font-semibold text-[var(--dx-bg)] transition-colors active:bg-[var(--dx-accent)]/85 disabled:opacity-40 sm:w-auto"
+            aria-disabled={!canAdvance}
+            className={`block min-h-[52px] w-full border px-6 py-4 text-[16px] font-semibold transition-colors sm:w-auto
+              ${canAdvance
+                ? 'border-[var(--dx-accent)] bg-[var(--dx-accent)] text-[var(--dx-bg)] active:bg-[var(--dx-accent)]/85'
+                : 'border-[var(--dx-rule)] bg-transparent text-[var(--dx-muted)]'}
+              disabled:opacity-40`}
           >
             {submitting ? 'Submitting' : isLast ? 'Submit diagnostic' : 'Continue'}
           </button>
@@ -153,7 +206,15 @@ export default function DiagnosticForm({
   );
 }
 
-function QuestionBlock({ q, value, onChange }: { q: Question; value?: Local[string]; onChange: (q: Question, v: Local[string], d?: boolean) => void }) {
+function QuestionBlock({ q, value, onChange, invalid, invalidMessage }: {
+  q: Question; value?: Local[string];
+  onChange: (q: Question, v: Local[string], d?: boolean) => void;
+  invalid?: boolean; invalidMessage?: string;
+}) {
+  const flag = invalid ? (
+    <p className="mt-1.5 text-[13px] text-[var(--dx-accent)]">{invalidMessage}</p>
+  ) : null;
+
   if (q.type === 'shortText') {
     return (
       <label className="block">
@@ -161,9 +222,12 @@ function QuestionBlock({ q, value, onChange }: { q: Question; value?: Local[stri
         <input
           id={q.key} type={q.inputType ?? 'text'} defaultValue={value?.text ?? ''}
           autoComplete={q.inputType === 'email' ? 'email' : q.key === 'CONTACT_NAME' ? 'name' : 'organization'}
+          aria-invalid={invalid || undefined}
           onChange={(e) => onChange(q, { text: e.target.value }, true)}
-          className="min-h-[50px] w-full border border-[var(--dx-rule)] bg-[var(--dx-surface)] px-4 py-3.5 text-[16px] text-[var(--dx-ink)] caret-[var(--dx-accent)] focus:border-[var(--dx-accent)] focus:outline-none"
+          className={`min-h-[50px] w-full border bg-[var(--dx-surface)] px-4 py-3.5 text-[16px] text-[var(--dx-ink)] caret-[var(--dx-accent)] focus:outline-none
+            ${invalid ? 'border-[var(--dx-accent)]' : 'border-[var(--dx-rule)] focus:border-[var(--dx-accent)]'}`}
         />
+        {flag}
       </label>
     );
   }
@@ -208,7 +272,9 @@ function QuestionBlock({ q, value, onChange }: { q: Question; value?: Local[stri
         <div className="mt-2 flex justify-between text-[12px] text-[var(--dx-muted)]">
           <span>Barely holding</span><span>Runs itself</span>
         </div>
-      </fieldset>
+        {flag}
+      {flag}
+    </fieldset>
     );
   }
 
@@ -236,7 +302,9 @@ function QuestionBlock({ q, value, onChange }: { q: Question; value?: Local[stri
             );
           })}
         </div>
-      </fieldset>
+        {flag}
+      {flag}
+    </fieldset>
     );
   }
 
@@ -262,6 +330,7 @@ function QuestionBlock({ q, value, onChange }: { q: Question; value?: Local[stri
           );
         })}
       </div>
+      {flag}
     </fieldset>
   );
 }
@@ -297,7 +366,7 @@ function Receipt({ result, tier }: { result: any; tier: Tier }) {
     <main style={THEME} className="min-h-dvh bg-[var(--dx-bg)] pb-[env(safe-area-inset-bottom)] text-[var(--dx-ink)]">
       <div className="sticky top-0 z-10 border-b border-[var(--dx-rule)]/60 bg-[var(--dx-bg)]">
         <div className="h-[3px] w-full bg-[var(--dx-accent)]" />
-        <div className="mx-auto max-w-[600px] px-5 py-3.5">
+        <div className="mx-auto max-w-[600px] px-5 py-3.5 sm:px-6">
           <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--dx-muted)]">Results</span>
         </div>
       </div>
@@ -358,12 +427,20 @@ function Receipt({ result, tier }: { result: any; tier: Tier }) {
         )}
 
         <div className="mt-11 sm:flex sm:items-center sm:gap-4">
-          <button className="block min-h-[52px] w-full border border-[var(--dx-accent)] bg-[var(--dx-accent)] px-6 py-4 text-[16px] font-semibold text-[var(--dx-bg)] active:bg-[var(--dx-accent)]/85 sm:w-auto">
+          <a
+            href="/contact"
+            className="block min-h-[52px] w-full border border-[var(--dx-accent)] bg-[var(--dx-accent)] px-6 py-4 text-center text-[16px] font-semibold text-[var(--dx-bg)] active:bg-[var(--dx-accent)]/85 sm:w-auto"
+          >
             Book the full diagnostic
-          </button>
-          <button className="mt-2.5 block min-h-[52px] w-full border border-[var(--dx-rule)] px-6 py-4 text-[16px] font-medium active:bg-[var(--dx-surface)] sm:mt-0 sm:w-auto">
+          </a>
+          {/* A submitted token is spent — restarting has to mint a fresh one,
+              so send them back through /scan rather than resetting local state. */}
+          <a
+            href="/scan"
+            className="mt-2.5 block min-h-[52px] w-full border border-[var(--dx-rule)] px-6 py-4 text-center text-[16px] font-medium active:bg-[var(--dx-surface)] sm:mt-0 sm:w-auto"
+          >
             Start over
-          </button>
+          </a>
         </div>
 
         <p className="mt-9 text-[12.5px] leading-relaxed text-[var(--dx-muted)]/80">

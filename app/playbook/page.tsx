@@ -36,6 +36,15 @@ export default function PlaybookPage() {
           .no-print { display: none !important; }
           body { background: #ffffff !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
           a { text-decoration: none; color: inherit; }
+
+          /* The root layout renders Navbar, Footer, ParticleField,
+             ScrollProgress, and ChatWidget as siblings of the div wrapping
+             this page's content (see app/layout.tsx). None of them contain
+             #playbook-print-root, so :has() picks out exactly the
+             site-chrome elements to hide, without needing to know anything
+             about how those components render internally. Requires
+             Chrome 105+ / Safari 15.4+ / Firefox 121+ — safe baseline in 2026. */
+          body > *:not(:has(#playbook-print-root)) { display: none !important; }
         }
       `}</style>
 

@@ -205,7 +205,7 @@ export async function sendSubmissionNotification(
     const from = process.env.DIAGNOSTIC_NOTIFY_FROM ?? 'six50 diagnostic <onboarding@resend.dev>';
     if (!to) return { sent: false, skipped: 'DIAGNOSTIC_NOTIFY_TO not set' };
 
-    await getResend().emails.send({
+    const { data, error: sendError } = await getResend().emails.send({
       from,
       to: to.split(',').map((s) => s.trim()).filter(Boolean),
       subject: subjectFor(input),
@@ -214,6 +214,16 @@ export async function sendSubmissionNotification(
       ...(input.contactEmail ? { replyTo: input.contactEmail } : {}),
     });
 
+    // Resend's SDK does NOT throw for API-level rejections (invalid/
+    // unverified domain, sandbox restrictions, etc.) — it returns an `error`
+    // field instead. Discarding the response here was the actual bug: every
+    // send looked like a success even when Resend rejected it outright.
+    if (sendError) {
+      console.error('[diagnostic] Resend rejected the send:', sendError);
+      return { sent: false, error: `${sendError.name}: ${sendError.message}` };
+    }
+
+    console.log('[diagnostic] notification sent, Resend id:', data?.id);
     return { sent: true };
   } catch (err) {
     // Never let a notification failure surface to the person submitting —

@@ -29,7 +29,7 @@ const GOLD = '#D4AF37';
 
 export default function PlaybookPage() {
   return (
-    <div className="min-h-screen bg-[#0B1F33] text-[#F4F1E9] font-sans selection:bg-[#D4AF37] selection:text-[#0B1F33] pb-20 print:bg-white print:text-black print:pb-0">
+    <div id="playbook-print-root" className="min-h-screen bg-[#0B1F33] text-[#F4F1E9] font-sans selection:bg-[#D4AF37] selection:text-[#0B1F33] pb-20 print:bg-white print:text-black print:pb-0">
       <style jsx global>{`
         @media print {
           @page { margin: 1.5cm; }
@@ -166,7 +166,7 @@ export default function PlaybookPage() {
             doCol: ['Automation build (workflows, agents)', 'AI model configuration', 'System integrations (finance, ops, CRM)', 'User testing and iteration'],
             howWeWork: 'Weekly demos, rapid feedback loops, minimal disruption',
             deliverCol: ['Live, working solution', 'User documentation', 'Control & exception handling', 'Training session(s)'],
-            breakBefore: true, accent: NAVY,
+            breakBefore: false, accent: NAVY,
           },
           {
             n: '4', title: 'Optimize & Scale',
@@ -222,8 +222,7 @@ export default function PlaybookPage() {
         ))}
 
         {/* Use Cases & Success */}
-        <div className="break-before-page" />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 print:grid-cols-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 print:grid-cols-2 break-inside-avoid">
           <section>
             <h2 className="text-lg font-bold mb-4 uppercase tracking-wider border-b pb-2 text-[#F4F1E9] print:text-black"
                 style={{ borderColor: GOLD }}>

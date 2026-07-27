@@ -13,7 +13,7 @@ export type Question =
   | { key: string; domain: DomainId; tier: Tier; type: 'scaleA'; prompt: string; help?: string; reverse?: boolean }
   | { key: string; domain: DomainId | null; tier: Tier; type: 'self'; prompt: string; help?: string }
   | { key: string; domain: DomainId; tier: Tier; type: 'multi'; prompt: string; help?: string; options: { label: string }[]; penalty: number }
-  | { key: string; domain: DomainId; tier: Tier; type: 'text'; prompt: string; help?: string }
+  | { key: string; domain: DomainId | null; tier: Tier; type: 'text'; prompt: string; help?: string }
   | { key: string; domain: null; tier: Tier; type: 'shortText'; prompt: string; help?: string; inputType?: 'text' | 'email' };
 
 export const DOMAINS: Record<DomainId, { code: string; label: string; weight: number }> = {
@@ -400,6 +400,9 @@ export const INTAKE_QUESTIONS: Question[] = [
   { key: 'CONTACT_EMAIL', domain: null, tier: 'scan', type: 'shortText', prompt: 'Email', inputType: 'email' },
   { key: 'OBJECTIVE', domain: null, tier: 'scan', type: 'choice', prompt: "What's the main reason you're looking at this right now?",
     options: OBJECTIVES.map((label) => ({ label, score: 0 })) } as Question,
+  { key: 'PAIN_POINTS', domain: null, tier: 'scan', type: 'text',
+    prompt: 'Anything specific you\u2019d like us to know \u2014 a particular pain point, bottleneck, or concern?',
+    help: 'Optional. This goes straight into your recommendation \u2014 it isn\u2019t scored.' },
 ];
 
 export function questionsFor(tier: Tier): Question[] {

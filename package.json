@@ -11,6 +11,8 @@
   "dependencies": {
     "@ai-sdk/anthropic": "^3.0.83",
     "@ai-sdk/react": "^3.0.50",
+    "@anthropic-ai/sdk": "^0.115.0",
+    "@supabase/supabase-js": "^2.110.8",
     "@types/three": "^0.184.1",
     "ai": "^6.0.69",
     "clsx": "^2.1.1",
@@ -26,8 +28,6 @@
     "tailwind-merge": "^3.4.0",
     "three": "^0.184.0",
     "zod": "^3.24.1"
-    "@anthropic-ai/sdk": "^0.115.0",
-    "@supabase/supabase-js": "^2.110.8",
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

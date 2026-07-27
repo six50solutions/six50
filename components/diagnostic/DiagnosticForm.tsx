@@ -128,9 +128,14 @@ export default function DiagnosticForm({
   };
 
   return (
-    <main style={THEME} className="min-h-dvh bg-[var(--dx-bg)] text-[var(--dx-ink)] pb-[env(safe-area-inset-bottom)]">
-      {/* Sticky progress header — replaces the old desktop-only sidebar rail */}
-      <div className="sticky top-0 z-10 border-b border-[var(--dx-rule)]/60 bg-[var(--dx-bg)]">
+    // pt-16 clears the site's persistent fixed global nav — same value used
+    // on the playbook page for the same nav. Without it, this page's own
+    // sticky bar starts at the true viewport top and slides in underneath
+    // the real nav instead of below it.
+    <main style={THEME} className="min-h-dvh bg-[var(--dx-bg)] pt-16 text-[var(--dx-ink)] pb-[env(safe-area-inset-bottom)]">
+      {/* top-16 matches the pt-16 above, so this sticks right below the
+          global nav on scroll rather than sliding under it. */}
+      <div className="sticky top-16 z-10 border-b border-[var(--dx-rule)]/60 bg-[var(--dx-bg)]">
         <div className="h-[3px] w-full bg-[var(--dx-rule)]/40">
           <div
             className="h-full bg-[var(--dx-accent)] transition-[width] duration-300 ease-out"
@@ -363,8 +368,8 @@ function Receipt({ result, tier }: { result: any; tier: Tier }) {
   }
 
   return (
-    <main style={THEME} className="min-h-dvh bg-[var(--dx-bg)] pb-[env(safe-area-inset-bottom)] text-[var(--dx-ink)]">
-      <div className="sticky top-0 z-10 border-b border-[var(--dx-rule)]/60 bg-[var(--dx-bg)]">
+    <main style={THEME} className="min-h-dvh bg-[var(--dx-bg)] pt-16 pb-[env(safe-area-inset-bottom)] text-[var(--dx-ink)]">
+      <div className="sticky top-16 z-10 border-b border-[var(--dx-rule)]/60 bg-[var(--dx-bg)]">
         <div className="h-[3px] w-full bg-[var(--dx-accent)]" />
         <div className="mx-auto max-w-[600px] px-5 py-3.5 sm:px-6">
           <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--dx-muted)]">Results</span>

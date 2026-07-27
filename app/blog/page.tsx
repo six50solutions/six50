@@ -96,6 +96,14 @@ const arbitragePosts: BlogPost[] = [
                     isExternal: true,
                     date: "2026-07-24",
     },
+     {
+                    category: "AI Arbitrage",
+                    title: "Frontier Intelligence, Half the Price",
+                    excerpt: "Anthropic's third flagship release in five weeks undercuts its own top model on cost while claiming the lead on several of its internal benchmarks. For any operator routing work to Claude by default, this is the week to check which model is actually running.",
+                    href: "/ai-arbitrage/AI_Arbitrage_2026-07-27.html",
+                    isExternal: true,
+                    date: "2026-07-27",
+    },
     ];
 
 async function getSubstackPosts(): Promise<BlogPost[]> {

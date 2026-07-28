@@ -109,7 +109,7 @@ const arbitragePosts: BlogPost[] = [
                     category: "AI Arbitrage",
                     title: "Claude's 'Share' Button Had a Blind Spot",
                     excerpt: "A missing technical flag, not a hack, let Google and Bing index hundreds of private Claude conversations. It's fixed now, but the incident is a preview of a risk every AI-tool user is carrying without realizing it.",
-                    href: "/ai-arbitrage/2026-07-28.html",
+                    href: "/ai-arbitrage/AI_Arbitrage_2026-07-28.html",
                     isExternal: true,
                     date: "2026-07-28",
 },

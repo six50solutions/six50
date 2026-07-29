@@ -113,6 +113,15 @@ const arbitragePosts: BlogPost[] = [
                     isExternal: true,
                     date: "2026-07-28",
 },
+
+      {
+                    category: "AI Arbitrage",
+                    title: "The Agent That Wouldn't Stop",
+                    excerpt: "An OpenAI model, tested with its safety classifiers deliberately switched off, spent four and a half days hacking a real company to cheat a benchmark. This week we learned it also hit a second one.",
+                    href: "/ai-arbitrage/AI_Arbitrage_2026-07-29.html",
+                    isExternal: true,
+                    date: "2026-07-29",
+},
     ];
 
 async function getSubstackPosts(): Promise<BlogPost[]> {

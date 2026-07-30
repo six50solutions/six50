@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+  <html lang="en">
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unsubscribe — The AI Arbitrage by six50</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --ink:#0b0f19; --ink-soft:#1c2333; --paper:#faf8f3; --line:#e4ddc9;
+      --gold:#b8873a; --gold-bright:#d4a94c; --gold-pale:#f4e9d0;
+      --green:#2f6b4f; --green-pale:#e7f0ea; --red:#a8402f; --red-pale:#f6e6e2;
+      --slate:#5b6373; --slate-light:#8890a0;
+}
+  *{box-sizing:border-box;}
+  body{margin:0;background:#e9e4d6;font-family:'Inter',system-ui,-apple-system,sans-serif;color:var(--ink);display:flex;justify-content:center;padding:40px 16px;}
+    .sheet{max-width:480px;width:100%;background:var(--paper);box-shadow:0 0 60px rgba(0,0,0,0.12);}
+  .masthead{background:var(--ink);color:#fff;padding:22px 32px;border-bottom:6px solid var(--gold-bright);text-align:center;}
+    .masthead h1{font-family:'Playfair Display',serif;font-weight:900;font-size:26px;margin:0;color:#fff;}
+    .masthead .arb{color:var(--gold-bright);font-style:italic;}
+  .body{padding:32px;text-align:center;}
+  .body p{font-size:14.5px;line-height:1.6;color:#232939;margin:0 0 20px;}
+  #target-email{font-weight:700;color:var(--ink);}
+  button{
+        padding:13px 28px;background:var(--ink);color:#fff;border:none;border-radius:6px;
+      font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:0.08em;
+    text-transform:uppercase;cursor:pointer;
+}
+  button:hover{background:var(--ink-soft);}
+  button:disabled{opacity:0.6;cursor:not-allowed;}
+  .msg{margin-top:20px;padding:14px 16px;border-radius:6px;font-size:13.5px;line-height:1.55;display:none;}
+  .msg.success{display:block;background:var(--green-pale);border:1px solid #cfe0d5;color:var(--green);}
+  .msg.error{display:block;background:var(--red-pale);border:1px solid #e7c9c0;color:var(--red);}
+  .footer{padding:18px 32px 26px;font-size:11px;color:var(--slate-light);text-align:center;border-top:1px solid var(--line);}
+  .footer a{color:var(--gold);text-decoration:none;font-weight:600;}
+</style>
+  </head>
+  <body>
+  <div class="sheet">
+
+    <div class="masthead">
+      <h1>THE AI <span class="arb">ARBITRAGE</span></h1>
+    </div>
+
+    <div class="body" id="app">
+      <p id="prompt">Confirm you'd like to stop receiving The AI Arbitrage.</p>
+      <button id="unsub-btn">Unsubscribe me</button>
+      <div class="msg" id="msg"></div>
+    </div>
+
+    <div class="footer">
+      A six50 Research Desk publication. Changed your mind? Email <a href="mailto:contact@six50.io">contact@six50.io</a> to resubscribe.
+    </div>
+
+  </div>
+
+  <script>
+    const SUPABASE_URL = "https://isoahjpwdklvqbkzucca.supabase.co";
+    const SUPABASE_ANON_KEY = "sb_publishable_KsbZAenaTs4U2d2Thmqrcg_RWa_T3IE";
+
+  const params = new URLSearchParams(window.location.search);
+  const token = params.get('token');
+  const btn = document.getElementById('unsub-btn');
+  const msg = document.getElementById('msg');
+  const prompt = document.getElementById('prompt');
+
+  if (!token) {
+    prompt.textContent = "This link is missing its unsubscribe code. Please use the unsubscribe link from an actual issue email, or email contact@six50.io directly.";
+    btn.style.display = 'none';
+}
+
+  btn.addEventListener('click', async function(){
+    btn.disabled = true;
+    btn.textContent = 'Unsubscribing…';
+    msg.className = 'msg';
+
+    try {
+      const res = await fetch(SUPABASE_URL + '/rest/v1/arbitrage_subscribers?unsubscribe_token=eq.' + encodeURIComponent(token), {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+          'Prefer': 'return=representation'
+},
+        body: JSON.stringify({ status: 'unsubscribed' })
+});
+
+      const data = await res.json().catch(function(){ return []; });
+
+      if (res.ok && Array.isArray(data) && data.length > 0) {
+        prompt.style.display = 'none';
+        btn.style.display = 'none';
+        msg.className = 'msg success';
+        msg.textContent = "You're unsubscribed. You won't receive The AI Arbitrage going forward.";
+} else if (res.ok) {
+        prompt.style.display = 'none';
+        btn.style.display = 'none';
+        msg.className = 'msg success';
+        msg.textContent = "This link has already been used or your subscription was already inactive. You will not receive further issues.";
+} else {
+        msg.className = 'msg error';
+        msg.textContent = 'Something went wrong. Please email contact@six50.io and we will remove you manually.';
+        btn.disabled = false;
+        btn.textContent = 'Unsubscribe me';
+}
+} catch (err) {
+      msg.className = 'msg error';
+      msg.textContent = 'Something went wrong. Please email contact@six50.io and we will remove you manually.';
+      btn.disabled = false;
+      btn.textContent = 'Unsubscribe me';
+}
+});
+</script>
+
+</body>
+</html>

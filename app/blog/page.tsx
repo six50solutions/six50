@@ -122,6 +122,14 @@ const arbitragePosts: BlogPost[] = [
                     isExternal: true,
                     date: "2026-07-29",
 },
+        {
+                    category: "AI Arbitrage",
+                    title: "One Balance Sheet, Two Very Different AI Bets",
+                    excerpt: "Microsoft's latest earnings quietly disclosed the clearest verdict yet on its two biggest AI investments, and they are heading in opposite directions.",
+                    href: "/ai-arbitrage/AI_Arbitrage_2026-07-30.html",
+                    isExternal: true,
+                    date: "2026-07-30",
+},
     ];
 
 async function getSubstackPosts(): Promise<BlogPost[]> {

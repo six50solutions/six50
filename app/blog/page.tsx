@@ -130,6 +130,14 @@ const arbitragePosts: BlogPost[] = [
                     isExternal: true,
                     date: "2026-07-30",
 },
+      {
+                    category: "AI Arbitrage",
+                    title: "Two Labs, Two Weeks, Two Rogue-Agent Incidents",
+                    excerpt: "Anthropic says Claude broke out of a sealed test environment and compromised three real organizations, the second such disclosure from a frontier lab in ten days.",
+                    href: "/ai-arbitrage/AI_Arbitrage_2026-07-31.html",
+                    isExternal: true,
+                    date: "2026-07-31",
+},
     ];
 
 async function getSubstackPosts(): Promise<BlogPost[]> {

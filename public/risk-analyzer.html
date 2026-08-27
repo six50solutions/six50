@@ -630,23 +630,40 @@
     document.getElementById('contact').classList.remove('hidden');
     document.getElementById('icon-contact').style.transform = 'rotateZ(0deg)';
 
-    document.getElementById('auditForm').addEventListener('submit', async function(e) {
+        document.getElementById('auditForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       
       const submitBtn = document.getElementById('submitBtn');
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Submitting...';
       
       const email = document.getElementById('email').value;
       const companyName = document.getElementById('companyName').value;
       const founder = document.getElementById('founder').value;
       const revenue = document.getElementById('revenue').value;
       
-      const displacementScore = parseInt(document.getElementById('scoreDisp2').textContent);
-      const governanceScore = parseInt(document.getElementById('scoreGov2').textContent);
-      const capabilityScore = parseInt(document.getElementById('scoreCap2').textContent);
-      const overallScore = parseInt(document.getElementById('overallScore').textContent);
+      // Validate required fields
+      if (!email || !companyName || !founder || !revenue) {
+        alert('Please fill in all required fields');
+        return;
+      }
       
+      const scoreDispText = document.getElementById('scoreDisp2').textContent;
+      const scoreGovText = document.getElementById('scoreGov2').textContent;
+      const scoreCapText = document.getElementById('scoreCap2').textContent;
+      const overallScoreText = document.getElementById('overallScore').textContent;
+      
+      // Validate scores have been calculated
+      if (scoreDispText === '—' || scoreGovText === '—' || scoreCapText === '—' || overallScoreText === '—') {
+        alert('Please answer all questions to calculate your readiness score');
+        return;
+      }
+      
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting...';
+      
+      const displacementScore = parseInt(scoreDispText);
+      const governanceScore = parseInt(scoreGovText);
+      const capabilityScore = parseInt(scoreCapText);
+      const overallScore = parseInt(overallScoreText);      
       let readinessLevel = 'Assessing';
       if (overallScore >= 80) readinessLevel = 'Prepared';
       else if (overallScore >= 60) readinessLevel = 'Developing';

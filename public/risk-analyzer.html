@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Risk Analyzer | six50</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      background: #0f172a;
+      color: #e2e8f0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    
+    .header {
+      margin-bottom: 48px;
+    }
+    
+    .logo {
+      font-family: 'Georgia', serif;
+      font-size: 18px;
+      color: #e2e8f0;
+      text-decoration: none;
+      font-weight: 500;
+      letter-spacing: -0.5px;
+      display: inline-block;
+      margin-bottom: 24px;
+    }
+    
+    .header-content {
+      border-left: 2px solid #c9a961;
+      padding-left: 16px;
+    }
+    
+    h1 {
+      font-size: 32px;
+      font-weight: 500;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+    
+    .subtitle {
+      color: #94a3b8;
+      font-size: 15px;
+      line-height: 1.6;
+      margin: 0;
+    }
+    
+    .form-group {
+      border: 1px solid #1e293b;
+      border-radius: 6px;
+      overflow: hidden;
+      background: rgba(30, 41, 59, 0.4);
+      margin-bottom: 20px;
+    }
+    
+    .form-group-header {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: #e2e8f0;
+      font-weight: 500;
+      font-size: 15px;
+      transition: background 0.2s;
+    }
+    
+    .form-group-header:hover {
+      background: rgba(201, 169, 97, 0.05);
+    }
+    
+    .score-badge {
+      width: 48px;
+      height: 32px;
+      background: rgba(201, 169, 97, 0.15);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: #c9a961;
+    }
+    
+    .chevron {
+      font-size: 16px;
+      transition: transform 0.2s;
+    }
+    
+    .form-group-content {
+      padding: 0 18px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      border-top: 1px solid #1e293b;
+    }
+    
+    .form-group-content.hidden {
+      display: none;
+    }
+    
+    .form-group-content p {
+      color: #94a3b8;
+      font-size: 13px;
+      margin: 0;
+      line-height: 1.6;
+    }
+    
+    label {
+      display: block;
+      color: #cbd5e1;
+      font-size: 12px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    input[type="text"],
+    input[type="email"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px 12px;
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 4px;
+      color: #e2e8f0;
+      font-size: 14px;
+      font-family: inherit;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #c9a961;
+      box-shadow: 0 0 0 2px rgba(201, 169, 97, 0.1);
+    }
+    
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 4px;
+      background: #1e293b;
+      border: none;
+      border-radius: 2px;
+      outline: none;
+      cursor: pointer;
+    }
+    
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #c9a961;
+      cursor: pointer;
+      box-shadow: 0 0 0 3px rgba(201, 169, 97, 0.2);
+    }
+    
+    input[type="range"]::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #c9a961;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 0 0 3px rgba(201, 169, 97, 0.2);
+    }
+    
+    .slider-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .slider-value {
+      color: #e2e8f0;
+      font-size: 14px;
+      font-weight: 500;
+      min-width: 40px;
+      text-align: right;
+    }
+    
+    .checkbox-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      text-transform: none;
+      font-size: 13px;
+      font-weight: normal;
+      color: #cbd5e1;
+      margin: 0;
+      letter-spacing: normal;
+    }
+    
+    input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      accent-color: #c9a961;
+    }
+    
+    .readiness-summary {
+      border-radius: 6px;
+      padding: 24px;
+      background: rgba(201, 169, 97, 0.1);
+      border: 1px solid #c9a961;
+      margin-bottom: 20px;
+    }
+    
+    .readiness-summary h3 {
+      color: #c9a961;
+      font-size: 16px;
+      font-weight: 500;
+      margin: 0 0 4px;
+    }
+    
+    .readiness-score {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    
+    .readiness-score-value {
+      font-size: 36px;
+      font-weight: 500;
+      color: #e2e8f0;
+    }
+    
+    .readiness-score-max {
+      color: #94a3b8;
+      font-size: 14px;
+    }
+    
+    .readiness-message {
+      color: #cbd5e1;
+      font-size: 13px;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    
+    .score-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+    }
+    
+    .score-card {
+      background: rgba(30, 41, 59, 0.6);
+      padding: 12px;
+      border-radius: 4px;
+      text-align: center;
+      border: 1px solid #1e293b;
+    }
+    
+    .score-card-label {
+      color: #94a3b8;
+      font-size: 11px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .score-card-value {
+      color: #c9a961;
+      font-size: 18px;
+      font-weight: 600;
+    }
+    
+    .button-container {
+      margin-top: 20px;
+    }
+    
+    button[type="submit"] {
+      width: 100%;
+      background: #c9a961;
+      color: #0f172a;
+      padding: 12px;
+      border-radius: 4px;
+      border: none;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.2s;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    
+    button[type="submit"]:hover:not(:disabled) {
+      background: #dab578;
+    }
+    
+    button[type="submit"]:active:not(:disabled) {
+      background: #b89550;
+    }
+    
+    button[type="submit"]:disabled {
+      background: #6b5d4f;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+    
+    .disclaimer {
+      color: #475569;
+      font-size: 11px;
+      text-align: center;
+      margin-top: 12px;
+    }
+    
+    .success-message {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid #10b981;
+      color: #6ee7b7;
+      padding: 16px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      display: none;
+    }
+    
+    .success-message.show {
+      display: block;
+    }
+    
+    .error-message {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid #ef4444;
+      color: #fca5a5;
+      padding: 16px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      display: none;
+    }
+    
+    .error-message.show {
+      display: block;
+    }
+    
+    @media (max-width: 640px) {
+      h1 {
+        font-size: 24px;
+      }
+      
+      .score-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <a href="/" class="logo">six50</a>
+      <div class="header-content">
+        <h1>AI Risk Analyzer</h1>
+        <p class="subtitle">Assess your organization's readiness for the emerging risks of the AI era. This tool evaluates three critical challenge areas and recommends a strategic 90-day action plan to strengthen your position.</p>
+      </div>
+    </div>
+
+    <div id="successMessage" class="success-message">
+      <strong>Success!</strong> Your AI readiness score has been recorded. Check your email for personalized recommendations.
+    </div>
+    <div id="errorMessage" class="error-message">
+      <strong>Error:</strong> There was an issue saving your submission. Please try again or email support@six50.io
+    </div>
+
+    <form id="auditForm">
+      
+      <div class="form-group">
+        <button type="button" class="form-group-header" onclick="toggleSection(event, 'contact')">
+          <span>Your Information</span>
+          <span class="chevron" id="icon-contact">▼</span>
+        </button>
+        <div id="contact" class="form-group-content">
+          <div>
+            <label>Company Name</label>
+            <input type="text" id="companyName" placeholder="e.g., Acme Solutions" required>
+          </div>
+          <div>
+            <label>Your Name</label>
+            <input type="text" id="founder" placeholder="Founder or CEO name" required>
+          </div>
+          <div>
+            <label>Email Address *</label>
+            <input type="email" id="email" placeholder="you@company.com" required>
+          </div>
+          <div>
+            <label>Revenue Range</label>
+            <select id="revenue">
+              <option value="">Select range...</option>
+              <option value="2-5">$2M - $5M</option>
+              <option value="5-10">$5M - $10M</option>
+              <option value="10-25">$10M - $25M</option>
+              <option value="25-50">$25M - $50M</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <button type="button" class="form-group-header" onclick="toggleSection(event, 'displacement')">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span>Risk 1: Workforce Displacement</span>
+            <div class="score-badge" id="score-disp">—</div>
+          </div>
+          <span class="chevron" id="icon-displacement">▼</span>
+        </button>
+        <div id="displacement" class="form-group-content hidden">
+          <p>AI will displace certain job categories. Entry-level roles are most exposed. Do you have a strategy to retain, redeploy, or transition junior staff?</p>
+          <div>
+            <label>% Entry-level headcount (0-2 yrs)</label>
+            <div class="slider-container">
+              <input type="range" min="0" max="100" value="30" id="entryLevel" onchange="updateScores()" oninput="document.getElementById('entryLevelVal').textContent = this.value + '%'">
+              <span class="slider-value" id="entryLevelVal">30%</span>
+            </div>
+          </div>
+          <div>
+            <label>Automatable roles (select all)</label>
+            <div class="checkbox-group">
+              <label class="checkbox-label">
+                <input type="checkbox" id="auto-cs" onchange="updateScores()">
+                <span>Customer Service / Support</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="auto-acct" onchange="updateScores()">
+                <span>Accounting / Bookkeeping</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="auto-dev" onchange="updateScores()">
+                <span>Junior Software Dev / QA</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <button type="button" class="form-group-header" onclick="toggleSection(event, 'governance')">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span>Risk 2: AI Governance & Liability</span>
+            <div class="score-badge" id="score-gov">—</div>
+          </div>
+          <span class="chevron" id="icon-governance">▼</span>
+        </button>
+        <div id="governance" class="form-group-content hidden">
+          <p>Do you have governance controls for AI systems? Liability exposure is rising as regulators scrutinize AI decision-making.</p>
+          <div>
+            <label>Governance controls in place</label>
+            <div class="checkbox-group">
+              <label class="checkbox-label">
+                <input type="checkbox" id="gov-policy" onchange="updateScores()">
+                <span>Written AI governance policy</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="gov-audit" onchange="updateScores()">
+                <span>Audit trails & logging for AI decisions</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="gov-fair" onchange="updateScores()">
+                <span>Bias / fairness review process</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <button type="button" class="form-group-header" onclick="toggleSection(event, 'capability')">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span>Risk 3: Long-Term Capability</span>
+            <div class="score-badge" id="score-cap">—</div>
+          </div>
+          <span class="chevron" id="icon-capability">▼</span>
+        </button>
+        <div id="capability" class="form-group-content hidden">
+          <p>Will your team maintain and develop critical thinking, judgment, and strategic skills? Over-reliance on AI can atrophy these capabilities.</p>
+          <div>
+            <label>Learning & Development Program</label>
+            <select id="ldProgram" onchange="updateScores()">
+              <option value="">Select...</option>
+              <option value="structured">Yes, structured program</option>
+              <option value="adhoc">Ad-hoc / informal</option>
+              <option value="none">No formal program</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="readiness-summary">
+        <h3>Readiness Index</h3>
+        <div class="readiness-score">
+          <span class="readiness-score-value" id="overallScore">—</span>
+          <span class="readiness-score-max">/ 100</span>
+        </div>
+        <p class="readiness-message" id="readinessMessage">Complete the form to assess your readiness across the three AI era risks.</p>
+        
+        <div class="score-grid">
+          <div class="score-card">
+            <div class="score-card-label">Displacement</div>
+            <div class="score-card-value" id="scoreDisp2">—</div>
+          </div>
+          <div class="score-card">
+            <div class="score-card-label">Governance</div>
+            <div class="score-card-value" id="scoreGov2">—</div>
+          </div>
+          <div class="score-card">
+            <div class="score-card-label">Capability</div>
+            <div class="score-card-value" id="scoreCap2">—</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="button-container">
+        <button type="submit" id="submitBtn">Get Your Readiness Score</button>
+      </div>
+
+      <p class="disclaimer">Your responses will be reviewed by six50 within 48 hours. We'll send recommendations tailored to your specific risks.</p>
+    </form>
+  </div>
+
+  <script>
+    const SUPABASE_URL = 'https://isoahjpwdklvqbkzucca.supabase.co';
+    const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY_HERE';
+    const EMAIL_FUNCTION_URL = '/.netlify/functions/submit-audit';
+
+    function toggleSection(e, section) {
+      e.preventDefault();
+      const sectionDiv = document.getElementById(section);
+      const icon = document.getElementById(`icon-${section}`);
+      
+      sectionDiv.classList.toggle('hidden');
+      icon.style.transform = sectionDiv.classList.contains('hidden') ? 'rotateZ(-90deg)' : 'rotateZ(0deg)';
+    }
+
+    function updateScores() {
+      let displacementScore = 50;
+      let governanceScore = 50;
+      let capabilityScore = 50;
+      
+      const entryLevel = parseInt(document.getElementById('entryLevel').value) || 0;
+      if (entryLevel >= 50) displacementScore += 30;
+      else if (entryLevel >= 30) displacementScore += 15;
+      
+      const automationCount = [
+        document.getElementById('auto-cs').checked,
+        document.getElementById('auto-acct').checked,
+        document.getElementById('auto-dev').checked
+      ].filter(Boolean).length;
+      
+      if (automationCount > 1) displacementScore += 20;
+      
+      const govCount = [
+        document.getElementById('gov-policy').checked,
+        document.getElementById('gov-audit').checked,
+        document.getElementById('gov-fair').checked
+      ].filter(Boolean).length;
+      
+      if (govCount === 0) governanceScore += 40;
+      else if (govCount <= 1) governanceScore += 20;
+      
+      const ldProgram = document.getElementById('ldProgram').value;
+      if (ldProgram === 'none') capabilityScore += 30;
+      else if (ldProgram === 'adhoc') capabilityScore += 15;
+      
+      displacementScore = Math.min(100, displacementScore);
+      governanceScore = Math.min(100, governanceScore);
+      capabilityScore = Math.min(100, capabilityScore);
+      
+      const overallScore = Math.round((displacementScore * 0.4 + governanceScore * 0.3 + capabilityScore * 0.3));
+      
+      document.getElementById('score-disp').textContent = Math.round(displacementScore);
+      document.getElementById('score-gov').textContent = Math.round(governanceScore);
+      document.getElementById('score-cap').textContent = Math.round(capabilityScore);
+      document.getElementById('scoreDisp2').textContent = Math.round(displacementScore);
+      document.getElementById('scoreGov2').textContent = Math.round(governanceScore);
+      document.getElementById('scoreCap2').textContent = Math.round(capabilityScore);
+      document.getElementById('overallScore').textContent = overallScore;
+      
+      let level = 'Assessing…';
+      let message = 'Complete the form to assess your readiness across the three AI era risks.';
+      
+      if (overallScore >= 80) {
+        level = 'Prepared';
+        message = 'You\'re thinking strategically about the AI era. Continue building governance maturity and workforce capability.';
+      } else if (overallScore >= 60) {
+        level = 'Developing';
+        message = 'You\'re aware but have gaps. Prioritize governance and workforce strategy in the next 90 days.';
+      } else if (overallScore >= 40) {
+        level = 'Under-Prepared';
+        message = 'You need a structured AI transition plan. Multiple risk areas need attention.';
+      } else {
+        level = 'Critical';
+        message = 'Multiple risk areas require immediate attention. We recommend a comprehensive diagnostic.';
+      }
+      
+      document.querySelector('.readiness-summary h3').textContent = level;
+      document.getElementById('readinessMessage').textContent = message;
+    }
+
+    document.getElementById('contact').classList.remove('hidden');
+    document.getElementById('icon-contact').style.transform = 'rotateZ(0deg)';
+
+    document.getElementById('auditForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting...';
+      
+      const email = document.getElementById('email').value;
+      const companyName = document.getElementById('companyName').value;
+      const founder = document.getElementById('founder').value;
+      const revenue = document.getElementById('revenue').value;
+      
+      const displacementScore = parseInt(document.getElementById('scoreDisp2').textContent);
+      const governanceScore = parseInt(document.getElementById('scoreGov2').textContent);
+      const capabilityScore = parseInt(document.getElementById('scoreCap2').textContent);
+      const overallScore = parseInt(document.getElementById('overallScore').textContent);
+      
+      let readinessLevel = 'Assessing';
+      if (overallScore >= 80) readinessLevel = 'Prepared';
+      else if (overallScore >= 60) readinessLevel = 'Developing';
+      else if (overallScore >= 40) readinessLevel = 'Under-Prepared';
+      else if (overallScore < 40) readinessLevel = 'Critical';
+      
+      let highestRisk = 'Displacement';
+      if (governanceScore > displacementScore && governanceScore > capabilityScore) highestRisk = 'Governance';
+      else if (capabilityScore > displacementScore && capabilityScore > governanceScore) highestRisk = 'Capability';
+      
+      const formData = {
+        company_name: companyName,
+        founder_name: founder,
+        email: email,
+        revenue_range: revenue,
+        entry_level_pct: parseInt(document.getElementById('entryLevel').value),
+        automatable_cs: document.getElementById('auto-cs').checked,
+        automatable_acct: document.getElementById('auto-acct').checked,
+        automatable_dev: document.getElementById('auto-dev').checked,
+        gov_policy: document.getElementById('gov-policy').checked,
+        gov_audit: document.getElementById('gov-audit').checked,
+        gov_fair: document.getElementById('gov-fair').checked,
+        ld_program: document.getElementById('ldProgram').value,
+        displacement_score: displacementScore,
+        governance_score: governanceScore,
+        capability_score: capabilityScore,
+        overall_score: overallScore,
+        readiness_level: readinessLevel,
+        highest_risk: highestRisk,
+        source: 'ai_risk_analyzer',
+        submitted: true
+      };
+      
+      try {
+        const auditResponse = await fetch(`${SUPABASE_URL}/rest/v1/gates_audit_responses`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'apikey': SUPABASE_ANON_KEY
+          },
+          body: JSON.stringify(formData)
+        });
+        
+        if (!auditResponse.ok) {
+          throw new Error(`Audit save failed: ${auditResponse.statusText}`);
+        }
+        
+        const crmData = {
+          email: email,
+          first_name: founder.split(' ')[0],
+          last_name: founder.split(' ').slice(1).join(' ') || '',
+          company_name: companyName,
+          source: 'ai_risk_analyzer',
+          gates_readiness_score: overallScore,
+          gates_readiness_level: readinessLevel,
+          gates_highest_risk: highestRisk,
+          interested_in_diagnostic: readinessLevel === 'Critical' || readinessLevel === 'Under-Prepared',
+          last_interaction: new Date().toISOString()
+        };
+        
+        const crmResponse = await fetch(`${SUPABASE_URL}/rest/v1/crm_contacts`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'apikey': SUPABASE_ANON_KEY,
+            'Prefer': 'resolution=merge-duplicates'
+          },
+          body: JSON.stringify(crmData)
+        });
+        
+        if (!crmResponse.ok) {
+          console.warn(`CRM sync partial: ${crmResponse.statusText}`);
+        }
+        
+        const emailResponse = await fetch(EMAIL_FUNCTION_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            email: email,
+            companyName: companyName,
+            founderName: founder,
+            overallScore: overallScore,
+            readinessLevel: readinessLevel,
+            highestRisk: highestRisk,
+            scores: {
+              displacement: displacementScore,
+              governance: governanceScore,
+              capability: capabilityScore
+            }
+          })
+        });
+        
+        document.getElementById('successMessage').classList.add('show');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Get Your Readiness Score';
+        
+        setTimeout(() => {
+          document.getElementById('auditForm').reset();
+          document.getElementById('overallScore').textContent = '—';
+          document.getElementById('score-disp').textContent = '—';
+          document.getElementById('score-gov').textContent = '—';
+          document.getElementById('score-cap').textContent = '—';
+          document.getElementById('scoreDisp2').textContent = '—';
+          document.getElementById('scoreGov2').textContent = '—';
+          document.getElementById('scoreCap2').textContent = '—';
+          document.querySelector('.readiness-summary h3').textContent = 'Readiness Index';
+          document.getElementById('readinessMessage').textContent = 'Complete the form to assess your readiness across the three AI era risks.';
+          document.getElementById('successMessage').classList.remove('show');
+        }, 2000);
+        
+      } catch (error) {
+        console.error('Submission error:', error);
+        document.getElementById('errorMessage').classList.add('show');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Get Your Readiness Score';
+        
+        setTimeout(() => {
+          document.getElementById('errorMessage').classList.remove('show');
+        }, 5000);
+      }
+    });
+  </script>
+</body>
+</html>

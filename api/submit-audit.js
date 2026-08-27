@@ -36,10 +36,18 @@ export default async function handler(req, res) {
 
     if (dbError) throw dbError;
 
-    // Send email
-    await resend.emails.send({
-      from: 'audit@six50.io',
-      to: email,
+// Send notification to contact@six50.io
+await resend.emails.send({
+from: 'contact@six50.io',
+to: 'contact@six50.io',
+subject: `New AI Readiness Assessment: ${founderName} (${companyName}) - Score: ${scores.overall}/100`,
+html: `<div><h2>Assessment from ${founderName}</h2><p>Company: ${companyName}<br>Email: ${email}<br>Score: ${scores.overall}/100<br>Level: ${scores.level}</p></div>`
+});
+
+// Send confirmation to respondent
+await resend.emails.send({
+from: 'contact@six50.io',
+to: email,
       subject: `Your AI Readiness Score: ${scores.overall}/100`,
       html: `
         <h2>Your AI Readiness Index: ${scores.overall}/100</h2>

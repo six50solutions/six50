@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/risk-analyzer",
+      "destination": "/public/risk-analyzer.html"
+    }
+  ]
+}

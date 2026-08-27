@@ -4,8 +4,10 @@ import { scoreAll, AUTOMATABLE_ROLES, GOVERNANCE_CONTROLS, LD_LABELS } from '../
 
 // Service role, not anon. The lead table has RLS on with no anon policy, so
 // browser-side inserts are rejected by design — this is the only write path.
+// NOTE: Vercel has NEXT_PUBLIC_SUPABASE_URL, not SUPABASE_URL. The previous
+// version read SUPABASE_URL and got undefined, which threw on every request.
 const supabase = createClient(
-  process.env.SUPABASE_URL,
+  process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL,
   process.env.SUPABASE_SERVICE_ROLE_KEY,
   { auth: { persistSession: false } },
 );

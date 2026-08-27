@@ -9,6 +9,14 @@ const nextConfig: NextConfig = {
         permanent: false,
       },
     ];
+      async rewrites() {
+        return [
+          {
+                    source: '/risk-analyzer',
+                    destination: '/risk-analyzer.html',
+          },
+              ];
+      },
   },
 };
 

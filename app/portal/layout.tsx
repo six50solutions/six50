@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatedLogo } from "@/components/ui/AnimatedLogo";
-import { LayoutDashboard, FileText, Calendar, Files, LogOut, MessageSquare } from "lucide-react";
+import { LayoutDashboard, FileText, Calendar, Files, LogOut, MessageSquare, ArrowLeft } from "lucide-react";
 
 export default function PortalLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
@@ -48,6 +48,13 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
                 </nav>
 
                 <div className="p-4 border-t border-line-strong">
+                    <Link
+                        href="/"
+                        className="mb-4 flex items-center gap-3 rounded-md px-4 py-2 text-sm text-fog hover:bg-ink-800 hover:text-paper transition-colors"
+                    >
+                        <ArrowLeft size={16} aria-hidden="true" />
+                        Back to website
+                    </Link>
                     <div className="flex items-center gap-3 mb-4 px-4">
                         <div className="w-8 h-8 rounded-full bg-gold-500 text-ink-900 flex items-center justify-center text-xs font-bold">
                             AG

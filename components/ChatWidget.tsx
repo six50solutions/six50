@@ -24,6 +24,8 @@ export default function ChatWidget() {
     const [showLeadCapture, setShowLeadCapture] = useState(false);
     const [leadSubmitted, setLeadSubmitted] = useState(false);
     const scrollRef = useRef<HTMLDivElement>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
+    const launcherRef = useRef<HTMLButtonElement>(null);
 
     // Local state for chat input and messages
     const [localInput, setLocalInput] = useState('');
@@ -153,6 +155,30 @@ export default function ChatWidget() {
 
     const toggleOpen = () => setIsOpen(!isOpen);
 
+    // Keyboard support: move focus into the chat when it opens, Escape closes it,
+    // and focus returns to the launcher button when it closes.
+    const wasOpen = useRef(false);
+    useEffect(() => {
+        if (isOpen) {
+            const t = setTimeout(() => inputRef.current?.focus(), 50);
+            wasOpen.current = true;
+            return () => clearTimeout(t);
+        }
+        if (wasOpen.current) {
+            launcherRef.current?.focus();
+            wasOpen.current = false;
+        }
+    }, [isOpen]);
+
+    useEffect(() => {
+        if (!isOpen) return;
+        const onKey = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') setIsOpen(false);
+        };
+        window.addEventListener('keydown', onKey);
+        return () => window.removeEventListener('keydown', onKey);
+    }, [isOpen]);
+
     const suggestedPrompts = [
         "What services do you offer?",
         "Can you help us automate workflows?",
@@ -202,24 +228,38 @@ Timeline: ${timeline}`;
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: 20, scale: 0.95 }}
                             transition={{ duration: 0.2 }}
+                            id="dylan-chat"
+                            role="dialog"
+                            aria-modal="false"
+                            aria-labelledby="dylan-chat-title"
+                            aria-describedby="dylan-chat-desc"
                             className="w-[90vw] sm:w-[400px] h-[600px] max-h-[80vh] bg-zinc-950 border border-zinc-800 rounded-2xl shadow-2xl flex flex-col overflow-hidden font-sans"
                         >
                             {/* Header */}
                             <div className="bg-zinc-900 text-paper p-4 flex items-center justify-between shrink-0">
                                 <div className="flex items-center gap-3">
-                                    <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                                    <div className="w-2 h-2 rounded-full bg-green-500 motion-safe:animate-pulse" aria-hidden="true" />
                                     <div>
-                                        <h3 className="font-semibold text-sm">Dylan <span className="font-normal text-zinc-400">· AI Assistant</span></h3>
-                                        <p className="text-xs text-zinc-400">Automated — not a human</p>
+                                        <h2 id="dylan-chat-title" className="font-semibold text-sm">Dylan <span className="font-normal text-zinc-400">· AI Assistant</span></h2>
+                                        <p id="dylan-chat-desc" className="text-xs text-zinc-400">Automated — not a human</p>
                                     </div>
                                 </div>
-                                <button onClick={toggleOpen} className="text-zinc-400 hover:text-paper transition-colors">
-                                    <X size={20} />
+                                <button type="button" onClick={toggleOpen} aria-label="Close chat" className="text-zinc-400 hover:text-paper transition-colors">
+                                    <X size={20} aria-hidden="true" />
                                 </button>
                             </div>
 
                             {/* Messages Area */}
-                            <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-4 bg-zinc-900/60">
+                            <div
+                                ref={scrollRef}
+                                role="log"
+                                aria-live="polite"
+                                aria-relevant="additions"
+                                aria-busy={isStreaming}
+                                aria-label="Chat conversation"
+                                tabIndex={0}
+                                className="flex-1 overflow-y-auto p-4 space-y-4 bg-zinc-900/60"
+                            >
                                 {displayMessages.length === 0 && (
                                     <div className="space-y-6 mt-4">
                                         <div className="text-center space-y-2">
@@ -227,9 +267,9 @@ Timeline: ${timeline}`;
                                             <p className="text-xs text-zinc-400 max-w-[280px] mx-auto">
                                                 I can help you navigate our services, understand our methodology, or book a consultation.
                                             </p>
-                                            <p className="text-[11px] text-zinc-500 max-w-[280px] mx-auto">
+                                            <p className="text-[11px] text-zinc-400 max-w-[280px] mx-auto">
                                                 Dylan is an AI assistant. Responses are generated automatically and may contain errors. Messages are processed by our AI provider and handled per our{' '}
-                                                <a href="/privacy" className="underline hover:text-zinc-300">Privacy Policy</a>. Please don't share sensitive personal or financial information here.
+                                                <a href="/privacy" className="underline hover:text-zinc-200">Privacy Policy</a>. Please don't share sensitive personal or financial information here.
                                             </p>
                                         </div>
 
@@ -238,6 +278,7 @@ Timeline: ${timeline}`;
                                             {suggestedPrompts.map((prompt, i) => (
                                                 <button
                                                     key={i}
+                                                    type="button"
                                                     onClick={() => handlePromptClick(prompt)}
                                                     className="text-left text-sm bg-zinc-800 p-3 rounded-lg border border-zinc-700 hover:border-zinc-500 transition-colors shadow-sm text-zinc-200 hover:bg-zinc-700"
                                                 >
@@ -258,12 +299,13 @@ Timeline: ${timeline}`;
                                     >
                                         <div
                                             className={cn(
-                                                "max-w-[85%] rounded-2xl p-3 text-sm",
+                                                "max-w-[85%] rounded-2xl p-3 text-sm whitespace-pre-wrap",
                                                 m.role === 'user'
                                                     ? "bg-zinc-100 text-zinc-900 rounded-tr-sm"
                                                     : "bg-zinc-800 border border-zinc-700 shadow-sm rounded-tl-sm text-zinc-100"
                                             )}
                                         >
+                                            <span className="sr-only">{m.role === 'user' ? 'You said: ' : 'Dylan said: '}</span>
                                             {m.content}
                                         </div>
                                     </div>
@@ -276,19 +318,23 @@ Timeline: ${timeline}`;
                                         className="bg-zinc-800/80 border border-zinc-700 p-4 rounded-xl space-y-3"
                                     >
                                         <div className="flex justify-between items-start">
-                                            <h4 className="text-sm font-semibold text-zinc-100">Let's connect properly.</h4>
-                                            <button onClick={() => setShowLeadCapture(false)} className="text-xs text-zinc-400 hover:underline">Dismiss</button>
+                                            <h3 id="dylan-lead-title" className="text-sm font-semibold text-zinc-100">Let's connect properly.</h3>
+                                            <button type="button" onClick={() => setShowLeadCapture(false)} className="text-xs text-zinc-400 hover:underline">Dismiss</button>
                                         </div>
 
-                                        <form onSubmit={handleLeadSubmit} className="space-y-3">
-                                            <input name="name" required placeholder="Name" className="w-full text-sm p-2 rounded border border-zinc-600 bg-zinc-900 text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500" />
+                                        <form onSubmit={handleLeadSubmit} aria-labelledby="dylan-lead-title" className="space-y-3">
+                                            <input name="name" required aria-label="Name" autoComplete="name" placeholder="Name" className="w-full text-sm p-2 rounded border border-zinc-600 bg-zinc-900 text-zinc-100 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-gold-500" />
                                             <div className="grid grid-cols-2 gap-2">
-                                                <input name="email" type="email" required placeholder="Email" className="w-full text-sm p-2 rounded border border-zinc-600 bg-zinc-900 text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500" />
-                                                <input name="phone" required placeholder="Phone" className="w-full text-sm p-2 rounded border border-zinc-600 bg-zinc-900 text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500" />
+                                                <input name="email" type="email" required aria-label="Email" autoComplete="email" placeholder="Email" className="w-full text-sm p-2 rounded border border-zinc-600 bg-zinc-900 text-zinc-100 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-gold-500" />
+                                                <input name="phone" type="tel" required aria-label="Phone" autoComplete="tel" placeholder="Phone" className="w-full text-sm p-2 rounded border border-zinc-600 bg-zinc-900 text-zinc-100 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-gold-500" />
                                             </div>
-                                            <input name="company" placeholder="Company" className="w-full text-sm p-2 rounded border border-zinc-600 bg-zinc-900 text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500" />
-                                            <input name="goal" placeholder="What are you trying to accomplish?" className="w-full text-sm p-2 rounded border border-zinc-600 bg-zinc-900 text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500" />
-                                            <input name="timeline" placeholder="Timeline (e.g. ASAP, 2 weeks)" className="w-full text-sm p-2 rounded border border-zinc-600 bg-zinc-900 text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500" />
+                                            <input name="company" aria-label="Company" autoComplete="organization" placeholder="Company" className="w-full text-sm p-2 rounded border border-zinc-600 bg-zinc-900 text-zinc-100 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-gold-500" />
+                                            <input name="goal" aria-label="What are you trying to accomplish?" placeholder="What are you trying to accomplish?" className="w-full text-sm p-2 rounded border border-zinc-600 bg-zinc-900 text-zinc-100 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-gold-500" />
+                                            <input name="timeline" aria-label="Timeline" placeholder="Timeline (e.g. ASAP, 2 weeks)" className="w-full text-sm p-2 rounded border border-zinc-600 bg-zinc-900 text-zinc-100 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-gold-500" />
+                                            <p className="text-[11px] text-zinc-400">
+                                                Your details are sent to six50 so we can follow up. See our{' '}
+                                                <a href="/privacy" className="underline hover:text-zinc-200">Privacy Policy</a>.
+                                            </p>
                                             <button type="submit" className="w-full bg-zinc-100 text-zinc-900 text-sm font-medium py-2 rounded hover:opacity-90 transition-opacity">
                                                 Submit
                                             </button>
@@ -300,6 +346,7 @@ Timeline: ${timeline}`;
                             {/* Input Area */}
                             <form onSubmit={onFormSubmit} className="p-3 border-t border-zinc-800 bg-zinc-950 flex gap-2 shrink-0">
                                 <input
+                                    ref={inputRef}
                                     className="flex-1 bg-transparent text-sm p-2 focus:outline-none text-zinc-100 placeholder:text-zinc-500"
                                     value={inputValue}
                                     onChange={onInputChange}
@@ -313,7 +360,7 @@ Timeline: ${timeline}`;
                                 disabled={!inputValue?.trim() || isStreaming}
                                 className="bg-zinc-100 text-zinc-900 p-2 rounded-lg hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                         >
-                                <Send size={16} />
+                                <Send size={16} aria-hidden="true" />
                         </button>
                         </form>
                     </motion.div>
@@ -321,11 +368,16 @@ Timeline: ${timeline}`;
             </AnimatePresence>
 
             <button
+                ref={launcherRef}
+                type="button"
                 onClick={toggleOpen}
-                className="bg-gold-500 hover:bg-gold-400 text-paper p-4 rounded-full shadow-2xl flex items-center gap-2 group transition-all transform hover:scale-105 active:scale-95 border-2 border-white/20"
+                aria-label={isOpen ? 'Close chat with Dylan, AI assistant' : 'Chat with Dylan, AI assistant'}
+                aria-expanded={isOpen}
+                aria-controls="dylan-chat"
+                className="bg-gold-500 hover:bg-gold-400 text-ink-900 p-4 rounded-full shadow-2xl flex items-center gap-2 group transition-all transform hover:scale-105 active:scale-95 border-2 border-white/20"
             >
-                {isOpen ? <X size={24} /> : <MessageCircle size={24} />}
-                <span className="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-300 ease-in-out whitespace-nowrap text-sm font-bold">
+                {isOpen ? <X size={24} aria-hidden="true" /> : <MessageCircle size={24} aria-hidden="true" />}
+                <span aria-hidden="true" className="max-w-0 overflow-hidden group-hover:max-w-xs group-focus-visible:max-w-xs transition-all duration-300 ease-in-out whitespace-nowrap text-sm font-bold">
                     {!isOpen && "Contact Dylan"}
                 </span>
             </button>

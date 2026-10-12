@@ -35,7 +35,7 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
                                 key={item.name}
                                 href={item.href}
                                 className={`flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors ${isActive
-                                        ? "bg-gold-500 text-paper"
+                                        ? "bg-gold-500 text-ink-900"
                                         : "text-fog-2 hover:bg-ink-800 hover:text-paper"
                                     }`}
                             >
@@ -71,11 +71,11 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
             </aside>
 
             {/* Main Content */}
-            <main className="flex-1 ml-64 p-8 overflow-y-auto h-screen">
+            <div className="flex-1 ml-64 p-8 overflow-y-auto h-screen">
                 <div className="max-w-5xl mx-auto space-y-8">
                     {children}
                 </div>
-            </main>
+            </div>
         </div>
     );
 }

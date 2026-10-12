@@ -63,22 +63,24 @@ export default function LoginPage() {
 
                         <form onSubmit={handleSubmit} className="space-y-6">
                             <div>
-                                <label className="block text-xs font-bold text-fog uppercase tracking-wider mb-2">
+                                <label htmlFor="login-email" className="block text-xs font-bold text-fog uppercase tracking-wider mb-2">
                                     Email Address
                                 </label>
                                 <input
+                                    id="login-email"
                                     type="email"
+                                    autoComplete="username"
                                     required
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    className="w-full bg-slate-950 border border-line-strong rounded-sm p-3 text-paper focus:outline-none focus:border-gold-500 transition-colors placeholder:text-paper"
+                                    className="w-full bg-slate-950 border border-line-strong rounded-sm p-3 text-paper focus:outline-none focus:border-gold-500 transition-colors placeholder:text-fog-2"
                                     placeholder="name@company.com"
                                 />
                             </div>
 
                             <div>
                                 <div className="flex justify-between items-center mb-2">
-                                    <label className="block text-xs font-bold text-fog uppercase tracking-wider">
+                                    <label htmlFor="login-password" className="block text-xs font-bold text-fog uppercase tracking-wider">
                                         Password
                                     </label>
                                     <a href="#" className="text-xs text-gold-500 hover:text-gold-400 transition-colors">
@@ -87,27 +89,29 @@ export default function LoginPage() {
                                 </div>
                                 <div className="relative">
                                     <input
+                                        id="login-password"
                                         type="password"
+                                        autoComplete="current-password"
                                         required
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
-                                        className="w-full bg-slate-950 border border-line-strong rounded-sm p-3 text-paper focus:outline-none focus:border-gold-500 transition-colors placeholder:text-paper"
+                                        className="w-full bg-slate-950 border border-line-strong rounded-sm p-3 text-paper focus:outline-none focus:border-gold-500 transition-colors placeholder:text-fog-2"
                                         placeholder="••••••••"
                                     />
-                                    <Lock className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-fog" />
+                                    <Lock aria-hidden="true" className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-fog" />
                                 </div>
                             </div>
 
                             <button
                                 type="submit"
                                 disabled={isLoading}
-                                className="w-full bg-gold-500 text-paper font-bold py-3 mt-4 rounded-sm hover:bg-gold-400 transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                                className="w-full bg-gold-500 text-ink-900 font-bold py-3 mt-4 rounded-sm hover:bg-gold-400 transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
                             >
                                 {isLoading ? (
                                     <span className="w-4 h-4 border-2 border-slate-900 border-t-transparent rounded-full animate-spin" />
                                 ) : (
                                     <>
-                                        Sign In <ArrowRight className="w-4 h-4" />
+                                        Sign In <ArrowRight aria-hidden="true" className="w-4 h-4" />
                                     </>
                                 )}
                             </button>
@@ -115,11 +119,10 @@ export default function LoginPage() {
 
                         <div className="mt-8 pt-8 border-t border-line-strong text-center">
                             <p className="text-xs text-fog">
-                                This portal is restricted to authorized personnel only.
-                                <br />Access attempts are monitored and logged.
+                                This portal is restricted to authorized clients only.
                             </p>
-                            <div className="flex justify-center gap-2 mt-4 text-gold-500/20">
-                                <AlertCircle className="w-4 h-4" />
+                            <div className="flex justify-center gap-2 mt-4 text-fog">
+                                <AlertCircle aria-hidden="true" className="w-4 h-4" />
                                 <span className="text-[10px] font-mono tracking-widest">SECURE CONNECTION</span>
                             </div>
                         </div>

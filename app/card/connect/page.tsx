@@ -102,7 +102,7 @@ export default function CardConnectPage() {
       className="relative z-[2] flex min-h-svh items-center justify-center px-4 py-12"
       data-no-burst="true"
     >
-      <main className="w-full max-w-md">
+      <div className="w-full max-w-md">
         <section className="overflow-hidden rounded-md border border-line-strong bg-ink-800/90 shadow-2xl shadow-black/60 backdrop-blur-md">
           <div className="flex items-baseline justify-between border-b border-line px-6 py-4">
             <span className="font-mono text-lg font-medium tracking-[0.02em] text-paper">
@@ -225,7 +225,7 @@ export default function CardConnectPage() {
             ← Back to card
           </a>
         </p>
-      </main>
+      </div>
     </div>
   );
 }

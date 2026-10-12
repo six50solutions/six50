@@ -76,12 +76,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={`${archivo.variable} ${instrumentSerif.variable} ${plexMono.variable} antialiased`}>
+        <a href="#main" className="skip-link">Skip to main content</a>
         <OrganizationSchema />
         <WebsiteSchema />
         <ParticleField />
         <ScrollProgress />
         <Navbar />
-        <div className="relative z-[2]">{children}</div>
+        <main id="main" tabIndex={-1} className="relative z-[2] focus:outline-none">{children}</main>
         <Footer />
         <ChatWidget />
       </body>

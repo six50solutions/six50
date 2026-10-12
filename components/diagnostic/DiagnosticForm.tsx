@@ -132,7 +132,7 @@ export default function DiagnosticForm({
     // on the playbook page for the same nav. Without it, this page's own
     // sticky bar starts at the true viewport top and slides in underneath
     // the real nav instead of below it.
-    <main style={THEME} className="min-h-dvh bg-[var(--dx-bg)] pt-16 text-[var(--dx-ink)] pb-[env(safe-area-inset-bottom)]">
+    <div style={THEME} className="min-h-dvh bg-[var(--dx-bg)] pt-16 text-[var(--dx-ink)] pb-[env(safe-area-inset-bottom)]">
       {/* top-16 matches the pt-16 above, so this sticks right below the
           global nav on scroll rather than sliding under it. */}
       <div className="sticky top-16 z-10 border-b border-[var(--dx-rule)]/60 bg-[var(--dx-bg)]">
@@ -207,7 +207,7 @@ export default function DiagnosticForm({
           Responses are used only to prepare your diagnostic. Scoring is automated; a human reviews every write-up before it is sent.
         </p>
       </div>
-    </main>
+    </div>
   );
 }
 
@@ -343,18 +343,18 @@ function QuestionBlock({ q, value, onChange, invalid, invalidMessage }: {
 function Receipt({ result, tier }: { result: any; tier: Tier }) {
   if (result.error) {
     return (
-      <main style={THEME} className="min-h-dvh bg-[var(--dx-bg)] px-5 py-20 text-[var(--dx-ink)]">
+      <div style={THEME} className="min-h-dvh bg-[var(--dx-bg)] px-5 py-20 text-[var(--dx-ink)]">
         <div className="mx-auto max-w-[600px]">
           <h1 className="text-xl font-semibold">That didn&apos;t submit.</h1>
           <p className="mt-3 text-[var(--dx-muted)]">Your answers are saved. Reload this link and submit again — nothing was lost.</p>
         </div>
-      </main>
+      </div>
     );
   }
 
   if (tier === 'full') {
     return (
-      <main style={THEME} className="min-h-dvh bg-[var(--dx-bg)] px-5 py-20 text-[var(--dx-ink)]">
+      <div style={THEME} className="min-h-dvh bg-[var(--dx-bg)] px-5 py-20 text-[var(--dx-ink)]">
         <div className="mx-auto max-w-[600px]">
           <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--dx-muted)]">Received</p>
           <h1 className="mt-3 text-2xl font-semibold">Your responses are in.</h1>
@@ -363,12 +363,12 @@ function Receipt({ result, tier }: { result: any; tier: Tier }) {
             along with a 90-day sequence built from what you told us.
           </p>
         </div>
-      </main>
+      </div>
     );
   }
 
   return (
-    <main style={THEME} className="min-h-dvh bg-[var(--dx-bg)] pt-16 pb-[env(safe-area-inset-bottom)] text-[var(--dx-ink)]">
+    <div style={THEME} className="min-h-dvh bg-[var(--dx-bg)] pt-16 pb-[env(safe-area-inset-bottom)] text-[var(--dx-ink)]">
       <div className="sticky top-16 z-10 border-b border-[var(--dx-rule)]/60 bg-[var(--dx-bg)]">
         <div className="h-[3px] w-full bg-[var(--dx-accent)]" />
         <div className="mx-auto max-w-[600px] px-5 py-3.5 sm:px-6">
@@ -453,6 +453,6 @@ function Receipt({ result, tier }: { result: any; tier: Tier }) {
           Scored automatically from your answers. This is a screen, not a diagnosis — the full version tests these findings against your systems and numbers.
         </p>
       </div>
-    </main>
+    </div>
   );
 }

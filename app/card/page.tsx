@@ -95,7 +95,7 @@ const actionBtn = 'flex items-center justify-center gap-2.5 rounded-[3px] border
 
 return (
 <div className="relative z-[2] flex min-h-svh items-center justify-center px-4 py-12" data-no-burst>
-<main ref={cardRef} className="w-full max-w-md opacity-0">
+<div ref={cardRef} className="w-full max-w-md opacity-0">
 <section className="overflow-hidden rounded-md border border-line-strong bg-ink-800/90 shadow-2xl shadow-black/60 backdrop-blur-md">
 
 {/* ledger header */}
@@ -229,7 +229,7 @@ type="button"
 <p data-card-item className="mt-4 text-center font-mono text-[0.66rem] uppercase tracking-[0.16em] text-fog-2">
 Chicago, IL · six50.io
 </p>
-</main>
+</div>
 
 <div
 className={`fixed bottom-5 left-1/2 z-50 -translate-x-1/2 rounded-md border border-line-strong bg-ink-800/90 px-4 py-2.5 font-mono text-xs text-paper shadow-2xl shadow-black/60 backdrop-blur-md transition-all duration-200 ${showToast ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0 pointer-events-none'}`}

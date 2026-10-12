@@ -1,76 +1,157 @@
-import { FadeIn } from "@/components/ui/FadeIn";
-import { Section } from "@/components/ui/Section";
+import type { Metadata } from "next";
 import Link from "next/link";
+import { LegalPage, LegalSection, LegalList, legalLink } from "@/components/legal/LegalPage";
+
+export const metadata: Metadata = {
+    title: "Terms of Use",
+    description: "Terms governing use of the six50.io website, AI assistant, and online tools.",
+    alternates: { canonical: "https://six50.io/terms" },
+};
+
+const EFFECTIVE_DATE = "October 12, 2026";
+const CONTACT_EMAIL = "contact@six50.io";
 
 export default function TermsPage() {
     return (
-        <div className="pt-20">
-            <Section>
-                <FadeIn>
-                    <div className="max-w-4xl mx-auto">
-                        <h1 className="text-3xl md:text-4xl font-bold text-paper mb-8">Terms of Service</h1>
-                        <p className="text-fog mb-8">Last Updated: {new Date().toLocaleDateString()}</p>
+        <LegalPage
+            title="Terms of Use"
+            effectiveDate={EFFECTIVE_DATE}
+            intro={
+                <p>
+                    These Terms of Use (&ldquo;Terms&rdquo;) govern your use of six50.io (the &ldquo;Site&rdquo;),
+                    including our AI chat assistant, assessments, diagnostics, and client portal, operated by six50
+                    solutions LLC, an Illinois limited liability company (&ldquo;six50,&rdquo; &ldquo;we,&rdquo; or
+                    &ldquo;us&rdquo;). By using the Site, you agree to these Terms and to our{" "}
+                    <Link href="/privacy" className={legalLink}>Privacy Policy</Link>. If you do not agree, please do
+                    not use the Site.
+                </p>
+            }
+        >
+            <LegalSection id="no-advice" title="1. Information only, not professional advice">
+                <p>
+                    Content on the Site, including articles, checklists, playbooks, assessment scores, and responses
+                    from our AI assistant, is general information for business audiences. It is not accounting, tax,
+                    audit, legal, investment, or financial advice, and it is not tailored to your circumstances. Do not
+                    rely on it as a substitute for advice from a qualified professional who knows your situation.
+                </p>
+            </LegalSection>
 
-                        <div className="space-y-8 text-fog leading-relaxed">
-                            <section>
-                                <h2 className="text-xl font-semibold text-paper mb-4">1. Acceptance of Terms</h2>
-                                <p>
-                                    By accessing and using the six50 solutions LLC website ("Site"), you accept and agree to be bound by the terms and provision of this agreement. In addition, when using this Site's particular services, you shall be subject to any posted guidelines or rules applicable to such services. Any participation in this service will constitute acceptance of this agreement. If you do not agree to abide by the above, please do not use this service.
-                                </p>
-                            </section>
+            <LegalSection id="no-relationship" title="2. No client relationship from using the Site">
+                <p>
+                    Using the Site, completing an assessment, chatting with our AI assistant, booking a call, or
+                    sending us information does not create a client, advisory, or accountant-client relationship with
+                    six50 or any of its professionals. A client relationship begins only when both parties sign a
+                    written engagement agreement, which will define the scope, fees, and terms of the services.
+                    Please do not send confidential information until an engagement agreement is in place.
+                </p>
+            </LegalSection>
 
-                            <section>
-                                <h2 className="text-xl font-semibold text-paper mb-4">2. Intellectual Property</h2>
-                                <p>
-                                    The Site and its original content, features, and functionality are owned by six50 solutions LLC and are protected by international copyright, trademark, patent, trade secret, and other intellectual property or proprietary rights laws.
-                                </p>
-                            </section>
+            <LegalSection id="tools" title="3. AI assistant, assessments, and diagnostics">
+                <LegalList>
+                    <li>
+                        Dylan, our chat assistant, is an automated AI system, not a person. Its responses are generated
+                        automatically and may be inaccurate, incomplete, or out of date.
+                    </li>
+                    <li>
+                        Scores, readiness levels, and recommendations from our assessments and diagnostics are
+                        automated estimates based only on the answers you provide. They are starting points for
+                        conversation, not findings, opinions, or assurances of any kind.
+                    </li>
+                    <li>
+                        You are responsible for decisions you make based on these tools. Do not enter sensitive
+                        personal information, account numbers, or confidential third-party information.
+                    </li>
+                    <li>
+                        Do not attempt to manipulate, overload, or extract the system instructions of the assistant,
+                        or use it for anything other than learning about six50&rsquo;s services.
+                    </li>
+                </LegalList>
+            </LegalSection>
 
-                            <section>
-                                <h2 className="text-xl font-semibold text-paper mb-4">3. Use License</h2>
-                                <p>
-                                    Permission is granted to temporarily download one copy of the materials (information or software) on six50 solutions LLC's website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:
-                                </p>
-                                <ul className="list-disc pl-5 space-y-2 mt-4">
-                                    <li>modify or copy the materials;</li>
-                                    <li>use the materials for any commercial purpose, or for any public display (commercial or non-commercial);</li>
-                                    <li>attempt to decompile or reverse engineer any software contained on six50 solutions LLC's website;</li>
-                                    <li>remove any copyright or other proprietary notations from the materials; or</li>
-                                    <li>transfer the materials to another person or "mirror" the materials on any other server.</li>
-                                </ul>
-                            </section>
+            <LegalSection id="acceptable-use" title="4. Acceptable use">
+                <p>You agree not to:</p>
+                <LegalList>
+                    <li>use the Site in violation of any law or the rights of others;</li>
+                    <li>submit false information or information about another person without their permission;</li>
+                    <li>attempt to gain unauthorized access to the Site, the client portal, or related systems;</li>
+                    <li>introduce malware or interfere with the Site&rsquo;s operation or security;</li>
+                    <li>scrape, copy, or republish Site content in bulk, or use automated means to submit forms.</li>
+                </LegalList>
+            </LegalSection>
 
-                            <section>
-                                <h2 className="text-xl font-semibold text-paper mb-4">4. Disclaimer</h2>
-                                <p>
-                                    The materials on six50 solutions LLC's website are provided on an 'as is' basis. six50 solutions LLC makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.
-                                </p>
-                            </section>
+            <LegalSection id="portal" title="5. Client portal">
+                <p>
+                    Portal access is provided only to clients. Keep your credentials confidential and tell us promptly
+                    if you believe they have been compromised. Materials in the portal are confidential and are
+                    governed by your engagement agreement.
+                </p>
+            </LegalSection>
 
-                            <section>
-                                <h2 className="text-xl font-semibold text-paper mb-4">5. Limitations</h2>
-                                <p>
-                                    In no event shall six50 solutions LLC or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on six50 solutions LLC's website, even if six50 solutions LLC or a six50 solutions LLC authorized representative has been notified orally or in writing of the possibility of such damage.
-                                </p>
-                            </section>
+            <LegalSection id="ip" title="6. Intellectual property">
+                <p>
+                    The Site and its content, including text, graphics, logos, the six50 name, frameworks, and
+                    software, are owned by six50 or its licensors and are protected by intellectual property laws. You
+                    may view and print pages for your own internal business reference. Any other copying,
+                    modification, distribution, or commercial use requires our written permission.
+                </p>
+            </LegalSection>
 
-                            <section>
-                                <h2 className="text-xl font-semibold text-paper mb-4">6. Governing Law</h2>
-                                <p>
-                                    These terms and conditions are governed by and construed in accordance with the laws of the jurisdiction in which six50 solutions LLC operates and you irrevocably submit to the exclusive jurisdiction of the courts in that State or location.
-                                </p>
-                            </section>
+            <LegalSection id="third-party" title="7. Third-party links and services">
+                <p>
+                    The Site may link to or rely on third-party websites and services. We do not control and are not
+                    responsible for their content, policies, or availability.
+                </p>
+            </LegalSection>
 
-                            <section>
-                                <h2 className="text-xl font-semibold text-paper mb-4">7. Changes to Terms</h2>
-                                <p>
-                                    We reserve the right, at our sole discretion, to modify or replace these Terms at any time. What constitutes a material change will be determined at our sole discretion. By continuing to access or use our Service after those revisions become effective, you agree to be bound by the revised terms.
-                                </p>
-                            </section>
-                        </div>
-                    </div>
-                </FadeIn>
-            </Section>
-        </div>
+            <LegalSection id="disclaimer" title="8. Disclaimer of warranties">
+                <p>
+                    The Site and all content and tools are provided &ldquo;as is&rdquo; and &ldquo;as
+                    available.&rdquo; To the fullest extent permitted by law, six50 disclaims all warranties, express
+                    or implied, including warranties of merchantability, fitness for a particular purpose, accuracy,
+                    and non-infringement. We do not warrant that the Site will be uninterrupted or error-free.
+                </p>
+            </LegalSection>
+
+            <LegalSection id="liability" title="9. Limitation of liability">
+                <p>
+                    To the fullest extent permitted by law, six50 and its members, employees, and contractors will not
+                    be liable for any indirect, incidental, special, consequential, or punitive damages, or for lost
+                    profits, revenue, or data, arising from your use of the Site or its content and tools. Our total
+                    liability for any claim arising from use of the Site is limited to one hundred U.S. dollars
+                    ($100). This section does not limit liability under a signed engagement agreement, which is
+                    governed by that agreement.
+                </p>
+            </LegalSection>
+
+            <LegalSection id="indemnity" title="10. Indemnification">
+                <p>
+                    You agree to indemnify and hold six50 harmless from claims arising out of your misuse of the Site
+                    or your violation of these Terms.
+                </p>
+            </LegalSection>
+
+            <LegalSection id="law" title="11. Governing law and venue">
+                <p>
+                    These Terms are governed by the laws of the State of Illinois, without regard to its conflict of
+                    law rules. Any dispute arising from these Terms or your use of the Site will be brought
+                    exclusively in the state or federal courts located in Illinois, and you consent to their
+                    jurisdiction.
+                </p>
+            </LegalSection>
+
+            <LegalSection id="general" title="12. General">
+                <p>
+                    If any part of these Terms is found unenforceable, the rest remains in effect. Our failure to
+                    enforce a provision is not a waiver. We may update these Terms by posting a new version with a new
+                    effective date; continued use of the Site after that date means you accept the updated Terms.
+                </p>
+            </LegalSection>
+
+            <LegalSection id="contact" title="13. Contact">
+                <p>
+                    Questions about these Terms: <a href={`mailto:${CONTACT_EMAIL}`} className={legalLink}>{CONTACT_EMAIL}</a>.
+                </p>
+            </LegalSection>
+        </LegalPage>
     );
 }

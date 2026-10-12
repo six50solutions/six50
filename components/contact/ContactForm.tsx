@@ -90,7 +90,7 @@ export function ContactForm() {
     }
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-6" data-no-burst>
+        <form onSubmit={handleSubmit} noValidate className="space-y-6" data-no-burst>
             <div className="grid gap-6 md:grid-cols-2">
                 <div className="space-y-2">
                     <label htmlFor="name" className="font-mono text-xs uppercase tracking-[0.12em] text-fog">
@@ -98,6 +98,11 @@ export function ContactForm() {
                     </label>
                     <input
                         id="name"
+                        name="name"
+                        required
+                        autoComplete="name"
+                        aria-invalid={!!errors.name}
+                        aria-describedby={errors.name ? "name-error" : undefined}
                         type="text"
                         value={formData.name}
                         onChange={handleChange}
@@ -105,7 +110,7 @@ export function ContactForm() {
                         placeholder="John Doe"
                         disabled={isSubmitting}
                     />
-                    {errors.name && <p className="mt-1 text-xs text-red-400">{errors.name}</p>}
+                    {errors.name && <p id="name-error" role="alert" className="mt-1 text-xs text-red-400">{errors.name}</p>}
                 </div>
                 <div className="space-y-2">
                     <label htmlFor="email" className="font-mono text-xs uppercase tracking-[0.12em] text-fog">
@@ -113,6 +118,11 @@ export function ContactForm() {
                     </label>
                     <input
                         id="email"
+                        name="email"
+                        required
+                        autoComplete="email"
+                        aria-invalid={!!errors.email}
+                        aria-describedby={errors.email ? "email-error" : undefined}
                         type="email"
                         value={formData.email}
                         onChange={handleChange}
@@ -120,7 +130,7 @@ export function ContactForm() {
                         placeholder="john@company.com"
                         disabled={isSubmitting}
                     />
-                    {errors.email && <p className="mt-1 text-xs text-red-400">{errors.email}</p>}
+                    {errors.email && <p id="email-error" role="alert" className="mt-1 text-xs text-red-400">{errors.email}</p>}
                 </div>
             </div>
 
@@ -130,6 +140,10 @@ export function ContactForm() {
                 </label>
                 <textarea
                     id="message"
+                    name="message"
+                    required
+                    aria-invalid={!!errors.message}
+                    aria-describedby={errors.message ? "message-error" : undefined}
                     rows={6}
                     value={formData.message}
                     onChange={handleChange}
@@ -137,8 +151,13 @@ export function ContactForm() {
                     placeholder="Tell us about your project..."
                     disabled={isSubmitting}
                 />
-                {errors.message && <p className="mt-1 text-xs text-red-400">{errors.message}</p>}
+                {errors.message && <p id="message-error" role="alert" className="mt-1 text-xs text-red-400">{errors.message}</p>}
             </div>
+
+            <p className="text-xs text-fog">
+                We use what you send only to respond to your inquiry. See our{" "}
+                <a href="/privacy" className="underline hover:text-paper">Privacy Policy</a>.
+            </p>
 
             <Button size="lg" className="w-full min-w-[150px] md:w-auto" disabled={isSubmitting}>
                 {isSubmitting ? (

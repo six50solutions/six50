@@ -15,7 +15,7 @@ export default async function DiagnosticPage({ params }: { params: Promise<{ tok
 
   if (!inv.is_valid) {
     return (
-      <main className="mx-auto max-w-xl px-6 py-24">
+      <div className="mx-auto max-w-xl px-6 py-24">
         <p className="text-sm uppercase tracking-[0.2em] opacity-60">Link closed</p>
         <h1 className="mt-3 text-2xl">This diagnostic link is no longer open.</h1>
         <p className="mt-4 opacity-70">
@@ -23,7 +23,7 @@ export default async function DiagnosticPage({ params }: { params: Promise<{ tok
             ? 'Your responses were received. We\u2019ll be in touch with the write-up.'
             : 'Links expire after 30 days. Reply to the email that sent you here and we\u2019ll issue a new one.'}
         </p>
-      </main>
+      </div>
     );
   }
 

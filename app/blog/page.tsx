@@ -187,7 +187,7 @@ export default async function BlogIndexPage() {
                                     href="https://adilghazali.substack.com"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="inline-flex items-center px-6 py-3 bg-[#FF6719] text-paper font-medium rounded-md hover:bg-[#E54D00] transition-colors shadow-none"
+                                    className="inline-flex items-center px-6 py-3 bg-[#FF6719] text-ink-900 font-medium rounded-md hover:bg-[#E54D00] transition-colors shadow-none"
                                 >
                                     Subscribe on Substack <ExternalLink className="w-4 h-4 ml-2" />
                                 </a>

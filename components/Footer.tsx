@@ -13,7 +13,7 @@ export function Footer() {
             <div className="container mx-auto px-6 md:px-12">
                 <div className="grid grid-cols-1 md:grid-cols-5 gap-12 text-sm">
                     <div className="md:col-span-2">
-                        <Link href="/" className="inline-block mb-4">
+                        <Link href="/" className="inline-block mb-4" aria-label="six50 home">
                             <AnimatedLogo />
                         </Link>
                         <p className="text-fog max-w-xs leading-relaxed">
@@ -22,7 +22,7 @@ export function Footer() {
                     </div>
 
                     <div>
-                        <h4 className="font-mono text-fog-2 mb-4 uppercase tracking-[0.18em] text-xs">Firm</h4>
+                        <h2 className="font-mono text-fog-2 mb-4 uppercase tracking-[0.18em] text-xs">Firm</h2>
                         <ul className="space-y-3">
                             <li><Link href="/about" className="text-fog hover:text-paper transition-colors">About Us</Link></li>
                             <li><Link href="/careers" className="text-fog hover:text-paper transition-colors">Careers</Link></li>
@@ -31,15 +31,16 @@ export function Footer() {
                     </div>
 
                     <div>
-                        <h4 className="font-mono text-fog-2 mb-4 uppercase tracking-[0.18em] text-xs">Legal</h4>
+                        <h2 className="font-mono text-fog-2 mb-4 uppercase tracking-[0.18em] text-xs">Legal</h2>
                         <ul className="space-y-3">
                             <li><Link href="/privacy" className="text-fog hover:text-paper transition-colors">Privacy Policy</Link></li>
-                            <li><Link href="/terms" className="text-fog hover:text-paper transition-colors">Terms of Service</Link></li>
+                            <li><Link href="/terms" className="text-fog hover:text-paper transition-colors">Terms of Use</Link></li>
+                            <li><Link href="/accessibility" className="text-fog hover:text-paper transition-colors">Accessibility</Link></li>
                         </ul>
                     </div>
 
                     <div>
-                        <h4 className="font-mono text-fog-2 mb-4 uppercase tracking-[0.18em] text-xs">Location</h4>
+                        <h2 className="font-mono text-fog-2 mb-4 uppercase tracking-[0.18em] text-xs">Location</h2>
                         <ul className="space-y-3 text-fog">
                             <li>Chicago, IL</li>
                         </ul>

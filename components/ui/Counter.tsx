@@ -6,7 +6,13 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-/** Animated ledger counter — counts up when scrolled into view. */
+/**
+ * Animated ledger counter — counts up when scrolled into view.
+ *
+ * The real value is rendered in the HTML so screen readers, crawlers and
+ * no-JS visitors never see "0". The animated digits are aria-hidden and a
+ * visually hidden copy carries the value for assistive tech.
+ */
 export function Counter({ to, className }: { to: number; className?: string }) {
     const ref = useRef<HTMLSpanElement>(null);
 
@@ -22,7 +28,13 @@ export function Counter({ to, className }: { to: number; className?: string }) {
             v: to,
             duration: 1.6,
             ease: "power2.out",
-            scrollTrigger: { trigger: el, start: "top 88%" },
+            scrollTrigger: {
+                trigger: el,
+                start: "top 88%",
+                onEnter: () => {
+                    el.textContent = "0";
+                },
+            },
             onUpdate: () => {
                 el.textContent = String(Math.round(obj.v));
             },
@@ -34,8 +46,11 @@ export function Counter({ to, className }: { to: number; className?: string }) {
     }, [to]);
 
     return (
-        <span ref={ref} className={className}>
-            0
+        <span className={className}>
+            <span ref={ref} aria-hidden="true">
+                {to}
+            </span>
+            <span className="sr-only">{to}</span>
         </span>
     );
 }

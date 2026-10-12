@@ -13,6 +13,7 @@ export function Navbar() {
     const [scrolled, setScrolled] = useState(false);
     const [hidden, setHidden] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
+    const [subOpen, setSubOpen] = useState<string | null>(null);
     const lastY = useRef(0);
 
     useEffect(() => {
@@ -47,6 +48,8 @@ export function Navbar() {
 
     return (
         <nav
+            aria-label="Main"
+            onFocusCapture={() => setHidden(false)}
             className={cn(
                 "fixed top-0 w-full z-50 transition-all duration-300 border-b border-transparent",
                 hidden && !isOpen && "-translate-y-full",
@@ -56,7 +59,7 @@ export function Navbar() {
             )}
         >
             <div className="container mx-auto px-6 md:px-12 flex items-center justify-between">
-                <Link href="/" className="block relative z-50">
+                <Link href="/" className="block relative z-50" aria-label="six50 home">
                     <AnimatedLogo />
                 </Link>
 
@@ -64,12 +67,37 @@ export function Navbar() {
                 <div className="hidden md:flex items-center space-x-8">
                     {navLinks.map((link) =>
                         link.subLinks ? (
-                            <div key={link.name} className="relative group py-2">
-                                <button className="flex items-center gap-1 font-mono text-xs uppercase tracking-[0.08em] text-fog group-hover:text-paper transition-colors focus:outline-none">
+                            <div
+                                key={link.name}
+                                className="relative group py-2"
+                                onMouseLeave={() => setSubOpen(null)}
+                                onKeyDown={(e) => {
+                                    if (e.key === "Escape") setSubOpen(null);
+                                }}
+                                onBlur={(e) => {
+                                    if (!e.currentTarget.contains(e.relatedTarget as Node)) setSubOpen(null);
+                                }}
+                            >
+                                <button
+                                    type="button"
+                                    aria-haspopup="true"
+                                    aria-expanded={subOpen === link.name}
+                                    aria-controls={`submenu-${link.name}`}
+                                    onClick={() => setSubOpen(subOpen === link.name ? null : link.name)}
+                                    className="flex items-center gap-1 font-mono text-xs uppercase tracking-[0.08em] text-fog group-hover:text-paper transition-colors"
+                                >
                                     {link.name}
-                                    <ChevronDown className="w-3.5 h-3.5 transition-transform group-hover:-rotate-180" />
+                                    <ChevronDown aria-hidden="true" className={cn("w-3.5 h-3.5 transition-transform group-hover:-rotate-180", subOpen === link.name && "-rotate-180")} />
                                 </button>
-                                <div className="absolute left-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                                <div
+                                    id={`submenu-${link.name}`}
+                                    className={cn(
+                                        "absolute left-0 top-full pt-2 transition-all duration-300 z-50",
+                                        subOpen === link.name
+                                            ? "opacity-100 visible"
+                                            : "opacity-0 invisible group-hover:opacity-100 group-hover:visible"
+                                    )}
+                                >
                                     <div className="w-72 bg-ink-800 border border-line-strong shadow-2xl shadow-black/50 rounded-md overflow-hidden py-2 translate-y-2 group-hover:translate-y-0 transition-transform">
                                         {link.subLinks.map((subLink) => (
                                             <Link
@@ -100,9 +128,12 @@ export function Navbar() {
 
                 {/* Mobile Menu Button */}
                 <button
-                    className="md:hidden text-paper p-2 z-50 focus:outline-none"
+                    type="button"
+                    className="md:hidden text-paper p-2 z-50"
                     onClick={() => setIsOpen(!isOpen)}
                     aria-label={isOpen ? "Close menu" : "Open menu"}
+                    aria-expanded={isOpen}
+                    aria-controls="mobile-menu"
                 >
                     {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
                 </button>
@@ -112,6 +143,7 @@ export function Navbar() {
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
+                        id="mobile-menu"
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: "auto" }}
                         exit={{ opacity: 0, height: 0 }}

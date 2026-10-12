@@ -26,7 +26,7 @@ export default async function ThankYouPage({
   const band = score !== null ? BANDS.find((b) => score >= b.min)! : null;
 
   return (
-    <main className="mx-auto flex min-h-[70vh] max-w-2xl flex-col justify-center px-6 py-24">
+    <div className="mx-auto flex min-h-[70vh] max-w-2xl flex-col justify-center px-6 py-24">
       <p className="mb-3 text-xs uppercase tracking-[0.2em] text-neutral-500">
         six50 · AI Risk Analyzer
       </p>
@@ -83,6 +83,6 @@ export default async function ThankYouPage({
           See the First 90 Days Diagnostic
         </Link>
       </div>
-    </main>
+    </div>
   );
 }

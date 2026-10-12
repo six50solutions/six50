@@ -219,7 +219,7 @@ export default function Home() {
                   <div className="grid grid-cols-[14px_1fr] items-start gap-4">
                     <span className="mt-2 h-[9px] w-[9px] rounded-full bg-gold-500" />
                     <div>
-                      <h4 className="font-medium">Financial rigor</h4>
+                      <h3 className="font-medium">Financial rigor</h3>
                       <p className="text-sm text-fog">Accuracy and integrity built into every automated process.</p>
                     </div>
                   </div>
@@ -228,7 +228,7 @@ export default function Home() {
                   <div className="grid grid-cols-[14px_1fr] items-start gap-4">
                     <span className="mt-2 h-[9px] w-[9px] rounded-full bg-blue-500" />
                     <div>
-                      <h4 className="font-medium">Intelligent systems</h4>
+                      <h3 className="font-medium">Intelligent systems</h3>
                       <p className="text-sm text-fog">Technology engineered to drive real business outcomes.</p>
                     </div>
                   </div>

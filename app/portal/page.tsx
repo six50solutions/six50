@@ -62,7 +62,7 @@ export default function DashboardPage() {
                             </div>
                         </div>
                     </div>
-                    <div className="flex gap-4 opacity-50">
+                    <div className="flex gap-4 opacity-90">
                         <div className="flex-col items-center hidden sm:flex">
                             <div className="w-8 h-8 rounded-full bg-ink-700 flex items-center justify-center text-fog text-xs font-bold">3</div>
                         </div>

@@ -21,7 +21,7 @@ export default function DocumentsPage() {
                             <th className="px-6 py-4 text-right">Action</th>
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-100">
+                    <tbody className="divide-y divide-line">
                         {docs.map((doc) => (
                             <tr key={doc.name} className="hover:bg-ink-800 transition-colors group">
                                 <td className="px-6 py-4 flex items-center gap-3 font-medium text-paper">
@@ -31,7 +31,7 @@ export default function DocumentsPage() {
                                 <td className="px-6 py-4 text-fog">{doc.date}</td>
                                 <td className="px-6 py-4 text-fog">{doc.size}</td>
                                 <td className="px-6 py-4 text-right">
-                                    <button className="text-blue-600 hover:text-blue-700 font-medium text-xs flex items-center justify-end gap-1">
+                                    <button className="text-gold-500 hover:text-gold-400 font-medium text-xs flex items-center justify-end gap-1">
                                         <Download size={14} /> Download
                                     </button>
                                 </td>

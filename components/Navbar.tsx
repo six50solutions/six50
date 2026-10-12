@@ -29,7 +29,7 @@ export function Navbar() {
     }, []);
 
     const pathname = usePathname();
-    if (pathname === "/login" || pathname === "/card") return null;
+    if (pathname === "/login" || pathname === "/card" || pathname?.startsWith("/portal")) return null;
 
     const navLinks = [
         { name: "About", href: "/about" },

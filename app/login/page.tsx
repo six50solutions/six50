@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/Button";
 import { AnimatedLogo } from "@/components/ui/AnimatedLogo";
 import Link from "next/link";
 import { useState } from "react";
-import { AlertCircle, ArrowRight, Lock } from "lucide-react";
+import { AlertCircle, ArrowLeft, ArrowRight, Lock } from "lucide-react";
 
 export default function LoginPage() {
     const [isLoading, setIsLoading] = useState(false);
@@ -40,15 +40,12 @@ export default function LoginPage() {
         <div className="min-h-screen bg-slate-950 flex flex-col">
             {/* Header */}
             <header className="p-6 md:p-8 flex justify-between items-center">
-                <Link href="/">
-                    <div className="flex items-center gap-2 group">
-                        <div className="w-8 h-8 rounded-full bg-ink-900 border border-line-strong flex items-center justify-center group-hover:border-gold-500 transition-colors">
-                            <span className="font-bold text-paper text-xs">650</span>
-                        </div>
-                    </div>
+                <Link href="/" aria-label="six50 home">
+                    <AnimatedLogo />
                 </Link>
-                <Link href="/" className="text-sm text-fog-2 hover:text-paper transition-colors">
-                    Back to Website
+                <Link href="/" className="inline-flex items-center gap-2 text-sm text-fog hover:text-paper transition-colors">
+                    <ArrowLeft className="w-4 h-4" aria-hidden="true" />
+                    Back to website
                 </Link>
             </header>
 

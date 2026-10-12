@@ -24,7 +24,7 @@ export default function TimelinePage() {
                         <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-ink-800 p-4 rounded border border-line shadow-sm border-l-4 border-l-blue-600">
                             <div className="flex items-center justify-between space-x-2 mb-1">
                                 <div className="font-bold text-paper">Development</div>
-                                <div className="text-blue-600 text-xs font-bold">Current</div>
+                                <div className="text-blue-500 text-xs font-bold">Current</div>
                             </div>
                             <div className="text-fog text-sm">Building core agents and integrations.</div>
                         </div>

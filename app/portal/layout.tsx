@@ -2,6 +2,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { AnimatedLogo } from "@/components/ui/AnimatedLogo";
 import { LayoutDashboard, FileText, Calendar, Files, LogOut, MessageSquare } from "lucide-react";
 
 export default function PortalLayout({ children }: { children: React.ReactNode }) {
@@ -19,12 +20,12 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
             {/* Sidebar */}
             <aside className="w-64 bg-ink-900 text-paper flex flex-col fixed h-full z-10">
                 <div className="p-6 border-b border-line-strong">
-                    <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-full bg-ink-800 border border-gold-500/50 flex items-center justify-center">
-                            <span className="font-bold text-paper text-xs">650</span>
-                        </div>
-                        <span className="font-bold text-lg tracking-tight">Client Portal</span>
-                    </div>
+                    <Link href="/portal" className="block" aria-label="six50 Client Portal home">
+                        <AnimatedLogo />
+                        <span className="mt-1 block font-mono text-[0.68rem] uppercase tracking-[0.18em] text-fog">
+                            Client Portal
+                        </span>
+                    </Link>
                 </div>
 
                 <nav className="flex-1 p-4 space-y-1">
@@ -48,7 +49,7 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
 
                 <div className="p-4 border-t border-line-strong">
                     <div className="flex items-center gap-3 mb-4 px-4">
-                        <div className="w-8 h-8 rounded-full bg-indigo-500 flex items-center justify-center text-xs font-bold">
+                        <div className="w-8 h-8 rounded-full bg-gold-500 text-ink-900 flex items-center justify-center text-xs font-bold">
                             AG
                         </div>
                         <div className="flex-1 min-w-0">

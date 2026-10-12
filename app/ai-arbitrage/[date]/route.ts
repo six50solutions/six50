@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { applyNewsletterCompliance } from "@/lib/newsletter-disclaimer";
 
 const SUPABASE_URL = "https://isoahjpwdklvqbkzucca.supabase.co";
 const SUPABASE_ANON_KEY =
@@ -49,7 +50,10 @@ export async function GET(
                 });
         }
 
-    return new NextResponse(rows[0].html_content, {
+    // Always append the not-advice / not-a-CPA-firm disclaimer to published issues.
+    const html = applyNewsletterCompliance(rows[0].html_content);
+
+    return new NextResponse(html, {
           status: 200,
           headers: { "Content-Type": "text/html; charset=utf-8" },
         });

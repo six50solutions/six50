@@ -10,9 +10,9 @@
   <style>
     :root{
       --ink:#0b0f19; --ink-soft:#1c2333; --paper:#faf8f3; --line:#e4ddc9;
-      --gold:#b8873a; --gold-bright:#d4a94c; --gold-pale:#f4e9d0;
+      --gold:#7f5a1c; --gold-bright:#d4a94c; --gold-pale:#f4e9d0;
       --green:#2f6b4f; --green-pale:#e7f0ea; --red:#a8402f; --red-pale:#f6e6e2;
-      --slate:#5b6373; --slate-light:#8890a0;
+      --slate:#5b6373; --slate-light:#5f6676;
 }
   *{box-sizing:border-box;}
   body{margin:0;background:#e9e4d6;font-family:'Inter',system-ui,-apple-system,sans-serif;color:var(--ink);display:flex;justify-content:center;padding:40px 16px;}
@@ -77,20 +77,27 @@
     msg.className = 'msg';
 
     try {
-      const res = await fetch(SUPABASE_URL + '/rest/v1/arbitrage_subscribers?unsubscribe_token=eq.' + encodeURIComponent(token), {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'apikey': SUPABASE_ANON_KEY,
-          'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
-          'Prefer': 'return=representation'
-},
-        body: JSON.stringify({ status: 'unsubscribed' })
-});
+      const headers = {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY
+      };
+      // Preferred: token-checked database function. Falls back to the older
+      // direct update only if that function has not been installed yet.
+      let res = await fetch(SUPABASE_URL + '/rest/v1/rpc/unsubscribe_arbitrage', {
+        method: 'POST', headers: headers, body: JSON.stringify({ p_token: token })
+      });
+      if (res.status === 404) {
+        res = await fetch(SUPABASE_URL + '/rest/v1/arbitrage_subscribers?unsubscribe_token=eq.' + encodeURIComponent(token), {
+          method: 'PATCH',
+          headers: Object.assign({ 'Prefer': 'return=representation' }, headers),
+          body: JSON.stringify({ status: 'unsubscribed' })
+        });
+      }
 
       const data = await res.json().catch(function(){ return []; });
 
-      if (res.ok && Array.isArray(data) && data.length > 0) {
+      if (res.ok && (data === true || (Array.isArray(data) && data.length > 0))) {
         prompt.style.display = 'none';
         btn.style.display = 'none';
         msg.className = 'msg success';
@@ -115,5 +122,6 @@
 });
 </script>
 
+<div style="max-width:680px;margin:40px auto 24px;padding:16px 20px;border-top:1px solid #d9d4c7;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.55;color:#4a5160;"><strong>Disclaimer:</strong> The AI Arbitrage is published by six50 solutions LLC for general information only. It is not investment, financial, tax, accounting, or legal advice, and nothing in it is a recommendation to buy, sell, or hold any security. Content reflects the authors&rsquo; opinions and publicly reported information as of the issue date, may contain errors, and is not updated. Do your own research and consult a qualified professional before making decisions. six50 solutions LLC is not a licensed CPA firm. We do not provide audit, review, compilation, or other attest services, or any other services that require a CPA firm license, and our services are not performed in the capacity of a certified public accountant. See our <a href="https://six50.io/terms" style="color:#4a5160">Terms of Use</a> and <a href="https://six50.io/privacy" style="color:#4a5160">Privacy Policy</a>.</div>
 </body>
 </html>

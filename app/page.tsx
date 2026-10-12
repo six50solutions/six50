@@ -14,7 +14,7 @@ import { Checklist } from "@/components/home/Checklist";
 
 export const metadata: Metadata = {
   title: "Chicago AI Automation & Fractional CFO Consulting",
-  description: "six50 combines Big Four financial expertise and AI-driven automation to help founder-led and PE-backed businesses ($2M-$50M) run smarter. Based in Chicago.",
+  description: "six50 combines Big Four financial expertise and AI-driven automation to help founder-led and PE-backed businesses ($2M-$50M) run smarter. Based in the Chicago area.",
   alternates: { canonical: "https://six50.io" },
   openGraph: {
     title: "six50 | Chicago AI Automation & Fractional CFO Consulting",

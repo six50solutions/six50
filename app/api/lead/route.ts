@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
+// Visitor-supplied values are escaped before being placed in notification
+// emails so a submission cannot inject links or markup into our inbox.
+const esc = (v: unknown) =>
+  String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c] as string));
+
 export async function POST(req: NextRequest) {
 try {
 const body = await req.json();
@@ -42,14 +47,14 @@ if (body.source === 'chat') {
 const emailResult = await resend.emails.send({
 from: 'Six50 Bot <no-reply@six50.io>',
 to: ['contact@six50.io'],
-subject: `New Lead from Chat: ${body.name}`,
+subject: `New Lead from Chat: ${String(body.name ?? '').slice(0, 100)}`,
 html: `
 <div style="font-family: sans-serif; color: #111;">
 <h2>New Chat Lead Captured</h2>
-<p><strong>Name:</strong> ${body.name}</p>
-<p><strong>Contact Details:</strong> ${email} ${body.phone ? `| ${body.phone}` : ''}</p>
-<p><strong>Details on the need:</strong> ${body.goal || 'N/A'}</p>
-<p><strong>Company:</strong> ${body.company || 'N/A'}</p>
+<p><strong>Name:</strong> ${esc(body.name)}</p>
+<p><strong>Contact Details:</strong> ${esc(email)} ${body.phone ? `| ${esc(body.phone)}` : ''}</p>
+<p><strong>Details on the need:</strong> ${esc(body.goal) || 'N/A'}</p>
+<p><strong>Company:</strong> ${esc(body.company) || 'N/A'}</p>
 <hr />
 <p><em>Source: Chat Widget</em></p>
 </div>
@@ -61,16 +66,16 @@ console.log('Chat lead email sent:', emailResult);
 const emailResult = await resend.emails.send({
 from: 'Six50 Bot <no-reply@six50.io>',
 to: ['contact@six50.io'],
-subject: `New Lead from Business Card: ${body.name}`,
+subject: `New Lead from Business Card: ${String(body.name ?? '').slice(0, 100)}`,
 html: `
 <div style="font-family: sans-serif; color: #111;">
 <h2>New Lead Captured via Business Card QR</h2>
-<p><strong>Name:</strong> ${body.name}</p>
-<p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
-<p><strong>Phone:</strong> ${body.phone || 'Not provided'}</p>
-<p><strong>Title:</strong> ${body.role_title || 'Not provided'}</p>
-<p><strong>Company:</strong> ${body.company || 'Not provided'}</p>
-<p><strong>Message:</strong> ${body.goal || 'Not provided'}</p>
+<p><strong>Name:</strong> ${esc(body.name)}</p>
+<p><strong>Email:</strong> <a href="mailto:${esc(email)}">${esc(email)}</a></p>
+<p><strong>Phone:</strong> ${esc(body.phone) || 'Not provided'}</p>
+<p><strong>Title:</strong> ${esc(body.role_title) || 'Not provided'}</p>
+<p><strong>Company:</strong> ${esc(body.company) || 'Not provided'}</p>
+<p><strong>Message:</strong> ${esc(body.goal) || 'Not provided'}</p>
 <hr />
 <p><em>Source: Business Card QR (/card/connect)</em></p>
 </div>

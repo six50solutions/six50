@@ -1,24 +1,30 @@
-
-import { NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
+import { NextResponse } from "next/server";
+import { checkCredentials, createSession, PORTAL_COOKIE, SESSION_SECONDS } from "@/lib/portal-auth";
 
 export async function POST(request: Request) {
-    const body = await request.json();
-    const { email, password } = body;
-
-    // Hardcoded credentials for MVP
-    if (email === 'adilghazali@yahoo.com' && password === 'Test1234') {
-        const cookieStore = await cookies();
-        cookieStore.set('six50_auth', 'true', {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'strict',
-            maxAge: 60 * 60 * 24 * 7, // 1 week
-            path: '/',
-        });
-
-        return NextResponse.json({ success: true });
+    let email = "";
+    let password = "";
+    try {
+        const body = await request.json();
+        email = typeof body.email === "string" ? body.email : "";
+        password = typeof body.password === "string" ? body.password : "";
+    } catch {
+        return NextResponse.json({ success: false, error: "Invalid request" }, { status: 400 });
     }
 
-    return NextResponse.json({ success: false, error: 'Invalid credentials' }, { status: 401 });
+    if (!(await checkCredentials(email, password))) {
+        // Small fixed delay slows down password guessing.
+        await new Promise((r) => setTimeout(r, 600));
+        return NextResponse.json({ success: false, error: "Invalid credentials" }, { status: 401 });
+    }
+
+    const res = NextResponse.json({ success: true });
+    res.cookies.set(PORTAL_COOKIE, await createSession(), {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        maxAge: SESSION_SECONDS,
+        path: "/",
+    });
+    return res;
 }

@@ -249,7 +249,7 @@ button[type="submit"]:hover:not(:disabled) { background: #dab578; }
 button[type="submit"]:active:not(:disabled) { background: #b89550; }
 button[type="submit"]:disabled { background: #6b5d4f; cursor: not-allowed; opacity: 0.6; }
 
-.disclaimer { color: #475569; font-size: 11px; text-align: center; margin-top: 12px; }
+.disclaimer { color: #94a3b8; font-size: 11px; text-align: center; margin-top: 12px; }
 
 .error-message {
   background: rgba(239, 68, 68, 0.1);
@@ -295,19 +295,19 @@ button[type="submit"]:disabled { background: #6b5d4f; cursor: not-allowed; opaci
       </button>
       <div id="contact" class="form-group-content">
         <div>
-          <label>Company Name</label>
+          <label for="companyName">Company Name</label>
           <input type="text" id="companyName" placeholder="e.g., Acme Solutions" required>
         </div>
         <div>
-          <label>Your Name</label>
+          <label for="founder">Your Name</label>
           <input type="text" id="founder" placeholder="Founder or CEO name" required>
         </div>
         <div>
-          <label>Email Address *</label>
+          <label for="email">Email Address *</label>
           <input type="email" id="email" placeholder="you@company.com" required>
         </div>
         <div>
-          <label>Revenue Range</label>
+          <label for="revenue">Revenue Range</label>
           <select id="revenue">
             <option value="">Select range...</option>
             <option value="2-5">$2M - $5M</option>
@@ -330,7 +330,7 @@ button[type="submit"]:disabled { background: #6b5d4f; cursor: not-allowed; opaci
       <div id="displacement" class="form-group-content hidden">
         <p>AI will displace certain job categories. Entry-level roles are most exposed. Do you have a strategy to retain, redeploy, or transition junior staff?</p>
         <div>
-          <label>% Entry-level headcount (0-2 yrs)</label>
+          <label for="entryLevel">% Entry-level headcount (0-2 yrs)</label>
           <div class="slider-container">
             <input type="range" min="0" max="100" value="30" id="entryLevel"
                    oninput="document.getElementById('entryLevelVal').textContent = this.value + '%'; updateScores();">
@@ -338,8 +338,8 @@ button[type="submit"]:disabled { background: #6b5d4f; cursor: not-allowed; opaci
           </div>
         </div>
         <div>
-          <label>Automatable roles (select all)</label>
-          <div class="checkbox-group">
+          <label id="lbl-roles">Automatable roles (select all)</label>
+          <div class="checkbox-group" role="group" aria-labelledby="lbl-roles">
             <label class="checkbox-label">
               <input type="checkbox" id="auto-cs" onchange="updateScores()">
               <span>Customer Service / Support</span>
@@ -368,8 +368,8 @@ button[type="submit"]:disabled { background: #6b5d4f; cursor: not-allowed; opaci
       <div id="governance" class="form-group-content hidden">
         <p>Do you have governance controls for AI systems? Liability exposure is rising as regulators scrutinize AI decision-making.</p>
         <div>
-          <label>Governance controls in place</label>
-          <div class="checkbox-group">
+          <label id="lbl-gov">Governance controls in place</label>
+          <div class="checkbox-group" role="group" aria-labelledby="lbl-gov">
             <label class="checkbox-label">
               <input type="checkbox" id="gov-policy" onchange="updateScores()">
               <span>Written AI governance policy</span>
@@ -398,7 +398,7 @@ button[type="submit"]:disabled { background: #6b5d4f; cursor: not-allowed; opaci
       <div id="capability" class="form-group-content hidden">
         <p>Will your team maintain and develop critical thinking, judgment, and strategic skills? Over-reliance on AI can atrophy these capabilities.</p>
         <div>
-          <label>Learning &amp; Development Program</label>
+          <label for="ldProgram">Learning &amp; Development Program</label>
           <select id="ldProgram" onchange="updateScores()">
             <option value="">Select...</option>
             <option value="structured">Yes, structured program</option>
@@ -442,6 +442,7 @@ button[type="submit"]:disabled { background: #6b5d4f; cursor: not-allowed; opaci
     </div>
 
     <p class="disclaimer">Your responses will be reviewed by six50 within 48 hours. We'll send recommendations tailored to your specific risks.</p>
+    <p class="disclaimer">Scores are automated estimates based only on your answers and are not professional, legal, or accounting advice. By submitting, you agree to our <a href="/terms" style="color:inherit;text-decoration:underline">Terms of Use</a> and <a href="/privacy" style="color:inherit;text-decoration:underline">Privacy Policy</a>. six50 solutions LLC is not a licensed CPA firm. We do not provide audit, review, compilation, or other attest services, or any other services that require a CPA firm license, and our services are not performed in the capacity of a certified public accountant.</p>
   </form>
 </div>
 

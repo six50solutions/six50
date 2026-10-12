@@ -42,12 +42,19 @@ export function Footer() {
                     <div>
                         <h2 className="font-mono text-fog-2 mb-4 uppercase tracking-[0.18em] text-xs">Location</h2>
                         <ul className="space-y-3 text-fog">
-                            <li>Chicago, IL</li>
+                            <li>Chicago area, Illinois</li>
                         </ul>
                     </div>
                 </div>
 
-                <div className="mt-16 pt-8 border-t border-line flex flex-col md:flex-row justify-between gap-3 font-mono text-fog-2 text-xs tracking-[0.06em]">
+                <p className="mt-12 max-w-4xl text-xs leading-relaxed text-fog-2">
+                    six50 solutions LLC is not a licensed CPA firm and does not provide audit, review, compilation, or
+                    other attest services, or any service that requires a CPA license. Website content and AI assistant
+                    responses are general information, not accounting, tax, legal, or investment advice.{" "}
+                    <Link href="/terms#not-cpa-firm" className="underline hover:text-paper">Learn more</Link>.
+                </p>
+
+                <div className="mt-8 pt-8 border-t border-line flex flex-col md:flex-row justify-between gap-3 font-mono text-fog-2 text-xs tracking-[0.06em]">
                     <span>&copy; {new Date().getFullYear()} six50 solutions LLC. All rights reserved.</span>
                     <span className="uppercase">Finance × Intelligence</span>
                 </div>

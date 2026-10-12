@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     template: "%s | six50",
   },
   description:
-    "six50 combines Big Four financial expertise and AI-driven automation to help founder-led and PE-backed businesses ($2M-$50M) run smarter. Fractional CFO, accounting, workflow automation, and AI implementation. Chicago, IL.",
+    "six50 combines Big Four financial expertise and AI-driven automation to help founder-led and PE-backed businesses ($2M-$50M) run smarter. Fractional CFO, accounting, workflow automation, and AI implementation. Chicago area, IL.",
   keywords: [
     "six50", "650", "6fifty", "sixfifty", "Six50 Solutions", "Six Fifty",
     "Chicago AI", "AI automation consulting Chicago", "fractional CFO services",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     "AI implementation agency", "Chicago consulting firm", "Chicago business consulting",
     "financial leadership", "intelligent systems", "accounting services",
   ],
-  authors: [{ name: "Adil Ghazali, CPA", url: "https://six50.io/about" }],
+  authors: [{ name: "Adil Ghazali", url: "https://six50.io/about" }],
   creator: "six50 solutions LLC",
   publisher: "six50 solutions LLC",
   openGraph: {

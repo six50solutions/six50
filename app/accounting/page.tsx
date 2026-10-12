@@ -28,7 +28,7 @@ const services = [
   {
     icon: PieChart,
     title: "Accounting & Controller Services",
-    desc: "Clean, accurate, and timely books managed by a CPA with deep operational experience. We go beyond data entry — we own your month-end close, reconciliations, financial reporting, and compliance so you always know where you stand.",
+    desc: "Clean, accurate, and timely books managed by a finance professional with Big Four and deep operational experience. We go beyond data entry — we own your month-end close, reconciliations, financial reporting, and compliance so you always know where you stand.",
     note: "Whether you need to clean up years of messy books or build a proper accounting function from scratch, we've done it before.",
   },
   {
@@ -189,6 +189,13 @@ export default function AccountingServicesPage() {
               </Link>
             </Magnetic>
           </Reveal>
+          <p className="mx-auto mt-12 max-w-[60ch] text-sm leading-relaxed text-fog">
+            Important: six50 solutions LLC is not a licensed CPA firm. Our finance and accounting
+            services are consulting, bookkeeping, controller, and fractional CFO services. We do not
+            perform audits, reviews, compilations, or other attest services, issue opinions or reports
+            on financial statements, or provide any service that requires a CPA firm license. If you
+            need those services, we can work alongside your licensed CPA firm.
+          </p>
         </section>
       </div>
     </>

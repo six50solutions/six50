@@ -73,6 +73,12 @@ export default function BlogPost() {
                                 Slow down once to speed up forever.
                             </p>
 
+                            <p className="mt-10 text-xs leading-relaxed text-fog">
+                                Figures in this article are illustrative estimates for discussion, not guarantees or audited
+                                results. Outcomes vary by business. This article is general information, not accounting, tax,
+                                or legal advice.
+                            </p>
+
                             <div className="bg-ink-800 text-paper p-8 rounded-sm mt-16 text-center">
                                 <h4 className="text-xl font-bold text-gold-500 mb-4">Not sure if your process is automation-ready?</h4>
                                 <p className="text-fog mb-8 max-w-lg mx-auto">

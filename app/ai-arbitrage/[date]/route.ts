@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { NEWSLETTER_DISCLAIMER } from "@/lib/newsletter-disclaimer";
+import { applyNewsletterCompliance } from "@/lib/newsletter-disclaimer";
 
 const SUPABASE_URL = "https://isoahjpwdklvqbkzucca.supabase.co";
 const SUPABASE_ANON_KEY =
@@ -51,18 +51,7 @@ export async function GET(
         }
 
     // Always append the not-advice / not-a-CPA-firm disclaimer to published issues.
-    // Darken two template colors that fail WCAG AA contrast on the light background.
-    const raw = rows[0].html_content
-      .replace(/#b8873a/gi, "#7f5a1c")
-      .replace(/#8890a0/gi, "#5f6676")
-      // ...except the masthead strip, which sits on the dark ink background.
-      .replace(/(\.masthead-strip\{[^}]*?color:)#5f6676/, "$1#8890a0");
-    const idx = raw.lastIndexOf("</body>");
-    const html = raw.includes("Disclaimer:</strong> The AI Arbitrage")
-      ? raw
-      : idx >= 0
-        ? raw.slice(0, idx) + NEWSLETTER_DISCLAIMER + raw.slice(idx)
-        : raw + NEWSLETTER_DISCLAIMER;
+    const html = applyNewsletterCompliance(rows[0].html_content);
 
     return new NextResponse(html, {
           status: 200,

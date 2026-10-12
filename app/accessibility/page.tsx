@@ -49,8 +49,8 @@ export default function AccessibilityPage() {
                     If you have trouble using any part of the Site, or need information in a different format, please
                     email <a href={`mailto:${CONTACT_EMAIL}`} className={legalLink}>{CONTACT_EMAIL}</a> or use our{" "}
                     <Link href="/contact" className={legalLink}>contact form</Link>. Tell us the page and what went
-                    wrong, and we will respond within two business days and work with you to provide the information
-                    or service another way while we fix the issue.
+                    wrong, and we will respond as promptly as we reasonably can and work with you to provide the
+                    information or service another way while we fix the issue.
                 </p>
             </LegalSection>
         </LegalPage>

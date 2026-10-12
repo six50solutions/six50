@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     "AI implementation agency", "Chicago consulting firm", "Chicago business consulting",
     "financial leadership", "intelligent systems", "accounting services",
   ],
-  authors: [{ name: "Adil Ghazali, CPA", url: "https://six50.io/about" }],
+  authors: [{ name: "Adil Ghazali", url: "https://six50.io/about" }],
   creator: "six50 solutions LLC",
   publisher: "six50 solutions LLC",
   openGraph: {

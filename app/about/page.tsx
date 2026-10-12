@@ -7,11 +7,11 @@ import { PersonSchema } from "@/components/JsonLd";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "six50 exists at the intersection of clarity and transformation. Founded by Adil Ghazali, CPA (15+ years PwC), we help businesses see clearly enough to act and act boldly enough to transform.",
+  description: "six50 exists at the intersection of clarity and transformation. Founded by Adil Ghazali (15+ years PwC), we help businesses see clearly enough to act and act boldly enough to transform.",
   alternates: { canonical: "https://six50.io/about" },
   openGraph: {
     title: "About six50 | AI & Financial Consulting Firm",
-    description: "Founded by Adil Ghazali, CPA. 15+ years PwC experience in financial services transformation. Chicago-based, serving founder-led and PE-backed businesses.",
+    description: "Founded by Adil Ghazali. 15+ years PwC experience in financial services transformation. Chicago-based, serving founder-led and PE-backed businesses.",
     url: "https://six50.io/about",
   },
 };

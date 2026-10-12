@@ -51,6 +51,11 @@ export default function PrivacyPolicyPage() {
                         your name, email, phone number, job title, company, and any note you add.
                     </li>
                     <li>
+                        <strong className="text-paper">Newsletter (The AI Arbitrage):</strong> your email address and
+                        your consent to receive it, stored in our database with a private link you can use to
+                        unsubscribe at any time.
+                    </li>
+                    <li>
                         <strong className="text-paper">Resource requests:</strong> your email address when you request
                         materials such as our AI playbook.
                     </li>
@@ -214,12 +219,23 @@ export default function PrivacyPolicyPage() {
             </LegalSection>
 
             <LegalSection id="retention" title="7. How long we keep information">
+                <p>
+                    We keep personal information only for as long as reasonably necessary for the purposes described
+                    in this Policy, or longer where a longer period is required or permitted by law. To decide how
+                    long to keep something, we consider:
+                </p>
                 <LegalList>
-                    <li>Inquiries and leads: for as long as needed to respond and maintain a business relationship, generally up to three years after our last contact, unless you ask us to delete them sooner.</li>
-                    <li>Assessment and diagnostic responses: up to three years, so we can reference results in follow-up conversations.</li>
-                    <li>Client records: as required by the engagement agreement, professional standards, and law.</li>
-                    <li>Server and technical logs: for a limited period set by our hosting provider.</li>
+                    <li>whether we have an ongoing or potential business relationship with you;</li>
+                    <li>legal, tax, accounting, and record-keeping requirements that apply to us;</li>
+                    <li>the terms of any engagement agreement;</li>
+                    <li>whether the information is needed to resolve disputes, enforce our agreements, or establish, exercise, or defend legal claims, including for the applicable statute of limitations; and</li>
+                    <li>whether you have asked us to delete it, subject to the exceptions the law allows.</li>
                 </LegalList>
+                <p>
+                    Inquiries, leads, and assessment responses are kept under these criteria. Client records are kept
+                    as the engagement agreement and law require. Server and technical logs are kept for the period set
+                    by our hosting provider. When information is no longer needed, we delete or de-identify it.
+                </p>
             </LegalSection>
 
             <LegalSection id="security" title="8. Security">
@@ -244,8 +260,11 @@ export default function PrivacyPolicyPage() {
                     Residents of California and other states with consumer privacy laws may have additional rights
                     under those laws, and we will honor them where they apply. To make a request, email{" "}
                     <a href={`mailto:${CONTACT_EMAIL}`} className={legalLink}>{CONTACT_EMAIL}</a>. We may need to
-                    confirm your identity before acting on a request, and you may use an authorized agent. We respond
-                    within 45 days and will not discriminate against you for exercising your rights.
+                    confirm your identity before acting on a request, and you may use an authorized agent. We will
+                    respond within the time required by the law that applies to your request, generally 45 days from
+                    receipt, which may be extended by up to an additional 45 days where reasonably necessary; if we
+                    need more time, we will tell you why within the first 45 days. We will not discriminate against you
+                    for exercising your rights.
                 </p>
                 <p>
                     <strong className="text-paper">Do Not Track and Global Privacy Control.</strong> We do not track
@@ -257,8 +276,8 @@ export default function PrivacyPolicyPage() {
 
             <LegalSection id="children" title="10. Children">
                 <p>
-                    The Site is intended for business professionals and is not directed to children under 16. We do
-                    not knowingly collect personal information from children. If you believe a child has sent us
+                    The Site is intended for business professionals and is not directed to anyone under 18. We do not
+                    knowingly collect personal information from anyone under 18. If you believe someone under 18 has sent us
                     information, contact us and we will delete it.
                 </p>
             </LegalSection>

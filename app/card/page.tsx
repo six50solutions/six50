@@ -115,7 +115,7 @@ Principal card · <span className="text-gold-500">001</span>
 Adil <em className="serif-accent text-gold-500">Ghazali</em>
 </h1>
 <p className="mt-1 font-mono text-[0.74rem] uppercase tracking-[0.14em] text-fog">
-Founder &amp; Principal · CPA
+Founder &amp; Managing Principal
 </p>
 </div>
 

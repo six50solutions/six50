@@ -53,20 +53,18 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
                         </div>
                         <div className="flex-1 min-w-0">
                             <p className="text-sm font-medium truncate">Adil Ghazali</p>
-                            <p className="text-xs text-fog truncate">adilghazali@yahoo.com</p>
+                            <p className="text-xs text-fog truncate">Client account</p>
                         </div>
                     </div>
-                    <Link
-                        href="/login"
-                        onClick={() => {
-                            // clear cookie (mock logout by navigation for MVP, ideal is API call)
-                            document.cookie = "six50_auth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-                        }}
-                        className="flex items-center gap-3 px-4 py-2 text-sm text-red-400 hover:text-red-300 transition-colors"
-                    >
-                        <LogOut size={16} />
-                        Sign Out
-                    </Link>
+                    <form action="/api/logout" method="post">
+                        <button
+                            type="submit"
+                            className="flex w-full items-center gap-3 px-4 py-2 text-sm text-red-400 hover:text-red-300 transition-colors"
+                        >
+                            <LogOut size={16} aria-hidden="true" />
+                            Sign Out
+                        </button>
+                    </form>
                 </div>
             </aside>
 

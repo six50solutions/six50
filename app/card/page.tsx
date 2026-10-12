@@ -227,7 +227,7 @@ type="button"
 </section>
 
 <p data-card-item className="mt-4 text-center font-mono text-[0.66rem] uppercase tracking-[0.16em] text-fog-2">
-Chicago, IL · six50.io
+Chicago area · six50.io
 </p>
 </div>
 

@@ -85,17 +85,23 @@ export default function BlogPost() {
                                 If you reduce payment time by even 5 days, most businesses feel it immediately.
                             </p>
 
-                            <h3 className="font-bold text-paper mt-12 mb-4">One Real Example</h3>
-                            <p>A services business with ~$90K/month in revenue:</p>
+                            <h3 className="font-bold text-paper mt-12 mb-4">An Illustrative Example</h3>
+                            <p>Consider a services business with ~$90K/month in revenue that could:</p>
                             <ul className="space-y-2 list-disc pl-5 marker:text-gold-500">
                                 <li>Cut invoice send time from 10 days → <strong>same day</strong></li>
-                                <li>Reduced late payments by <strong>32%</strong></li>
-                                <li>Improved cash position by <strong>$38K</strong> in the first quarter</li>
+                                <li>Reduce late payments by <strong>32%</strong></li>
+                                <li>Improve its cash position by <strong>$38K</strong> in the first quarter</li>
                             </ul>
                             <p className="mt-6 font-medium text-paper">
                                 No new customers.<br />
                                 No new hires.<br />
                                 Just fewer gaps.
+                            </p>
+
+                            <p className="mt-10 text-xs leading-relaxed text-fog">
+                                Figures in this article are illustrative estimates for discussion, not guarantees or audited
+                                results. Outcomes vary by business. This article is general information, not accounting, tax,
+                                or legal advice.
                             </p>
 
                             <div className="bg-ink-800 text-paper p-8 rounded-sm mt-16 text-center">

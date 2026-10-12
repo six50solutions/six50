@@ -279,6 +279,7 @@ Timeline: ${timeline}`;
                                                 <button
                                                     key={i}
                                                     type="button"
+                                                    aria-describedby="dylan-consent"
                                                     onClick={() => handlePromptClick(prompt)}
                                                     className="text-left text-sm bg-zinc-800 p-3 rounded-lg border border-zinc-700 hover:border-zinc-500 transition-colors shadow-sm text-zinc-200 hover:bg-zinc-700"
                                                 >
@@ -343,8 +344,14 @@ Timeline: ${timeline}`;
                                 )}
                             </div>
 
+                            {/* Persistent consent notice: shown before and during every chat */}
+                            <p id="dylan-consent" className="px-4 pt-2 pb-1 text-[11px] leading-snug text-zinc-400 bg-zinc-950 border-t border-zinc-800 shrink-0">
+                                Dylan is an AI. Your messages are sent to our AI provider, Anthropic, to generate replies. By sending a message, you agree to this and to our{' '}
+                                <a href="/privacy#ai" className="underline hover:text-zinc-200">Privacy Policy</a>.
+                            </p>
+
                             {/* Input Area */}
-                            <form onSubmit={onFormSubmit} className="p-3 border-t border-zinc-800 bg-zinc-950 flex gap-2 shrink-0">
+                            <form onSubmit={onFormSubmit} className="p-3 bg-zinc-950 flex gap-2 shrink-0">
                                 <input
                                     ref={inputRef}
                                     className="flex-1 bg-transparent text-sm p-2 focus:outline-none text-zinc-100 placeholder:text-zinc-500"
@@ -353,6 +360,7 @@ Timeline: ${timeline}`;
                                     placeholder={isStreaming ? "Dylan is responding..." : "Ask a question..."}
                                     disabled={isStreaming}
                                     aria-label="Chat message"
+                                    aria-describedby="dylan-consent"
                             />
                             <button
                                 type="submit"

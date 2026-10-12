@@ -139,7 +139,9 @@ export default function PrivacyPolicyPage() {
             <LegalSection id="ai" title="4. Dylan, our AI chat assistant">
                 <p>
                     Dylan is an automated AI system, not a human. We say so in the chat window, and Dylan is designed
-                    to identify itself as an AI if asked.
+                    to identify itself as an AI if asked. A notice next to the message box explains that messages are
+                    sent to our AI provider; by sending a message, you consent to that processing. If you prefer not to
+                    use the chat, you can reach us through the contact form or by email instead.
                 </p>
                 <LegalList>
                     <li>

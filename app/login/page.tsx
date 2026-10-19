@@ -122,6 +122,11 @@ export default function LoginPage() {
                                 <AlertCircle aria-hidden="true" className="w-4 h-4" />
                                 <span className="text-[10px] font-mono tracking-widest">SECURE CONNECTION</span>
                             </div>
+                            <nav aria-label="Legal" className="mt-4 flex justify-center gap-4 text-xs text-fog">
+                                <Link href="/privacy" className="underline hover:text-paper">Privacy Policy</Link>
+                                <Link href="/terms" className="underline hover:text-paper">Terms of Use</Link>
+                                <Link href="/accessibility" className="underline hover:text-paper">Accessibility</Link>
+                            </nav>
                         </div>
                     </div>
                 </FadeIn>

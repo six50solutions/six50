@@ -6,6 +6,8 @@ export const NEWSLETTER_DISCLAIMER = "<div style=\"max-width:680px;margin:40px a
  * daily pipeline stay compliant even if their source HTML does not include these:
  *  - darkens two template colors that fail WCAG AA contrast on light backgrounds
  *  - removes the CPA title from firm marketing copy (six50 is not a CPA firm)
+ *  - removes Google Fonts links so issues load only first-party resources
+ *    (no visitor IP sent to Google; the CSS already falls back to system fonts)
  *  - appends the not-investment-advice / not-a-CPA-firm disclaimer
  */
 export function applyNewsletterCompliance(raw: string): string {
@@ -14,7 +16,9 @@ export function applyNewsletterCompliance(raw: string): string {
         .replace(/#8890a0/gi, "#5f6676")
         // ...except the masthead strip, which sits on the dark ink background.
         .replace(/(\.masthead-strip\{[^}]*?color:)#5f6676/, "$1#8890a0")
-        .replace(/Adil Ghazali,\s*CPA/g, "Adil Ghazali");
+        .replace(/Adil Ghazali,\s*CPA/g, "Adil Ghazali")
+        .replace(/<link\b[^>]*fonts\.(?:googleapis|gstatic)\.com[^>]*>\s*/gi, "")
+        .replace(/@import\s+url\(\s*['"]?https:\/\/fonts\.googleapis\.com[^)]*\)\s*;?/gi, "");
     if (!html.includes("Disclaimer:</strong> The AI Arbitrage")) {
         const idx = html.lastIndexOf("</body>");
         html = idx >= 0 ? html.slice(0, idx) + NEWSLETTER_DISCLAIMER + html.slice(idx) : html + NEWSLETTER_DISCLAIMER;

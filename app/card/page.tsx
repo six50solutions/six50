@@ -229,6 +229,12 @@ type="button"
 <p data-card-item className="mt-4 text-center font-mono text-[0.66rem] uppercase tracking-[0.16em] text-fog-2">
 Chicago area · six50.io
 </p>
+
+<nav data-card-item aria-label="Legal" className="mt-3 flex justify-center gap-4 font-mono text-[0.66rem] uppercase tracking-[0.12em] text-fog-2">
+<a className="underline hover:text-paper" href="/privacy">Privacy</a>
+<a className="underline hover:text-paper" href="/terms">Terms</a>
+<a className="underline hover:text-paper" href="/accessibility">Accessibility</a>
+</nav>
 </div>
 
 <div

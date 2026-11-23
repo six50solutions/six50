@@ -229,6 +229,15 @@ type="button"
 <p data-card-item className="mt-4 text-center font-mono text-[0.66rem] uppercase tracking-[0.16em] text-fog-2">
 Chicago area · six50.io
 </p>
+
+<nav aria-label="Legal" data-card-item className="mt-3 flex justify-center gap-4 font-mono text-[0.66rem] uppercase tracking-[0.16em] text-fog-2">
+<a className="underline underline-offset-2 hover:text-gold-500" href="/privacy">Privacy</a>
+<a className="underline underline-offset-2 hover:text-gold-500" href="/terms">Terms</a>
+<a className="underline underline-offset-2 hover:text-gold-500" href="/accessibility">Accessibility</a>
+</nav>
+<p data-card-item className="mt-2 text-center text-[0.66rem] text-fog-2">
+six50 solutions LLC is not a licensed CPA firm.
+</p>
 </div>
 
 <div

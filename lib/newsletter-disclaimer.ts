@@ -7,6 +7,8 @@ export const NEWSLETTER_DISCLAIMER = "<div style=\"max-width:680px;margin:40px a
  *  - darkens two template colors that fail WCAG AA contrast on light backgrounds
  *  - removes the CPA title from firm marketing copy (six50 is not a CPA firm)
  *  - appends the not-investment-advice / not-a-CPA-firm disclaimer
+ *  - strips Google Fonts links so the page makes no third-party requests
+ *    (the templates' CSS already falls back to system serif / sans-serif / monospace)
  */
 export function applyNewsletterCompliance(raw: string): string {
     let html = raw
@@ -14,7 +16,9 @@ export function applyNewsletterCompliance(raw: string): string {
         .replace(/#8890a0/gi, "#5f6676")
         // ...except the masthead strip, which sits on the dark ink background.
         .replace(/(\.masthead-strip\{[^}]*?color:)#5f6676/, "$1#8890a0")
-        .replace(/Adil Ghazali,\s*CPA/g, "Adil Ghazali");
+        .replace(/Adil Ghazali,\s*CPA/g, "Adil Ghazali")
+        .replace(/<link\b[^>]*\bhref=["']https?:\/\/fonts\.(googleapis|gstatic)\.com[^>]*>\s*/gi, "")
+        .replace(/@import\s+url\(\s*["']?https?:\/\/fonts\.googleapis\.com[^)]*\)\s*;?/gi, "");
     if (!html.includes("Disclaimer:</strong> The AI Arbitrage")) {
         const idx = html.lastIndexOf("</body>");
         html = idx >= 0 ? html.slice(0, idx) + NEWSLETTER_DISCLAIMER + html.slice(idx) : html + NEWSLETTER_DISCLAIMER;
